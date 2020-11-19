@@ -44,11 +44,11 @@
 			<div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 registro" id="registro">
 				
 				<ul>
-					<li>|</li>
+					
 					<li><a  href="#modalIngreso" id="modalIngreso"  data-toggle="modal">Ingresar</a></li>
 					<li>|</li>
 					<li><a   href="#modalRegistro"  data-toggle="modal">Crear una cuenta</a></li>
-					<li>|</li>
+					
 
 				</ul>
 
@@ -71,7 +71,7 @@
 			
 			<div class="col-lg-3 col-md-3 col-sm-2 col-xs-12" id="logotipo">
 				
-				<a href="#">
+				<a href="index.php">
 						
                 <img src="http://localhost/SistemasPhp/SistemaEcommer/BackEnd/<?php echo $social["logo"] ?>" alt="Logo de la tienda" class="img-responsive">
 
@@ -146,8 +146,9 @@
 		<div class="col-xs-12 backColor" id="categorias">
 
 		<?php
-
-			$categorias = ControladorProductos::ctrMostrarCategorias();
+			$item=null;
+			$valor=null;
+			$categorias = ControladorProductos::ctrMostrarCategorias($item,$valor);
 			
 			foreach ($categorias as $key => $value) {
 			
@@ -156,17 +157,19 @@
 				<div class="col-lg-2 col-md-3 col-sm-4 col-xs-12">
 				
 					<h4>
-						<a href="#" class="pixelCategorias">'.$value["categoria"].'</a>
+						<a href="'.$value["ruta"].'" class="pixelCategorias">'.$value["categoria"].'</a>
 					</h4>
 				
 					<hr>
 
 					<ul>';
+					$item="id_categoria";
+					$valor=$value["id"];
 
-					$subcategorias = ControladorProductos::ctrMostrarSubCategorias($value["id"]);
+					$subcategorias = ControladorProductos::ctrMostrarSubCategorias($item,$value);
 				
 						foreach ($subcategorias as $key => $value) {
-							echo '<li><a href="#" class="pixelSubCategorias">'.$value["subcategoria"].'</a></li>';
+							echo '<li><a href="'.$value["ruta"].'" class="pixelSubCategorias">'.$value["subcategoria"].'</a></li>';
 						}
 					
 					echo'							

@@ -41,7 +41,11 @@ TOP
 /*=============================================
 HEADER
 =============================================*/
+header{
+	position: relative;
+	z-index: 100;
 
+}
 header #btnCategorias{
 	margin:20px 0;
 	border-radius: 15px;
@@ -94,13 +98,14 @@ header #buscador span a:hover{
 header #carrito{
 	margin:20px 0;
 	float: right;
-	
 }
 
 header #carrito button{
 	padding:9px 15px;
 	border:1px solid silver;
 	border-radius:10px;
+	
+
 }
 
 header #carrito p{
@@ -109,6 +114,7 @@ header #carrito p{
 	border:1px dashed #aaa ;
 	font-size:12px;
 	border-radius:10px;
+	background-color: #1b161c;
 
 }
 /* desabilitamos el display none para que no se muestre las categorias */

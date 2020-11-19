@@ -15,6 +15,7 @@ GLOBAL
 }
 body{
 	 background-color: rgb(55, 53, 53); 
+	 color: aliceblue;
 }
 ul, ol{
 	padding:0px;
@@ -133,9 +134,7 @@ REDES SOCIALES
 ERROR 404
 =============================================*/
 
-.error404{
-	color:#333;
-}
+
 
 
 /*=============================================
@@ -168,6 +167,10 @@ ESCRITORIO MEDIANO O TABLET HORIZONTAL (MD revisamos en 1024px)
 	.error404 h1{
 		font-size:200px;
 		text-shadow:6px 6px 1px #dadada;
+	}
+	.error404 h1{
+		font-size: 300px;
+		text-shadow: 8px 8px 1px #dadada;
 	}
 
 }
@@ -210,4 +213,14 @@ MOVIL (XS revisamos en 320px)
 		padding-left: 70px;
 	}
 
+}
+.error404{
+	color:#ffffff;
+}
+.error404 h1 {
+	margin-top: -20px;
+}
+.error404 h2 {
+	margin-top: -20px;
+	/* margin-left: 55px; */
 }
