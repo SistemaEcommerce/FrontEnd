@@ -11,7 +11,9 @@ SLIDESHOW
 		<ul>
 
         <?php
-            $slide=ControladorSlide::ctrMostrarSlide();
+        	$servidor = Ruta::ctrRutaServidor();
+
+           $slide=ControladorSlide::ctrMostrarSlide();
            foreach ($slide as $key => $value) {
                $estiloImgProducto=json_decode($value["estiloImgProducto"],true);
                $estiloTextoSlide = json_decode($value["estiloTextoSlide"], true);
@@ -20,34 +22,39 @@ SLIDESHOW
                $titulo3 = json_decode($value["titulo3"], true);
 
            
-                echo'
-                    <li>
+               echo '<li>
+				
+							<img class="imgProducto1" src="'.$servidor.$value["imgFondo"].'">
 
-                        <img class="imgProducto1" src="http://localhost/SistemasPhp/SistemaEcommer/BackEnd/'.$value["imgFondo"].'">
+							<div class="slideOpciones '.$value["tipoSlide"].'">';
 
-                        <div class="slideOpciones '.$value["tipoSlide"].'">
+							if($value["imgProducto"] != ""){
+								
+								echo '<img class="imgProducto" src="'.$servidor.$value["imgProducto"].'" style="top:'.$estiloImgProducto["top"].'; right:'.$estiloImgProducto["right"].'; width:'.$estiloImgProducto["width"].'; left:'.$estiloImgProducto["left"].'">';
 
-                            <img class="imgProducto" src="http://localhost/SistemasPhp/SistemaEcommer/BackEnd/'.$value["imgProducto"].'" style="top:'.$estiloImgProducto["top"].'; right:'.$estiloImgProducto["right"].'; width:'.$estiloImgProducto["width"].'; left:'.$estiloImgProducto["left"].'">           
-                                  <div class="textosSlide" style="top:'.$estiloTextoSlide["top"].'; right:'.$estiloTextoSlide["right"].'; width:'.$estiloTextoSlide["width"].';left:'.$estiloTextoSlide["left"].'">
+							}
 
-                                <h1 style="color:'.$titulo1["color"].'">'.$titulo1["texto"].'</h1>
+							echo '<div class="textosSlide" style="top:'.$estiloTextoSlide["top"].'; left:'.$estiloTextoSlide["left"].'; width:'.$estiloTextoSlide["width"].'; right:'.$estiloTextoSlide["right"].'">
+									
+									<h1 style="color:'.$titulo1["color"].'">'.$titulo1["texto"].'</h1>
 
-                                <h2 style="color:'.$titulo2["color"].'">'.$titulo2["texto"].'</h2>
+									<h2 style="color:'.$titulo2["color"].'">'.$titulo2["texto"].'</h2>
 
-                                <h3 style="color:'.$titulo3["color"].'">'.$titulo3["texto"].'</h3>
+									<h3 style="color:'.$titulo3["color"].'">'.$titulo3["texto"].'</h3>
 
-                                <a href="'.$value["url"].'">
+									<a href="'.$value["url"].'">
+										
+										'.$value["boton"].'
 
-                                    '.$value["boton"].'
+									</a>
 
-                                </a>
+								</div>	
 
-                            </div>	
+							</div>
 
-                        </div>
+						</li>';
 
-                      </li>	'; 
-            }
+				}
         ?>
 		
 		
@@ -58,10 +65,15 @@ SLIDESHOW
 
 		<ol id="paginacion">
 
-        	<li item="1"><span class="fa fa-circle"></span></li>
-			<li item="2"><span class="fa fa-circle"></span></li>
-			<li item="3"><span class="fa fa-circle"></span></li>
-			<li item="4"><span class="fa fa-circle"></span></li>
+			<?php
+
+				for($i = 1; $i <= count($slide); $i++){
+
+					echo '<li item="'.$i.'"><span class="fa fa-circle"></span></li>';
+
+				}		
+
+			?>
 
 		</ol>	
 

@@ -6,4 +6,8 @@ class Ruta{
     {
         return "https://localhost/SistemasPhp/SistemaEcommer/FrontEnd/";
     }
+    public function ctrRutaServidor()
+    {
+        return "https://localhost/SistemasPhp/SistemaEcommer/BackEnd/";
+    }
 }
