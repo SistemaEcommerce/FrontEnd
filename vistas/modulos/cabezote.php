@@ -1,4 +1,8 @@
+<?php
 
+$servidor = Ruta::ctrRutaServidor();
+
+?>
 <div class="container-fluid barraSuperior" id="top">
 	
 	<div class="container">
@@ -29,11 +33,7 @@
 				
 				
 				</ul>
-			<!-- 	<ul>	<li>
-						<a href="http://instagram.com/" target="_blank">
-							<i class="fa fa-github redSocial youtubeGit" aria-hidden="true">YemerTRONCH</i>
-						</a>
-					</li></ul> -->
+			
 
 
             </div>
@@ -73,7 +73,7 @@
 				
 				<a href="index.php">
 						
-                <img src="http://localhost/SistemasPhp/SistemaEcommer/BackEnd/<?php echo $social["logo"] ?>" alt="Logo de la tienda" class="img-responsive">
+                <img src="<?php echo $servidor.$social["logo"] ?>" alt="Logo de la tienda" class="img-responsive">
 
 				</a>
 				
@@ -146,31 +146,31 @@
 		<div class="col-xs-12 backColor" id="categorias">
 
 		<?php
-			$item=null;
-			$valor=null;
-			$categorias = ControladorProductos::ctrMostrarCategorias($item,$valor);
+			$item = null;
+			$valor = null;
+
+			$categorias = ControladorProductos::ctrMostrarCategorias($item, $valor);
 			
 			foreach ($categorias as $key => $value) {
-			
-				/* var_dump(json_encode($value)); */
+				
+				
 				echo '
 				<div class="col-lg-2 col-md-3 col-sm-4 col-xs-12">
-				
-					<h4>
-						<a href="'.$value["ruta"].'" class="pixelCategorias">'.$value["categoria"].'</a>
-					</h4>
-				
-					<hr>
+							
+							<h4>
+								<a href="'.$value["ruta"].'" class="pixelCategorias">'.$value["categoria"].'</a>
+							</h4>
+							
+							<hr>
 
-					<ul>';
+							<ul>';
+							
 					$item="id_categoria";
 					$valor=$value["id"];
 
-					$subcategorias = ControladorProductos::ctrMostrarSubCategorias($item,$value);
-				
+					$subcategorias = ControladorProductos::ctrMostrarSubCategorias($item, $valor);
 						foreach ($subcategorias as $key => $value) {
-							echo '<li><a href="'.$value["ruta"].'" class="pixelSubCategorias">'.$value["subcategoria"].'</a></li>';
-						}
+							echo '<li><a href="'.$value["ruta"].'" class="pixelSubCategorias">'.$value["subcategoria"].'</a></li>';						}
 					
 					echo'							
 					</ul>

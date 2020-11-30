@@ -73,7 +73,7 @@ function movimientoSlide(item){
 
 	// http://easings.net/es
 
-    $("#slide ul").animate({"left": item * -100 + "%"},1000,"easeInOutBack")
+    $("#slide ul").animate({"left": item * -100 + "%"},1000,"easeOutExpo")
     
     $("#paginacion li").css({"opacity":.5})
     $(itemPaginacion[item]).css({"opacity":1})

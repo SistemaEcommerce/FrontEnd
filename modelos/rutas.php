@@ -4,10 +4,10 @@ class Ruta{
     
     public function ctrRuta()
     {
-        return "https://localhost/SistemasPhp/SistemaEcommer/FrontEnd/";
+        return "http://localhost/SistemasPhp/SistemaEcommer/FrontEnd/";
     }
     public function ctrRutaServidor()
     {
-        return "https://localhost/SistemasPhp/SistemaEcommer/BackEnd/";
+        return "http://localhost/SistemasPhp/SistemaEcommer/BackEnd/";
     }
 }
