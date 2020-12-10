@@ -1,5 +1,6 @@
 <?php
 $servidor=Ruta::ctrRutaServidor();
+$url=Ruta::ctrRuta();
 
 $ruta="articulor-gratis";
 $banner=ControladorProductos::ctrMostrarBanner($ruta);
@@ -168,7 +169,7 @@ for ($i=0; $i <count($titulosModulos) ; $i++) {
 	
 					<figure>
 
-						<a href="'.$value["ruta"].'" class="pixelProducto">
+						<a href="'.$url.$value["ruta"].'" class="pixelProducto">
 
 							<img src="'.$servidor.$value["portada"].'" class="img-responsive">
 
@@ -181,7 +182,7 @@ for ($i=0; $i <count($titulosModulos) ; $i++) {
 
 						<small>
 
-							<a href="'.$value["ruta"].'" class="pixelProducto">
+							<a href="'.$url.$value["ruta"].'" class="pixelProducto">
 							'.$value["titulo"].'
 							
 							';
@@ -264,7 +265,7 @@ for ($i=0; $i <count($titulosModulos) ; $i++) {
 								}
 									
 							}
-							echo'<a href="'.$value["ruta"].'" class="pixelProducto">
+							echo'<a href="'.$url.$value["ruta"].'" class="pixelProducto">
 
 								<button type="button" class="btn btn-default btn-xs" data-toggle="tooltip" title="Ver producto">
 
@@ -299,7 +300,7 @@ for ($i=0; $i <count($titulosModulos) ; $i++) {
 						   
 						<figure>
 					
-							<a href="'.$value["ruta"].'" class="pixelProducto">
+							<a href="'.$url.$value["ruta"].'" class="pixelProducto">
 								
 								<img src="'.$servidor.$value["portada"].'" class="img-responsive">
 
@@ -315,9 +316,9 @@ for ($i=0; $i <count($titulosModulos) ; $i++) {
 
 							<small>
 
-								<a href="'.$value["ruta"].'" class="pixelProducto">
+								<a href="'.$url.$value["ruta"].'" class="pixelProducto">
 
-									<a href="'.$value["ruta"].'" class="pixelProducto">
+									<a href="'.$url.$value["ruta"].'" class="pixelProducto">
 									
 									'.$value["titulo"].'<br>';
 
@@ -398,7 +399,7 @@ for ($i=0; $i <count($titulosModulos) ; $i++) {
 							}
 
 						
-								echo '<a href="'.$value["ruta"].'" class="pixelProducto">
+								echo '<a href="'.$url.$value["ruta"].'" class="pixelProducto">
 
 								  <button type="button" class="btn btn-default btn-xs" data-toggle="tooltip" title="Ver producto">
 

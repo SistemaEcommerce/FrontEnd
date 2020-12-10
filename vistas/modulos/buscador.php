@@ -74,6 +74,8 @@ BARRA PRODUCTOS
 
 			</ul>
             <?php
+            $url=Ruta::ctrRuta();
+
                 /* rutas */
                 if (isset($rutas[1])) {
                     //$_SESSION["ordenar"]="DESC";
@@ -142,10 +144,10 @@ BARRA PRODUCTOS
                 
                                 <figure>
             
-                                    <a href="'.$value["ruta"].'" class="pixelProducto">
+                                    <a href="'.$url.$value["ruta"].'" class="pixelProducto">
             
                                         <img src="'.$servidor.$value["portada"].'" class="img-responsive">
-            
+                                        
                                     </a>
             
                                 </figure>
@@ -155,7 +157,7 @@ BARRA PRODUCTOS
             
                                     <small>
             
-                                        <a href="'.$value["ruta"].'" class="pixelProducto">
+                                        <a href="'.$url.$value["ruta"].'" class="pixelProducto">
                                         '.$value["titulo"].'
                                         
                                         ';
@@ -238,7 +240,7 @@ BARRA PRODUCTOS
                                             }
                                                 
                                         }
-                                        echo'<a href="'.$value["ruta"].'" class="pixelProducto">
+                                        echo'<a href="'.$url.$value["ruta"].'" class="pixelProducto">
             
                                             <button type="button" class="btn btn-default btn-xs" data-toggle="tooltip" title="Ver producto">
             
@@ -273,7 +275,7 @@ BARRA PRODUCTOS
                                        
                                     <figure>
                                 
-                                        <a href="'.$value["ruta"].'" class="pixelProducto">
+                                        <a href="'.$url.$value["ruta"].'" class="pixelProducto">
                                             
                                             <img src="'.$servidor.$value["portada"].'" class="img-responsive">
             
@@ -289,9 +291,9 @@ BARRA PRODUCTOS
             
                                         <small>
             
-                                            <a href="'.$value["ruta"].'" class="pixelProducto">
+                                            <a href="'.$url.$value["ruta"].'" class="pixelProducto">
             
-                                                <a href="'.$value["ruta"].'" class="pixelProducto">
+                                                <a href="'.$url.$value["ruta"].'" class="pixelProducto">
                                                 
                                                 '.$value["titulo"].'<br>';
             
@@ -372,7 +374,7 @@ BARRA PRODUCTOS
                                         }
             
                                     
-                                            echo '<a href="'.$value["ruta"].'" class="pixelProducto">
+                                            echo '<a href="'.$url.$value["ruta"].'" class="pixelProducto">
             
                                               <button type="button" class="btn btn-default btn-xs" data-toggle="tooltip" title="Ver producto">
             
