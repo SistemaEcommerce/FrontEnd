@@ -1,23 +1,37 @@
 <?php
 $servidor=Ruta::ctrRutaServidor();
 
-echo'
-<figure class="banner">
+$ruta="articulor-gratis";
+$banner=ControladorProductos::ctrMostrarBanner($ruta);
 
-	<img src="'.$servidor.'/vistas/img/banner/default.jpg" class="img-responsive" width="100%">	
 
-	<div class="textoBanner textoDer">
+if (is_array($banner)) {
+
+	$titulo1=json_decode($banner["titulo1"],true);
+	$titulo2=json_decode($banner["titulo2"],true);
+	$titulo3=json_decode($banner["titulo3"],true);
+	if ($banner != null) {
+
+		echo'
+		<figure class="banner" style="height: 370px;">
 		
-		<h1 style="color:#fff">OFERTAS ESPECIALES</h1>
+			<img src="'.$servidor.$banner["img"].'" class="img-responsive" width="100%" style="height: 500px;">	
 
-		<h2 style="color:#fff"><strong>50% off</strong></h2>
+			<div class="textoBanner '.$banner["estilo"].'">
 
-		<h3 style="color:#fff">Termina el 31 de Octubre</h3>
+				<h1 style="color:'.$titulo1["color"].';font-size: 50px;">'.$titulo1["texto"].'</h1>
 
-	</div>
+				<h2 style="color:'.$titulo2["color"].';font-size: 50px;"><strong>'.$titulo2["texto"].'</strong></h2>
 
-</figure>
-';
+				<h3 style="color:'.$titulo3["color"].';font-size: 50px;">'.$titulo3["texto"].'</h3>
+
+			</div>
+		
+		</figure>
+		';
+	}
+	
+}
 
 ?>
 
@@ -27,33 +41,40 @@ $servidor=Ruta::ctrRutaServidor();
 
 $titulosModulos=array("ARTICULOS GRATUITOS","LO MAS VENDIDO","LO MAS VISTO","OFERTA");
 $rutaModulos=array("articulos-gratis","lo-mas-vendidos","lo-mas-visto","articulos-oferta");
+$base=0;
+$tope=8;
+$modo="DESC";
 if ($titulosModulos[0]=="ARTICULOS GRATUITOS") {
-
+	/* $base=0; */
 	$ordenar="id";
 	$item="precio";
 	$valor=0;
 	
-	$gratis=ControladorProductos::ctrMostrarProductos($ordenar,$item,$valor);
+	$gratis=ControladorProductos::ctrMostrarProductos($ordenar,$item,$valor,$base,$tope,$modo);
 }
 if ($titulosModulos[1]=="LO MAS VENDIDO") {
+	/* $base=0; */
 	$ordenar="ventas";
 	$item=null;
 	$valor=null;
-    $ventas=ControladorProductos::ctrMostrarProductos($ordenar,$item,$valor);
+    $ventas=ControladorProductos::ctrMostrarProductos($ordenar,$item,$valor,$base,$tope,$modo);
 }
 if ($titulosModulos[2]=="LO MAS VISTO") {
+	/* $base=0; */
 	$ordenar="vistas";
 	$item=null;
 	$valor=null;
-    $vistas=ControladorProductos::ctrMostrarProductos($ordenar,$item,$valor);
+    $vistas=ControladorProductos::ctrMostrarProductos($ordenar,$item,$valor,$base,$tope,$modo);
 }
 if ($titulosModulos[3]=="OFERTA") {
+	/* $base=0; */
 	$ordenar="oferta";
 	$item=null;
 	$valor=null;
-    $oferta=ControladorProductos::ctrMostrarProductos($ordenar,$item,$valor);
+    $oferta=ControladorProductos::ctrMostrarProductos($ordenar,$item,$valor,$base,$tope,$modo);
 }
 $modulos=array($gratis,$ventas,$vistas,$oferta);
+
 for ($i=0; $i <count($titulosModulos) ; $i++) { 
 	echo '
 	<div class="container-fluid well well-sm barraProductos" >

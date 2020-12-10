@@ -1,7 +1,7 @@
 <?php
 
 $servidor = Ruta::ctrRutaServidor();
-
+$url = Ruta::ctrRuta();
 ?>
 <div class="container-fluid barraSuperior" id="top">
 	
@@ -61,17 +61,17 @@ $servidor = Ruta::ctrRutaServidor();
 </div>
 
 
-<header class="container-fluid">
+<header class="container-fluid" >
 	
 	<div class="container">
 		
-		<div class="row" id="cabezote">
+		<div class="row" id="cabezote" >
 
 
 			
-			<div class="col-lg-3 col-md-3 col-sm-2 col-xs-12" id="logotipo">
+			<div class="col-lg-3 col-md-3 col-sm-2 col-xs-12" id="logotipo" >
 				
-				<a href="index.php">
+				<a href="<?php echo $url; ?>">
 						
                 <img src="<?php echo $servidor.$social["logo"] ?>" alt="Logo de la tienda" class="img-responsive">
 
@@ -105,7 +105,7 @@ $servidor = Ruta::ctrRutaServidor();
 
 					<span class="input-group-btn">
 						
-						<a href="#">
+						<a href="<?php echo $url; ?>buscador/1/recientes">
 
 							<button class="btn btn-default backColor" type="submit">
 								
@@ -158,7 +158,7 @@ $servidor = Ruta::ctrRutaServidor();
 				<div class="col-lg-2 col-md-3 col-sm-4 col-xs-12">
 							
 							<h4>
-								<a href="'.$value["ruta"].'" class="pixelCategorias">'.$value["categoria"].'</a>
+								<a href="'.$url.$value["ruta"].'" class="pixelCategorias">'.$value["categoria"].'</a>
 							</h4>
 							
 							<hr>
@@ -170,7 +170,7 @@ $servidor = Ruta::ctrRutaServidor();
 
 					$subcategorias = ControladorProductos::ctrMostrarSubCategorias($item, $valor);
 						foreach ($subcategorias as $key => $value) {
-							echo '<li><a href="'.$value["ruta"].'" class="pixelSubCategorias">'.$value["subcategoria"].'</a></li>';						}
+							echo '<li><a href="'.$url.$value["ruta"].'" class="pixelSubCategorias">'.$value["subcategoria"].'</a></li>';						}
 					
 					echo'							
 					</ul>

@@ -134,7 +134,7 @@
 .productos .container ul li {
     
     padding-top: 20px;    
-    margin-top: 10px;
+ /*    margin-top: 10px; 
     margin-left: -10px;
     margin-right: 10px;
     margin-bottom: 10px;
@@ -143,14 +143,9 @@
     border-right: 3px solid  rgb(55, 53, 53);
     border-top: 3px solid  rgb(255, 255, 255);
     border-bottom: 3px solid  rgb(255, 255, 255);
+    background-color: rgb(37, 33, 33);  */
     
- /* 
-    margin-right: 10px;
-    margin-left: 10px;
-    border-radius: 15px;
-    border: 1px solid #2e3a64; 
-    */
-   	 background-color: rgb(37, 33, 33); 
+ 
     
 }
 

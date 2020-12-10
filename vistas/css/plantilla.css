@@ -17,6 +17,7 @@ body{
 	 background-color: rgb(55, 53, 53); 
 	 color: aliceblue;
 }
+
 ul, ol{
 	padding:0px;
 }
@@ -223,6 +224,10 @@ MOVIL (XS revisamos en 320px)
 	}
 
 }
+
+  
+ 
+ 
 .error404{
 	color:#ffffff;
 }
@@ -233,3 +238,34 @@ MOVIL (XS revisamos en 320px)
 	margin-top: -20px;
 	/* margin-left: 55px; */
 }
+.clearfix{
+    clear: both;
+    float: none;
+}
+
+
+.pagination{
+	padding-left: 40%;
+	
+}
+.fa-angle-right,.fa-angle-left{
+	color: #000000;
+	
+}
+/* center ul{
+	padding-left: 50%;
+}
+center ul li a {
+
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    border-bottom: none;
+    background-color: none	; 
+}
+.aList{
+	list-style: none;
+	border: 0px;
+	text-align: center;
+	
+} */
