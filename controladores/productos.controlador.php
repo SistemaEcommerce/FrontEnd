@@ -50,4 +50,13 @@ class ControladorProductos{
         $respuesta=ModeloProductos::mdlListarProductosBusqueda($tabla,$busqueda);
         return $respuesta;   
     }
+    static public function ctrActualizarVistaProducto($datos, $item){
+
+		$tabla = "productos";
+
+		$respuesta = ModeloProductos::mdlActualizarVistaProducto($tabla, $datos, $item);
+
+		return $respuesta;
+	}
+    
 }

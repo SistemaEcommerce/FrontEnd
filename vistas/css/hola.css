@@ -1,0 +1,8 @@
+
+.infoproducto figure.visor img{
+    display: none;
+    cursor: pointer;
+}
+.infoproducto figure.visor img:first-child{
+    display: block;
+}
