@@ -45,7 +45,7 @@ $url = Ruta::ctrRuta();
 				
 				<ul>
 					
-					<li><a  href="#modalIngreso" id="modalIngreso"  data-toggle="modal">Ingresar</a></li>
+					<li><a  href="#modalIngreso"   data-toggle="modal">Ingresar</a></li>
 					<li>|</li>
 					<li><a   href="#modalRegistro"  data-toggle="modal">Crear una cuenta</a></li>
 					
@@ -145,38 +145,38 @@ $url = Ruta::ctrRuta();
 
 		<div class="col-xs-12 backColor" id="categorias">
 
-		<?php
-			$item = null;
-			$valor = null;
+			<?php
+				$item = null;
+				$valor = null;
 
-			$categorias = ControladorProductos::ctrMostrarCategorias($item, $valor);
-			
-			foreach ($categorias as $key => $value) {
-				
-				
-				echo '
-				<div class="col-lg-2 col-md-3 col-sm-4 col-xs-12">
-							
-							<h4>
-								<a href="'.$url.$value["ruta"].'" class="pixelCategorias">'.$value["categoria"].'</a>
-							</h4>
-							
-							<hr>
+				$categorias = ControladorProductos::ctrMostrarCategorias($item, $valor);
+						
+				foreach ($categorias as $key => $value) {
 
-							<ul>';
-							
-					$item="id_categoria";
-					$valor=$value["id"];
 
-					$subcategorias = ControladorProductos::ctrMostrarSubCategorias($item, $valor);
-						foreach ($subcategorias as $key => $value) {
-							echo '<li><a href="'.$url.$value["ruta"].'" class="pixelSubCategorias">'.$value["subcategoria"].'</a></li>';						}
-					
-					echo'							
-					</ul>
-				</div>';
-			}
-		?>			
+					echo '
+					<div class="col-lg-2 col-md-3 col-sm-4 col-xs-12">
+
+								<h4>
+									<a href="'.$url.$value["ruta"].'" class="pixelCategorias">'.$value["categoria"].'</a>
+								</h4>
+
+								<hr>
+
+								<ul>';
+
+						$item="id_categoria";
+						$valor=$value["id"];
+
+						$subcategorias = ControladorProductos::ctrMostrarSubCategorias($item, $valor);
+							foreach ($subcategorias as $key => $value) {
+								echo '<li><a href="'.$url.$value["ruta"].'" class="pixelSubCategorias">'.$value["subcategoria"].'</a></li>';						}
+							
+						echo'							
+						</ul>
+					</div>';
+				}
+			?>			
 
 
 		</div>
@@ -185,4 +185,182 @@ $url = Ruta::ctrRuta();
 
 </header>
 
+<!-- registro -->
 
+<div class="modal fade modalFormulario" id="modalRegistro" role="dialog" >
+
+    <div class="modal-content modal-dialog" >      	
+      	  	<!-- Modal body -->
+      	  	<div class="modal-body modalTitulo" >
+				
+				<h3 class="backColor">Registrarse</h3>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+
+				<!-- registro facebok -->
+				<div class="col-sm-6 col-xs-12 facebook" id="btnFacebookRegistro">
+
+					<br>
+					<p> 
+						<i class="fa fa-facebook"></i> Facebook
+					</p>
+				</div>
+				<!-- registro google -->
+				<div class="col-sm-6 col-xs-12 google" id="btnGoogleRegistro">
+					<br>
+					<p> 
+						<i class="fa fa-google"></i> Google
+					</p>
+				</div>
+				
+				<!-- registro directo -->
+				<form method="post" onsubmit="return registroUsuario()" style="margin:15px;">
+				<hr>
+					
+					<div class="form-group">
+						<div class="input-group">
+							<span class="input-group-addon">
+								<i class="glyphicon glyphicon-user" style="color: #000;"></i>
+							</span>
+							<input type="text" class="form-control text-uppercase" id="regUsuario" name="regUsuario" placeholder="Nombre Completo" required>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="input-group">
+							<span class="input-group-addon">
+								<i class="glyphicon glyphicon-envelope" style="color: #000;"></i>
+							</span>
+							<input type="email" class="form-control " id="regEmail" name="regEmail" placeholder="Correo Electronico" required>
+							
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="input-group">
+							<span class="input-group-addon">
+								
+								<i class="glyphicon glyphicon-lock" style="color: #000;"></i>
+							</span>
+							<input type="password" class="form-control " id="regPassword" name="regPassword" placeholder="Contraseña" required>
+						</div>
+					</div>
+
+					<?php
+						$registro=new ControladorUsuarios();
+						$registro->ctrRegistroUsuario();
+					?>
+
+					<input type="submit" class="btn btn-default backColor btn-block" value="ENVIAR">
+					<hr>
+				</form>
+      	  	</div>
+				<div class="checkBox" style="margin-left:25px;">
+					<label>
+					
+						<input  name="" id="regPoliticas" type="checkbox">
+						<small style="color: black;"> Aceptas las politicas de privacidad</small>
+						<a href="#politicas" data-toggle="modal" style="font-size:20px">LEER MAS</a>
+
+					</label>
+				</div>
+				
+      	  	<!-- Modal footer -->
+      	  	<div class="modal-footer" style="color: #000;">
+					Ya tienes una cuenta Registrada| <strong><a href="#modalIngreso" data-dismiss="modal" data-toggle="modal">Ingresar</a></strong>
+      	  	  <button type="button" class="btn btn-danger" data-dismiss="modal" >Close</button>
+      	  	</div>
+			
+      	
+    </div>
+</div>
+<!-- politicas de privacidad -->
+<div class="modal fade modalFormulario" id="politicas" role="dialog" >
+	<div class="modal-content modal-dialog" >      	
+      	  
+        <div class="modal-header"  style="background-color: #46639f;color:#fff; ">
+         
+			  <button type="button" class="close" data-dismiss="modal">×</button>
+			<strong>
+				<h3  style="color: #fff;font-size:25px;">Politicas de privacidad de la Tienda Virtual</h3>
+			</strong>
+			  <h5  style="color: #fff;font-size:13px;">Esta Aplicación recoge algunos Datos Personales de sus Usuarios.
+
+			</h5>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body" class="mosalesbody" style="background-color: #222;">
+          <strong >
+			  <p style="color: #fff;">
+			  Datos Personales recogidos para las siguientes finalidades y utilizando los siguientes servicios:
+			  </p>
+		  </strong>
+		  <ul class="politicas">
+			  <li style="color: #fff;margin-left:15px;padding-left:15px;margin-top:15px;" >
+			  
+				  <i class="glyphicon glyphicon-user" style="color: #fff;font-size:30px"></i>
+				  Acceso a las cuentas de servicios de terceros
+				  <p style="margin-top: -5px;margin-left:22px;">
+				  Acceso a la cuenta de Facebook				
+				</p>
+				<p style="margin-top: -15px;margin-left:22px;">
+					Permisos: Acerca de mí
+				</p>
+			  </li>
+			  <li style="color: #fff;margin-left:15px;padding-left:15px;margin-top:15px;" >
+				  <i class="glyphicon glyphicon-envelope" style="color: #fff;font-size:30px"></i>
+				  Contactar con el Usuario
+				  <p style="margin-top: -5px;margin-left:22px;">
+				  Formulario de contacto
+				  </p>
+				  <p style="margin-top: -10px;margin-left:22px;">
+				  Datos Personales: dirección de correo electrónico
+				  </p>
+
+			  </li>
+			  <li style="color: #fff;margin-left:15px;padding-left:15px;margin-top:15px;" >
+				  <i class="glyphicon glyphicon-lock" style="color: #fff;font-size:30px"></i>
+				  Interacción con redes sociales y plataformas externas
+
+				  <p style="margin-top: -5px;margin-left:22px;">
+				  Botón “Me gusta” y widgets sociales de Facebook
+				  </p>
+				  <p style="margin-top: -10px;margin-left:22px;">
+				  Datos Personales: Cookies; Datos de uso
+				  </p>
+			  </li>
+		  </ul>
+		 
+		 
+		  <hr>
+			<ul class="politicas">
+				<li style="color: #fff;margin-left:15px;padding-left:15px;margin-top:15px;" >
+				<i class="glyphicon glyphicon-user" style="color: #fff;font-size:30px;"></i>
+					Titular y Responsable del tratamiento de los Datos
+
+				
+				  <p style="margin-top: -5px;margin-left:30px;">
+				  	Tienda Virtual:Hosting y dominio
+				  </p>
+				  <p style="margin-top: -13px;margin-left:30px;">
+				  	bryanct(cambiar nombre)
+				  </p>
+				  <p style="margin-top: -13px;margin-left:30px;">
+				  	brayancapchataype@gmail.com(cambiar gmail)
+				  </p>
+				  <p style="margin-top: -13px;margin-left:30px;">
+				  	922679390(poner el numero del negocio)
+				  </p>
+				</li>
+			</ul>
+        </div>
+		
+        <!-- Modal footer -->
+        <div class="modal-footer" style="background-color: #222;">
+			Tienda Virtual de Ropas
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+		</div>
+		
+		</div>
+</div>
+<!-- fin de politicas de privacidad -->

@@ -133,8 +133,79 @@ header #categorias h4{
 header #categorias hr{
 	border:1px solid rgba(255,255,255,.3);
 }
+/* regiatro */
+.modalTitulo{
+	padding: 5px 0px;
+	color: #000000;
+}
+.modalTitulo h3{
+	text-align: center;
+	margin-top: -5px;
+	padding: 15px 0px;
+	border-radius: 5px 5px 0px 0px;
+
+}
 
 
+.modalFormulario .close{
+	position: absolute;
+	right: 27px;
+	top: 8px;
+	color: #000000;
+	font-size: 35px;
+}
+.modalFormulario .facebook, .modalFormulario .google{
+	cursor: pointer;
+
+}
+
+.modalFormulario .facebook p{
+	background-color: #46639f;
+	color: #fff;
+	text-align: center;
+	line-height: 40px;
+	padding: 8px;
+	font-size: 20px;
+	margin-top: 10px;
+	margin-bottom: 20px;
+	border-radius: 15px;
+
+}
+
+.modalFormulario .google p{
+	background-color: #d6513e;
+	color: #fff;
+	text-align: center;
+	line-height: 40px;
+	padding: 8px;
+	font-size: 20px;
+	margin-top: 10px;
+	margin-bottom: 20px;
+	border-radius: 15px;
+}
+.modalFormulario p i{
+	margin-left: 10px;
+}
+.mosalesbody{
+	background-color: #222;
+}
+.politicas li p{
+	color: #fff;
+	top: -10px;
+	padding-right: 35px;
+	margin-right: 35px;
+}
+.modalFormulario form hr{
+	border: 1px solid #eee;
+}
+.modalFormulario form input[type="text"],
+.modalFormulario form input[type="email"],
+.modalFormulario form input[type="password"]{
+	padding: 25px;
+}
+.modalFormulario form input[type="submite"]{
+	padding: 15px;
+}
 /*=============================================
 ESCRITORIO GRANDE (LG revisamos en 1366px en adelante)
 =============================================*/
@@ -155,10 +226,13 @@ ESCRITORIO GRANDE (LG revisamos en 1366px en adelante)
 
 	}
 
-
+	
 
 	header #carrito{
 		padding-left:50px;
+	}
+	.modalFormulario .facebook p{
+		margin-right: -15px;
 	}
 
 }
@@ -172,7 +246,11 @@ ESCRITORIO MEDIANO O TABLET HORIZONTAL (MD revisamos en 1024px)
 	/*=============================================
 	HEADER
 	=============================================*/
-
+	#btnCategorias {
+		font-size: 12px;
+		right: 4px;
+		left: 5px;
+	}
 	header #logotipo img{
 
 		padding:10px 15px 5px 5px;
@@ -188,7 +266,9 @@ ESCRITORIO MEDIANO O TABLET HORIZONTAL (MD revisamos en 1024px)
 	header #carrito{
 		padding-left:50px;
 	}
-
+	.modalFormulario .facebook p{
+		margin-right: -15px;
+	}
 }
 
 /*=============================================
@@ -222,7 +302,9 @@ ESCRITORIO PEQUEÑO O TABLET VERTICAL (SM revisamos en 768px)
 	header #carrito p{
 		display:none;
 	}
-
+	.modalFormulario .facebook p{
+		margin-right: -15px;
+	}
 }
 
 /*=============================================
@@ -272,3 +354,5 @@ MOVIL (XS revisamos en 320px)
 	}
 	
 }
+
+

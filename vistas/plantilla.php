@@ -30,6 +30,8 @@
     <link rel="stylesheet" href="<? echo $url; ?>vistas/css/plugins/bootstrap.min.css">
     <link rel="stylesheet" href="<? echo $url; ?>vistas/css/plugins/flexslider.css">
     <link rel="stylesheet" href="<? echo $url; ?>vistas/css/plugins/font-awesome.min.css">
+    <link rel="stylesheet" href="<? echo $url; ?>vistas/css/plugins/sweetalert.css">
+
     <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Condensed" rel="stylesheet">
     
@@ -50,7 +52,9 @@
     <script src="<? echo $url;?>vistas/js/plugins/jquery.easing.js" ></script>
     <script src="<? echo $url;?>vistas/js/plugins/jquery.scrollUp.js" ></script>
     <script src="<? echo $url;?>vistas/js/plugins/jquery.flexslider.js" ></script>
+    <script src="<? echo $url;?>vistas/js/plugins/sweetalert.min.js" ></script>
 
+    
     
 </head>
 <body>
@@ -120,6 +124,7 @@
     <script src="<? echo $url; ?>vistas/js/slide.js" ></script>
     <script src="<? echo $url; ?>vistas/js/buscador.js" ></script>
     <script src="<? echo $url; ?>vistas/js/infoproducto.js" ></script>
+    <script src="<? echo $url; ?>vistas/js/usuarios.js" ></script>
 
 </body>
 </html>

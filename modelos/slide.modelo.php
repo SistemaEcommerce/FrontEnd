@@ -1,5 +1,6 @@
 <?php
 require_once "conexion.php";
+
 class ModeloSlide{
     static function mdlMostrarSlide($tabla){
         $stmt=Conexion::conectar()->prepare("SELECT * FROM $tabla");

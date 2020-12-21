@@ -293,6 +293,7 @@ ESCRITORIO MEDIANO O TABLET HORIZONTAL (MD revisamos en 1024px)
 ESCRITORIO PEQUEÑO O TABLET VERTICAL (SM revisamos en 768px)
 =============================================*/
 
+
 @media (max-width:991px) and (min-width:768px){
 
 	#slide #retroceder{
@@ -339,7 +340,7 @@ ESCRITORIO PEQUEÑO O TABLET VERTICAL (SM revisamos en 768px)
 	#slide .slideOpciones img{
 
 	margin-top: 50px;
-	padding-top: 50px;
+	padding-top: 150px;
 	
 	}
 	center{
@@ -384,7 +385,7 @@ MOVIL (XS revisamos en 320px)
 	
 	#slide{
 
-		top: -315px;
+		top: -241px;
 	   
 	}
 	.imgProducto1{
