@@ -91,6 +91,7 @@
             }
 
             if ($ruta!=null || $rutas[0]=="articulos-gratis"|| $rutas[0]=="lo-mas-vendidos"|| $rutas[0]=="lo-mas-visto"|| $rutas[0]=="articulos-oferta") {
+           
                 include 'modulos/productos.php';
                 
             }
@@ -99,9 +100,10 @@
                 include "modulos/infoproducto.php";
 
             }
-            else if ($rutas[0] =="buscador" ) {
+            else if ($rutas[0] == "buscador"|| $rutas[0] == "verificar" ) {
 
-                include "modulos/buscador.php";
+                include "modulos/".$rutas[0].".php";
+
 
             }
             

@@ -1,4 +1,54 @@
 
+/* fotmatear input */
+$("input").focus(function(){
+
+	$(".alert").remove();
+})
+/* validar email repetido */
+
+var validarEmailRepetido = false;
+
+$("#regEmail").change(function(){
+
+	var email = $("#regEmail").val();
+
+	var datos = new FormData();
+	datos.append("validarEmail", email);
+
+	$.ajax({
+
+		url:rutaOculta+"ajax/usuarios.ajax.php",
+		method: "POST",
+		data: datos,
+		cache: false,
+		contentType: false,
+		processData: false,
+		success:function(respuesta){
+/* 			console.log(respuesta);
+ */			if(respuesta == "false"){
+
+				$(".alert").remove();
+				validarEmailRepetido = false;
+
+			} else{
+				var modo = JSON.parse(respuesta).modo;
+				
+				if(modo == "directo"){
+
+					modo = "esta página";
+				}
+
+				$("#regEmail").parent().before('<div class="alert alert-warning"><strong>ERROR:</strong> El correo electrónico ya existe en la base de datos, fue registrado a través de '+modo+', por favor ingrese otro diferente</div>')
+
+					validarEmailRepetido = true;
+			}
+
+		}
+
+	})
+
+})
+
 /*=============================================
 VALIDAR EL REGISTRO DE USUARIO
 =============================================*/
@@ -40,7 +90,13 @@ function registroUsuario(){
 				return false;
 
 			}
+			if(validarEmailRepetido){
 
+				$("#regEmail").parent().before('<div class="alert alert-danger"><strong style="color:red">ERROR:</strong> El correo electrónico ya existe en la base de datos, por favor ingrese otro diferente</div>')
+	
+				return false;
+	
+			}
 		}else{
 			
 			$("#regEmail").parent().before('<div class="alert alert-warning" style="color:#000000"><strong style="color:#000000">ATENCIÓN:</strong> Este campo es obligatorio</div>')
@@ -84,4 +140,3 @@ function registroUsuario(){
 
 	return true;
 }
-

@@ -10,7 +10,11 @@ require_once "modelos/productos.modelo.php";
 require_once "modelos/slide.modelo.php";
 require_once "modelos/usuarios.modelo.php";
 
+
 require_once "modelos/rutas.php";
+
+require_once "PHPMailer/PHPMailerAutoload.php";
+
 $plantilla=new ControladorPlantilla();
 $plantilla->plantilla();
 
