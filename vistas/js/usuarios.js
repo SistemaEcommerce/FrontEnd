@@ -1,4 +1,12 @@
+/*	CAPTURA DE RUTA */
 
+var rutaActual = location.href;
+
+$(".btnIngreso, #btnFacebookRegistro").click(function(){
+
+	localStorage.setItem("rutaActual", rutaActual);
+
+})
 /* fotmatear input */
 $("input").focus(function(){
 
@@ -57,19 +65,19 @@ function registroUsuario(){
 
 	var nombre=$("#regUsuario").val();
 
-		if (nombre!="") {
+	if(nombre != ""){
 
-			var expresion = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]*$/;
-			
-			if (!expresion.test(nombre)) {
+		var expresion = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]*$/;
 
-				$("#regUsuario").parent().before('<div class="alert alert-warning" style="color:#000000"><strong style="color:#000000">ERROR:</strong> No se permiten números ni caracteres especiales</div>')
+		if(!expresion.test(nombre)){
 
-				return false;
+			$("#regUsuario").parent().before('<div class="alert alert-warning"><strong>ERROR:</strong> No se permiten números ni caracteres especiales</div>')
 
-			}
+			return false;
 
-		}else{
+		}
+
+	}else{
 			
 			$("#regUsuario").parent().before('<div class="alert alert-warning" style="color:#000000"><strong style="color:#000000">ATENCIÓN:</strong> Este campo es obligatorio</div>')
 
@@ -92,7 +100,7 @@ function registroUsuario(){
 			}
 			if(validarEmailRepetido){
 
-				$("#regEmail").parent().before('<div class="alert alert-danger"><strong style="color:red">ERROR:</strong> El correo electrónico ya existe en la base de datos, por favor ingrese otro diferente</div>')
+				$("#regEmail").parent().before('<div class="alert alert-danger"><strong style="color:red	">ERROR:</strong> El correo electrónico ya existe en la base de datos, por favor ingrese otro diferente</div>')
 	
 				return false;
 	

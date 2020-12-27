@@ -44,10 +44,59 @@ $url = Ruta::ctrRuta();
 			<div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 registro" id="registro">
 				
 				<ul>
+					<?php
+
+						if (isset($_SESSION["validarSesion"])) {
+
+								if ($_SESSION["validarSesion"]=="ok") {
+
+									if ($_SESSION["modo"]=="directo") {
+
+										if ($_SESSION["foto"]!="") {
+
+											echo '<li>
+
+													<img class="img-circle" src="'.$url.$_SESSION["foto"].'" width="10%">
+
+									 			</li>';
+										}else{
+											echo '<li>
+
+												  	<img class="img-circle" src="'.$servidor.'vistas/img/usuarios/default/anonymous.png" width="10%">
+												  
+												  </li>';
+										}
+										echo '	<li>|</li>
+											 	<li><a href="'.$url.'perfil">Ver Perfil</a></li>
+											 	<li>|</li>
+											 	<li><a href="'.$url.'salir">Salir</a></li>';
+										
+									}
+									if ($_SESSION["modo"]=="facebook") {
+										echo '	<li>
+
+													<img class="img-circle" src="'.$_SESSION["foto"].'" width="10%">
+
+								   				</li>
+								   				<li>|</li>
+						 		   				<li><a href="'.$url.'perfil">Ver Perfil</a></li>
+						 		   				<li>|</li>
+						 		   				<li><a href="'.$url.'salir" class="salir">Salir</a></li>';
+									}
+											   
+
+								}
+								
+						}else{
+							echo'
+							<li><a  href="#modalIngreso"  data-toggle="modal">Ingresar</a></li>
+							<li>|</li>
+							<li><a   href="#modalRegistro"  data-toggle="modal">Crear una cuenta</a></li>
+							';
+						}
+					?>
 					
-					<li><a  href="#modalIngreso"  data-toggle="modal">Ingresar</a></li>
-					<li>|</li>
-					<li><a   href="#modalRegistro"  data-toggle="modal">Crear una cuenta</a></li>
+					
 					
 
 				</ul>
@@ -185,7 +234,7 @@ $url = Ruta::ctrRuta();
 
 </header>
 
-<!-- registro -->
+<!-- registro DIRECTO -->
 
 <div class="modal fade modalFormulario" id="modalRegistro" role="dialog" >
 
@@ -230,7 +279,8 @@ $url = Ruta::ctrRuta();
 							<span class="input-group-addon">
 								<i class="glyphicon glyphicon-envelope" style="color: #000;"></i>
 							</span>
-							<input type="email" class="form-control " id="regEmail" name="regEmail" placeholder="Correo Electronico" required>
+							<input type="email" class="form-control" id="regEmail" name="regEmail" placeholder="Correo Electrónico" required>
+						
 							
 						</div>
 					</div>
@@ -364,3 +414,136 @@ $url = Ruta::ctrRuta();
 		</div>
 </div>
 <!-- fin de politicas de privacidad -->
+<!-- mosal ingreso -->
+<div class="modal fade modalFormulario" id="modalIngreso" role="dialog" >
+
+    <div class="modal-content modal-dialog" >      	
+      	  	<!-- Modal body -->
+      	  	<div class="modal-body modalTitulo" >
+				
+				<h3 class="backColor">Ingresar</h3>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+
+				<!-- ingreso facebok -->
+				<div class="col-sm-6 col-xs-12 facebook" id="btnFacebookRegistro">
+
+					<br>
+					<p> 
+						<i class="fa fa-facebook"></i> Facebook
+					</p>
+				</div>
+				<!-- insgreso google -->
+				<div class="col-sm-6 col-xs-12 google" id="btnGoogleRegistro">
+					<br>
+					<p> 
+						<i class="fa fa-google"></i> Google
+					</p>
+				</div>
+				
+				<!-- ingreso directo -->
+
+				<form method="post"  style="margin:15px;">
+				<hr>
+				
+					<div class="form-group">
+						<div class="input-group">
+							<span class="input-group-addon">
+								<i class="glyphicon glyphicon-envelope" style="color: #000;"></i>
+							</span>
+							<input type="email" class="form-control " id="ingEmail" name="ingEmail" placeholder="Correo Electronico" required>
+							
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="input-group">
+							<span class="input-group-addon">
+								
+								<i class="glyphicon glyphicon-lock" style="color: #000;"></i>
+							</span>
+							<input type="password" class="form-control " id="ingPassword" name="ingPassword" placeholder="Contraseña" required>
+						</div>
+					</div>
+
+					<?php
+						$registro=new ControladorUsuarios();
+						$registro->ctrIngresoUsuario();
+					?>
+
+					<input type="submit" class="btn btn-default backColor btn-block btnIngreso" value="ENVIAR">
+					<div style="text-align: center;margin-top:15px">
+
+						<a  href="#modalPassword" data-dismiss="modal" data-toggle="modal">¿Olvidaste tu contraseña?</a>
+					</div>
+		
+				</form>
+      	  	</div>
+		
+				
+      	  	<!-- Modal footer -->
+			
+			<div class="modal-footer" style="color: #000;">
+					Ya tienes una cuenta Registrada?| <strong><a href="#modalRegistro" data-dismiss="modal" data-toggle="modal">Registro</a></strong>
+      	  	 		 <button type="button" class="btn btn-danger" data-dismiss="modal" >Close</button>
+      	  	</div>
+      	
+    </div>
+</div>
+
+<!-- olvido de contraseña -->
+<div class="modal fade modalFormulario" id="modalPassword" role="dialog" style="color: #000;">
+
+    <div class="modal-content modal-dialog">
+
+        <div class="modal-body modalTitulo" >
+
+        	<h3 class="backColor">SOLICITUD DE NUEVA CONTRASEÑA</h3>
+
+           <button type="button" class="close" data-dismiss="modal">&times;</button>
+        	
+			<!--=====================================
+			OLVIDO CONTRASEÑA
+			======================================-->
+
+			<form method="post" style="border: 15px;margin:15px;">
+
+				<label class="text-muted">Escribe el correo electrónico con el que estás registrado y allí te enviaremos una nueva contraseña:</label>
+
+				<div class="form-group">
+					
+					<div class="input-group">
+						
+						<span class="input-group-addon">
+							
+							<i class="glyphicon glyphicon-envelope" style="color: #000;"></i>
+						
+						</span>
+					
+						<input  type="email" class="form-control" id="passEmail" name="passEmail" placeholder="Correo Electrónico" required>
+
+					</div>
+
+				</div>			
+
+				<?php
+
+					$password = new ControladorUsuarios();
+					$password -> ctrOlvidoPassword(); 
+
+				?>
+				
+				<input type="submit" class="btn btn-default backColor btn-block" value="ENVIAR">	
+
+			</form>
+
+        </div>
+
+        <div class="modal-footer" style="color: #000;">
+          
+			¿No tienes una cuenta registrada? | <strong><a href="#modalRegistro" data-dismiss="modal" data-toggle="modal">Registrarse</a></strong>
+
+        </div>
+      
+    </div>
+
+</div>

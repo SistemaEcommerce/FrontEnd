@@ -106,7 +106,7 @@ $(window).on("load", function(){
 		contentType: false,
 		processData:false,
 		success: function(respuesta){
-			console.log(respuesta);
+			/* console.log(respuesta); */
 		}
 
 	}); 
