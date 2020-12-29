@@ -1,0 +1,20 @@
+#perfil figure#imgPerfil img {
+    width: 80%;
+    margin: 10px 0;
+}
+
+.container .nav li a i {
+    color: black;
+}
+
+.registroSocial label {
+    color: black;
+}
+
+.input-group-addon i {
+    color: black;
+}
+
+#eliminarUsuario {
+    /* display: none; */
+}

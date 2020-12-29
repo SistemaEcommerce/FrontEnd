@@ -549,5 +549,148 @@ class ControladorUsuarios{
 
 		}
 	}
+	/* actualizar perfil */
+	public function ctrActualizarPerfil(){
+
+		if(isset($_POST["editarNombre"])){
+
+			/*=============================================
+			VALIDAR IMAGEN
+			=============================================*/
+
+			$ruta = $_POST["fotoUsuario"];
+
+			if(isset($_FILES["datosImagen"]["tmp_name"]) && !empty($_FILES["datosImagen"]["tmp_name"])){
+
+				/*=============================================
+				PRIMERO PREGUNTAMOS SI EXISTE OTRA IMAGEN EN LA BD
+				=============================================*/
+
+				$directorio = "vistas/img/usuarios/".$_POST["idUsuario"];
+
+				if(!empty($_POST["fotoUsuario"])){
+
+					unlink($_POST["fotoUsuario"]);
+				
+				}else{
+
+					mkdir($directorio, 0755);
+
+				}
+
+				/*=============================================
+				GUARDAMOS LA IMAGEN EN EL DIRECTORIO
+				=============================================*/
+
+				list($ancho, $alto) = getimagesize($_FILES["datosImagen"]["tmp_name"]);
+
+				$nuevoAncho = 500;
+				$nuevoAlto = 500;
+
+				$aleatorio = mt_rand(100, 999);
+
+				if($_FILES["datosImagen"]["type"] == "image/jpeg"){
+
+					$ruta = "vistas/img/usuarios/".$_POST["idUsuario"]."/".$aleatorio.".jpg";
+
+					/*=============================================
+					MOFICAMOS TAMAÑO DE LA FOTO
+					=============================================*/
+
+
+					$origen = imagecreatefromjpeg($_FILES["datosImagen"]["tmp_name"]);
+
+					$destino = imagecreatetruecolor($nuevoAncho, $nuevoAlto);
+
+					imagecopyresized($destino, $origen, 0, 0, 0, 0, $nuevoAncho, $nuevoAlto, $ancho, $alto);
+
+					imagejpeg($destino, $ruta);
+
+				}
+
+				if($_FILES["datosImagen"]["type"] == "image/png"){
+
+					$ruta = "vistas/img/usuarios/".$_POST["idUsuario"]."/".$aleatorio.".png";
+
+					/*=============================================
+					MOFICAMOS TAMAÑO DE LA FOTO
+					=============================================*/
+
+					$origen = imagecreatefrompng($_FILES["datosImagen"]["tmp_name"]);
+
+					$destino = imagecreatetruecolor($nuevoAncho, $nuevoAlto);
+
+					imagealphablending($destino, FALSE);
+    			
+					imagesavealpha($destino, TRUE);
+
+					imagecopyresized($destino, $origen, 0, 0, 0, 0, $nuevoAncho, $nuevoAlto, $ancho, $alto);
+
+					imagepng($destino, $ruta);
+
+				}
+
+			}
+
+			if($_POST["editarPassword"] == ""){
+
+				$password = $_POST["passUsuario"];
+				$passwordNormal=$_SESSION["passwordNormal"];
+			}else{
+
+				$password = crypt($_POST["editarPassword"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
+				$passwordNormal=$_POST["editarPassword"];
+			}
+
+			
+
+			$datos = array("nombre" => $_POST["editarNombre"],
+						   "email" => $_POST["editarEmail"],
+						   "password" => $password,
+						   "foto" => $ruta,
+						   "passwordNormal" => $passwordNormal,
+						   "id" => $_POST["idUsuario"]);
+
+
+			$tabla = "usuarios";
+
+			$respuesta = ModeloUsuarios::mdlActualizarPerfil($tabla, $datos);
+
+			if($respuesta == "ok"){
+
+				$_SESSION["validarSesion"] = "ok";
+				$_SESSION["id"] = $datos["id"];
+				$_SESSION["nombre"] = $datos["nombre"];
+				$_SESSION["foto"] = $datos["foto"];
+				$_SESSION["email"] = $datos["email"];
+				$_SESSION["password"] = $datos["password"];
+				$_SESSION["passwordNormal"] = $datos["passwordNormal"];
+				$_SESSION["modo"] = $_POST["modoUsuario"];
+
+				echo '<script> 
+
+						swal({
+							  title: "¡OK!",
+							  text: "¡Su cuenta ha sido actualizada correctamente!",
+							  type:"success",
+							  confirmButtonText: "Cerrar",
+							  closeOnConfirm: false
+							},
+
+							function(isConfirm){
+
+								if(isConfirm){
+									history.back();
+								}
+						});
+
+				</script>';
+
+
+			}
+
+		}
+
+	}
 
 }

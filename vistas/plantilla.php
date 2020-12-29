@@ -44,6 +44,7 @@
     <link rel="stylesheet" href="<? echo $url; ?>vistas/css/slide.css">
     <link rel="stylesheet" href="<? echo $url; ?>vistas/css/productos.css">
     <link rel="stylesheet" href="<? echo $url; ?>vistas/css/infoproducto.css">
+    <link rel="stylesheet" href="<? echo $url; ?>vistas/css/perfil.css">
 
     
 
@@ -100,7 +101,7 @@
                 include "modulos/infoproducto.php";
 
             }
-            else if ($rutas[0] == "buscador" || $rutas[0] == "verificar" || $rutas[0]=="salir" || $rutas[0]=="perfil" ) {
+            else if ($rutas[0] == "buscador" || $rutas[0] == "verificar" || $rutas[0]=="salir" || $rutas[0]=="perfil"|| $rutas[0]=="ofertas" ) {
 
                 include "modulos/".$rutas[0].".php";
 
