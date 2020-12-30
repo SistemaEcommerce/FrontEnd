@@ -574,7 +574,7 @@ class ControladorUsuarios{
 				
 				}else{
 
-					mkdir($directorio, 0755);
+					mkdir($directorio, 0777);
 
 				}
 
@@ -635,7 +635,8 @@ class ControladorUsuarios{
 			if($_POST["editarPassword"] == ""){
 
 				$password = $_POST["passUsuario"];
-				$passwordNormal=$_SESSION["passwordNormal"];
+/* 				$encriptar = crypt($_POST["passUsuario"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
+ */				$passwordNormal=$_POST["passUsuario"];
 			}else{
 
 				$password = crypt($_POST["editarPassword"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
@@ -643,7 +644,7 @@ class ControladorUsuarios{
 			}
 
 			
-
+		
 			$datos = array("nombre" => $_POST["editarNombre"],
 						   "email" => $_POST["editarEmail"],
 						   "password" => $password,
@@ -666,9 +667,9 @@ class ControladorUsuarios{
 				$_SESSION["password"] = $datos["password"];
 				$_SESSION["passwordNormal"] = $datos["passwordNormal"];
 				$_SESSION["modo"] = $_POST["modoUsuario"];
-
+/* 				text: "¡Su cuenta ha sido actualizada correctamente!'.$password.'---'.$passwordNormal.'--'.$_POST["idUsuario"].'",
+ */
 				echo '<script> 
-
 						swal({
 							  title: "¡OK!",
 							  text: "¡Su cuenta ha sido actualizada correctamente!",
@@ -676,19 +677,16 @@ class ControladorUsuarios{
 							  confirmButtonText: "Cerrar",
 							  closeOnConfirm: false
 							},
-
 							function(isConfirm){
-
 								if(isConfirm){
 									history.back();
 								}
 						});
-
 				</script>';
 
 
 			}
-
+			
 		}
 
 	}

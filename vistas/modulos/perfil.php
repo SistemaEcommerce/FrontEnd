@@ -96,11 +96,12 @@ breadcrum  -->
 								
 							<?php
 
-							echo '<input type="hidden" value="'.$_SESSION["id"].'" id="idUsuario" name="idUsuario">
-							      <input type="hidden" value="'.$_SESSION["password"].'" name="passUsuario">
-                                  <input type="hidden" value="'.$_SESSION["foto"].'" name="fotoUsuario" id="fotoUsuario">
-
-							      <input type="hidden" value="'.$_SESSION["modo"].'" name="modoUsuario" id="modoUsuario">';
+					
+                            echo '<input type="hidden" value="'.$_SESSION["id"].'" id="idUsuario" name="idUsuario">
+                            <input type="hidden" value="'.$_SESSION["password"].'" name="passUsuario">
+                            <input type="hidden" value="'.$_SESSION["foto"].'" name="fotoUsuario" id="fotoUsuario">
+                            <input type="hidden" value="'.$_SESSION["modo"].'" name="modoUsuario" id="modoUsuario">
+                            ';
 
 
 							if($_SESSION["modo"] == "directo"){
@@ -135,20 +136,20 @@ breadcrum  -->
 									
 									Cambiar foto de perfil
 									
-									</button>';
+									</button> ';
 
 							}
 
 							?>
-
+                           
 							<div id="subirImagen">
 								
 								<input type="file" class="form-control" id="datosImagen" name="datosImagen">
 
-								<img class="previsualizar">
+								<img style="border-top: 5px;margin-top:5px;" class="previsualizar">
 
 							</div>
-
+                           
 						</div>	
 
 						<div class="col-md-9 col-sm-8 col-xs-12">
