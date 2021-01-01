@@ -216,3 +216,136 @@ $("#datosImagen").change(function() {
 
 
 })
+
+/* comentarios id*/
+$(".calificarProducto").click(function() {
+
+    var idComentario = $(this).attr("idComentario");
+
+    $("#idComentario").val(idComentario);
+
+})
+
+/*COMENTARIOS CAMBIO DE ESTRELLAS*/
+
+$("input[name='puntaje']").change(function() {
+
+    var puntaje = $(this).val();
+
+    switch (puntaje) {
+
+        case "0.5":
+            $("#estrellas").html('<i class="fa fa-star-half-o text-success" aria-hidden="true"></i> ' +
+                '<i class="fa fa-star-o text-success" aria-hidden="true"></i> ' +
+                '<i class="fa fa-star-o text-success" aria-hidden="true"></i> ' +
+                '<i class="fa fa-star-o text-success" aria-hidden="true"></i> ' +
+                '<i class="fa fa-star-o text-success" aria-hidden="true"></i>');
+            break;
+
+        case "1.0":
+            $("#estrellas").html('<i class="fa fa-star text-success" aria-hidden="true"></i> ' +
+                '<i class="fa fa-star-o text-success" aria-hidden="true"></i> ' +
+                '<i class="fa fa-star-o text-success" aria-hidden="true"></i> ' +
+                '<i class="fa fa-star-o text-success" aria-hidden="true"></i> ' +
+                '<i class="fa fa-star-o text-success" aria-hidden="true"></i>');
+            break;
+
+        case "1.5":
+            $("#estrellas").html('<i class="fa fa-star text-success" aria-hidden="true"></i> ' +
+                '<i class="fa fa-star-half-o text-success" aria-hidden="true"></i> ' +
+                '<i class="fa fa-star-o text-success" aria-hidden="true"></i> ' +
+                '<i class="fa fa-star-o text-success" aria-hidden="true"></i> ' +
+                '<i class="fa fa-star-o text-success" aria-hidden="true"></i>');
+            break;
+
+        case "2.0":
+            $("#estrellas").html('<i class="fa fa-star text-success" aria-hidden="true"></i> ' +
+                '<i class="fa fa-star text-success" aria-hidden="true"></i> ' +
+                '<i class="fa fa-star-o text-success" aria-hidden="true"></i> ' +
+                '<i class="fa fa-star-o text-success" aria-hidden="true"></i> ' +
+                '<i class="fa fa-star-o text-success" aria-hidden="true"></i>');
+            break;
+
+        case "2.5":
+            $("#estrellas").html('<i class="fa fa-star text-success" aria-hidden="true"></i> ' +
+                '<i class="fa fa-star text-success" aria-hidden="true"></i> ' +
+                '<i class="fa fa-star-half-o text-success" aria-hidden="true"></i> ' +
+                '<i class="fa fa-star-o text-success" aria-hidden="true"></i> ' +
+                '<i class="fa fa-star-o text-success" aria-hidden="true"></i>');
+            break;
+
+        case "3.0":
+            $("#estrellas").html('<i class="fa fa-star text-success" aria-hidden="true"></i> ' +
+                '<i class="fa fa-star text-success" aria-hidden="true"></i> ' +
+                '<i class="fa fa-star text-success" aria-hidden="true"></i> ' +
+                '<i class="fa fa-star-o text-success" aria-hidden="true"></i> ' +
+                '<i class="fa fa-star-o text-success" aria-hidden="true"></i>');
+            break;
+
+        case "3.5":
+            $("#estrellas").html('<i class="fa fa-star text-success" aria-hidden="true"></i> ' +
+                '<i class="fa fa-star text-success" aria-hidden="true"></i> ' +
+                '<i class="fa fa-star text-success" aria-hidden="true"></i> ' +
+                '<i class="fa fa-star-half-o text-success" aria-hidden="true"></i> ' +
+                '<i class="fa fa-star-o text-success" aria-hidden="true"></i>');
+            break;
+
+        case "4.0":
+            $("#estrellas").html('<i class="fa fa-star text-success" aria-hidden="true"></i> ' +
+                '<i class="fa fa-star text-success" aria-hidden="true"></i> ' +
+                '<i class="fa fa-star text-success" aria-hidden="true"></i> ' +
+                '<i class="fa fa-star text-success" aria-hidden="true"></i> ' +
+                '<i class="fa fa-star-o text-success" aria-hidden="true"></i>');
+            break;
+
+        case "4.5":
+            $("#estrellas").html('<i class="fa fa-star text-success" aria-hidden="true"></i> ' +
+                '<i class="fa fa-star text-success" aria-hidden="true"></i> ' +
+                '<i class="fa fa-star text-success" aria-hidden="true"></i> ' +
+                '<i class="fa fa-star text-success" aria-hidden="true"></i> ' +
+                '<i class="fa fa-star-half-o text-success" aria-hidden="true"></i>');
+            break;
+
+        case "5.0":
+            $("#estrellas").html('<i class="fa fa-star text-success" aria-hidden="true"></i> ' +
+                '<i class="fa fa-star text-success" aria-hidden="true"></i> ' +
+                '<i class="fa fa-star text-success" aria-hidden="true"></i> ' +
+                '<i class="fa fa-star text-success" aria-hidden="true"></i> ' +
+                '<i class="fa fa-star text-success" aria-hidden="true"></i>');
+            break;
+
+    }
+
+
+})
+
+/* VALIDAR EL COMENTARIO */
+
+
+function validarComentario() {
+
+    var comentario = $("#comentario").val();
+
+    if (comentario != "") {
+
+        var expresion = /^[,\\.\\a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]*$/;
+
+        if (!expresion.test(comentario)) {
+
+            $("#comentario").parent().before('<div class="alert alert-danger"><strong>ERROR:</strong> No se permiten caracteres especiales como por ejemplo !$%&/?¡¿[]*</div>');
+
+            return false;
+
+        }
+
+    } else {
+
+        $("#comentario").parent().before('<div class="alert alert-warning"><strong>ERROR:</strong> Campo obligatorio</div>');
+
+        return false;
+
+    }
+
+    return true;
+
+}

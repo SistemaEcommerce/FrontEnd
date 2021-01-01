@@ -574,7 +574,7 @@ class ControladorUsuarios{
 				
 				}else{
 
-					mkdir($directorio, 0777);
+					mkdir($directorio,0755);
 
 				}
 
@@ -690,5 +690,27 @@ class ControladorUsuarios{
 		}
 
 	}
+	/* compras */
+
+	static function ctrMostrarCompras( $item, $valor){
+
+		$tabla = "compras";
+
+		$respuesta = ModeloUsuarios::mdlMostrarCompras($tabla, $item,$valor);
+
+		return $respuesta;
+	}
+	static public function ctrMostrarComentariosPerfil($datos){
+
+		$tabla = "comentarios";
+
+		$respuesta = ModeloUsuarios::mdlMostrarComentariosPerfil($tabla, $datos);
+
+		return $respuesta;
+
+	}
+
+
+	
 
 }

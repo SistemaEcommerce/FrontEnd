@@ -36,3 +36,29 @@
 #perfil #subirImagen #datosImagen {
     height: 65px;
 }
+
+.panel,
+panel-body,
+panel-default {
+    background-color: #0d1117;
+    border: none;
+}
+
+.modalFormulario {
+    padding: 5px;
+    margin: 5px;
+}
+
+.modalFormulario .modal-dialog .modalTitulo form {
+    padding: 5px;
+    margin: 5px;
+    color: black;
+}
+
+.modalFormulario .modal-dialog .modalTitulo form div label {
+    color: black;
+}
+
+.modalFormulario .modal-dialog .modalTitulo form div label span small {
+    color: black;
+}

@@ -48,7 +48,7 @@ BARRA PRODUCTOS
 
 		<div class="row">
             <div class="col-sm-6 col-xs-12">
-                 <div class="btn-group" style="background-color: rgb(55, 53, 53);">
+                 <div class="btn-group" style="background-color: #0d1117;">
 					
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 
@@ -106,10 +106,10 @@ BARRA PRODUCTOS
 		
 		<div class="row"  >
             
-            <ul class="breadcrumb fondoBreadcrumb  text-uppercase" style="background-color:rgb(55, 53, 53);padding-top:0px;padding-bottom:0px;border:none;top:-30px;margin-bottom:0px;font-size:25px;">
+            <ul class="breadcrumb fondoBreadcrumb  text-uppercase" style="background-color:#0d1117;padding-top:0px;padding-bottom:0px;border:none;top:-30px;margin-bottom:0px;font-size:25px;">
 				
-				<li  style="background-color:rgb(55, 53, 53); color:#ffffff; border:none;padding-left:20px;padding-top:1px;"><a href="<?php echo $url;?>">INICIO</a></li>
-				<li  class="active pagActiva" style="background-color:rgb(55, 53, 53); color:#ffffff; border:none;padding-left:20px;padding-top:1px;"> <?php echo $rutas[0] ?></li>
+				<li  style="background-color:#0d1117; color:#ffffff; border:none;padding-left:20px;padding-top:1px;"><a href="<?php echo $url;?>">INICIO</a></li>
+				<li  class="active pagActiva" style="background-color:#0d1117; color:#ffffff; border:none;padding-left:20px;padding-top:1px;"> <?php echo $rutas[0] ?></li>
 
             </ul >
         

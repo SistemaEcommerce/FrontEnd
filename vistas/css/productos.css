@@ -1,123 +1,134 @@
-.banner{
+.banner {
     position: relative;
     overflow: hidden;
     height: 280px;
     opacity: .8;
     border-radius: 35px;
-    border:1px solid #ffffff;
+    border: 1px solid #ffffff;
     border-bottom: 3px solid #ffffff;
     border-top: 3px solid #ffffff;
 }
-.banner .textoBanner{
+
+.banner .textoBanner {
     position: absolute;
-	font-family: 'Ubuntu Condensed', sans-serif;
+    font-family: 'Ubuntu Condensed', sans-serif;
 }
-.banner .textoDer{
+
+.banner .textoDer {
     top: 50px;
     right: 50px;
     text-align: right;
 }
-.banner .textoIzq{
+
+.banner .textoIzq {
     top: 50px;
-    left:  50px;
+    left: 50px;
     text-align: left;
 }
-.banner .textoCentro{
+
+.banner .textoCentro {
     top: 50px;
-    left:  50%;
+    left: 50%;
     width: 800px;
     margin-left: -400px;
     text-align: center;
 }
-.textoBanner h1{
+
+.textoBanner h1 {
     font-size: 35px;
-    line-height: 25px;   
+    line-height: 25px;
 }
-.textoBanner h2{
+
+.textoBanner h2 {
     font-size: 30px;
-    line-height: 25px;   
+    line-height: 25px;
 }
-.textoBanner h3{
+
+.textoBanner h3 {
     font-size: 24px;
-    line-height: 25px;   
+    line-height: 25px;
 }
-.barraProductos{
+
+.barraProductos {
     margin-top: 10px;
     margin-bottom: 10px;
     margin-left: 50px;
     margin-right: 50px;
-    border: 1px solid rgb(55, 53, 53);
+    border: 1px solid #0d1117;
     border-radius: 10px;
     border: none;
-    background-color: rgb(55, 53, 53);
+    background-color: #0d1117;
 }
+
 .barraProductos h2 {
-   margin: 0;
-   padding: 0;
-   margin-top: -19px;
-   line-height: 70px;
-   margin-bottom: -20px;
-   font-size: 50px;
+    margin: 0;
+    padding: 0;
+    margin-top: -19px;
+    line-height: 70px;
+    margin-bottom: -20px;
+    font-size: 50px;
     float: left;
     color: #ffffff;
 }
-.barraProductos .organizarProductos span{   
+
+.barraProductos .organizarProductos span {
     margin-left: 5px;
-    color: #ffffff;    
+    color: #ffffff;
 }
-.barraProductos .organizarProductos button{
+
+.barraProductos .organizarProductos button {
     padding-left: -10px;
     background-color: #2e3a64;
 }
-.barraProductos .organizarProductos button i{
+
+.barraProductos .organizarProductos button i {
     margin-left: 10px;
     color: #ffffff;
 }
-.tituloDestacado h1{
+
+.tituloDestacado h1 {
     margin-top: -5px;
     margin-bottom: -10px;
     padding-bottom: -10px;
 }
-.tituloDestacado div button{
+
+.tituloDestacado div button {
     margin-top: 5px;
     background-color: #2e3a64;
     color: #ffffff;
-
 }
+
 .tituloDestacado h1 small {
     color: #ffffff;
 }
-.tituloDestacado button span{
+
+.tituloDestacado button span {
     margin-left: 15px;
 }
 
-.productos ul li figure{
+.productos ul li figure {
     border: 15px;
-    overflow:hidden;
+    overflow: hidden;
     border-radius: 20px;
-
 }
 
-.productos ul li a img:hover{
-	transition: .3s all ease;
-	opacity:.7;
-	transform: scale(1.1,1.1);
+.productos ul li a img:hover {
+    transition: .3s all ease;
+    opacity: .7;
+    transform: scale(1.1, 1.1);
 }
 
-.productos ul li h4 small{
-	color:#777;
-	text-transform: uppercase;
-	font-size:12px;
+.productos ul li h4 small {
+    color: #777;
+    text-transform: uppercase;
+    font-size: 12px;
     font-weight: 800;
-    
-    
 }
-  
-.productos .container ul{
+
+.productos .container ul {
     height: 100%;
     width: 100%;
-    
-/*     padding-right: -90px;
+    /*     padding-right: -90px;
     padding-left: -90px;
     margin-right: -90px;
     margin-left: -90px; 
@@ -129,79 +140,72 @@
     border: 1px solid #262222;
     border-radius: 10px;
     */
-    
 }
+
 .productos .container ul li {
-    
-    padding-top: 20px;    
- /*    margin-top: 10px; 
+    padding-top: 20px;
+    /*    margin-top: 10px; 
     margin-left: -10px;
     margin-right: 10px;
     margin-bottom: 10px;
     border-radius: 10px;
     border-left: 3px solid  rgb(53, 55, 54);
-    border-right: 3px solid  rgb(55, 53, 53);
+    border-right: 3px solid  #0d1117;
     border-top: 3px solid  rgb(255, 255, 255);
     border-bottom: 3px solid  rgb(255, 255, 255);
     background-color: rgb(37, 33, 33);  */
-    
- 
-    
 }
 
-.productos ul li h4 small a{
-	color:rgb(255, 255, 255);
+.productos ul li h4 small a {
+    color: rgb(255, 255, 255);
 }
 
-.productos ul li div.precio{
-	padding:0;
-	margin-top:-30px;
-    padding-bottom:20px;
-    
-
+.productos ul li div.precio {
+    padding: 0;
+    margin-top: -30px;
+    padding-bottom: 20px;
 }
-.precio h2 small{
+
+.precio h2 small {
     color: #ffffff;
-
-}
-.productos ul li div.enlaces{
-	padding:0;
-    padding-bottom:20px;
-    
-
 }
 
-.productos ul li div.enlaces button{
-	margin:2px;
+.productos ul li div.enlaces {
+    padding: 0;
+    padding-bottom: 20px;
 }
 
-.productos ul li div.enlaces button i{
-	color:#999;
-	font-size:12px;
+.productos ul li div.enlaces button {
+    margin: 2px;
 }
 
-.productos ul li h1{
-	margin-top:-10px;
+.productos ul li div.enlaces button i {
+    color: #999;
+    font-size: 12px;
 }
 
-.productos ul li h1 small{
-	text-transform: uppercase;
-	font-size:20px;
-	font-weight: 700;
+.productos ul li h1 {
+    margin-top: -10px;
 }
 
-.productos ul li h1 small a{
-	color:#777;
+.productos ul li h1 small {
+    text-transform: uppercase;
+    font-size: 20px;
+    font-weight: 700;
 }
 
-.oferta{
-	 text-decoration:line-through;
-	 color:#ccc;
-	 font-size:15px;
+.productos ul li h1 small a {
+    color: #777;
 }
 
-.fontSize{
-	font-size:11px;
+.oferta {
+    text-decoration: line-through;
+    color: #ccc;
+    font-size: 15px;
+}
+
+.fontSize {
+    font-size: 11px;
 }
 
 
@@ -209,111 +213,92 @@
 ESCRITORIO GRANDE (LG revisamos en 1366px en adelante)
 =============================================*/
 
-@media (min-width:1200px){
-
-	.banner{
-		height:260px;
-	}
-
-
+@media (min-width:1200px) {
+    .banner {
+        height: 260px;
+    }
 }
+
 
 /*=============================================
 ESCRITORIO MEDIANO O TABLET HORIZONTAL (MD revisamos en 1024px)
 =============================================*/
 
-@media (max-width:1199px) and (min-width:992px){
-
-	.banner{
-		height:260px;
-	}
-
+@media (max-width:1199px) and (min-width:992px) {
+    .banner {
+        height: 260px;
+    }
 }
+
 
 /*=============================================
 ESCRITORIO PEQUEÑO O TABLET VERTICAL (SM revisamos en 768px)
 =============================================*/
 
-@media (max-width:991px) and (min-width:768px){
-
-	.banner{
-		height:180px;
-	}
-
-	.textoBanner h1{
-		font-size:30px;
-		line-height:15px;
-	}
-
-	.textoBanner h2{
-		font-size:25px;
-		line-height:15px;
-	}
-
-	.textoBanner h3{
-		font-size:25px;
-		line-height:15px;
-	}
-
-	.banner .textoDer, .banner .textoIzq, .banner .textoCentro{
-		top:35px; 
-	}
-
-
+@media (max-width:991px) and (min-width:768px) {
+    .banner {
+        height: 180px;
+    }
+    .textoBanner h1 {
+        font-size: 30px;
+        line-height: 15px;
+    }
+    .textoBanner h2 {
+        font-size: 25px;
+        line-height: 15px;
+    }
+    .textoBanner h3 {
+        font-size: 25px;
+        line-height: 15px;
+    }
+    .banner .textoDer,
+    .banner .textoIzq,
+    .banner .textoCentro {
+        top: 35px;
+    }
 }
+
 
 /*=============================================
 MOVIL (XS revisamos en 320px)
 =============================================*/
 
-@media (max-width:767px){
-
-	.banner{
-		height:100px;
-	}
-
-	.banner .textoDer, .banner .textoCentro, .banner .textoIzq{
-		top:7px; 
-		left:50%;
-		width:800px; 
-		margin-left: -400px;
-		text-align:center;
-		text-shadow:2px 2px 20px black;
-	}
-
-	.textoBanner h1{
-		font-size:20px;
-		line-height:5px;
-	}
-
-	.textoBanner h2{
-		font-size:20px;
-		line-height:5px;
-	}
-
-	.textoBanner h3{
-		font-size:15px;
-		line-height:5px;
-	}
-
-	.tituloDestacado h1{
-		text-align:center;
-	}
-
-	.tituloDestacado button{
-		position: absolute;
-		left:50%;
-		width:40%;
-		margin-left:-20%;
-
-	}
-
-	.productos ul li h1 small{
-		font-size:16px;
-	}
-
-	
-}
-
-.grid0 li{
+@media (max-width:767px) {
+    .banner {
+        height: 100px;
+    }
+    .banner .textoDer,
+    .banner .textoCentro,
+    .banner .textoIzq {
+        top: 7px;
+        left: 50%;
+        width: 800px;
+        margin-left: -400px;
+        text-align: center;
+        text-shadow: 2px 2px 20px black;
+    }
+    .textoBanner h1 {
+        font-size: 20px;
+        line-height: 5px;
+    }
+    .textoBanner h2 {
+        font-size: 20px;
+        line-height: 5px;
+    }
+    .textoBanner h3 {
+        font-size: 15px;
+        line-height: 5px;
+    }
+    .tituloDestacado h1 {
+        text-align: center;
+    }
+    .tituloDestacado button {
+        position: absolute;
+        left: 50%;
+        width: 40%;
+        margin-left: -20%;
+    }
+    .productos ul li h1 small {
+        font-size: 16px;
+    }
 }

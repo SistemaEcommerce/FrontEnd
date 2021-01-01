@@ -1,8 +1,14 @@
-
-.infoproducto figure.visor img{
+.infoproducto figure.visor img {
     display: none;
     cursor: pointer;
 }
-.infoproducto figure.visor img:first-child{
+
+.infoproducto figure.visor img:first-child {
     display: block;
+}
+
+.panel,
+panel-body,
+panel-default {
+    background-color: #0d1117;
 }

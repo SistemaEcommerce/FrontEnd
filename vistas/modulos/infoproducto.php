@@ -4,16 +4,16 @@
 
 ?>
 
-<div class="container-fluid  productos" style="background-color: rgb(55, 53, 53);border:0px;padding-top:15px;">
+<div class="container-fluid  productos" style="background-color: #0d1117;border:0px;padding-top:15px;">
 <br>
     <div class="container">
         <div class="row">
           
 
-               <ul class="breadcrumb fondoBreadcrumb  text-uppercase" style="background-color:rgb(55, 53, 53);padding-top:0px;padding-bottom:0px;border:none;top:-30px;margin-bottom:0px;font-size:25px;">
+               <ul class="breadcrumb fondoBreadcrumb  text-uppercase" style="background-color:#0d1117;padding-top:0px;padding-bottom:0px;border:none;top:-30px;margin-bottom:0px;font-size:25px;">
 				
-				    <li  style="background-color:rgb(55, 53, 53); color:#ffffff; border:none;padding-left:20px;padding-top:1px;"><a href="<?php echo $url;?>">INICIO</a></li>
-				    <li  class="active pagActiva" style="background-color:rgb(55, 53, 53); color:#ffffff; border:none;padding-left:20px;padding-top:1px;"> <?php echo $rutas[0] ?></li>
+				    <li  style="background-color:#0d1117; color:#ffffff; border:none;padding-left:20px;padding-top:1px;"><a href="<?php echo $url;?>">INICIO</a></li>
+				    <li  class="active pagActiva" style="background-color:#0d1117; color:#ffffff; border:none;padding-left:20px;padding-top:1px;"> <?php echo $rutas[0] ?></li>
 
                 </ul>
 
@@ -247,12 +247,12 @@
                                         echo'
                                         <div class="col-md-3 col-xs-12" >
                                             <select class="form-control seleccionarTalla" id="seleccionarTalla" 
-                                            style="color:black;background-color: rgb(55, 53, 53);border:none;">
-                                                <option style="color:black;background-color: rgb(55, 53, 53);border:none;" value="">Talla</option>';
+                                            style="color:black;background-color: #0d1117;border:none;">
+                                                <option style="color:black;background-color: #0d1117;border:none;" value="">Talla</option>';
 
                                                 for($i = 0; $i <= count($detalles["Talla"]); $i++){ 
                                                     
-                                                    echo'<option  style="color:black;background-color: rgb(55, 53, 53);border:none;"
+                                                    echo'<option  style="color:black;background-color: #0d1117;border:none;"
                                                     value="'.$detalles["Talla"][$i].'">'.$detalles["Talla"][$i].'</option>';
 
                                                 }
@@ -265,13 +265,13 @@
                                         echo '<div class="col-md-3 col-xs-12">
 
                                             <select class="form-control seleccionarDetalle" id="seleccionarColor"
-                                                style="color:black;background-color: rgb(55, 53, 53);border:none;">
+                                                style="color:black;background-color: #0d1117;border:none;">
 
-                                                <option style="color:black;background-color: rgb(55, 53, 53);border:none;" value="">Color</option>';
+                                                <option style="color:black;background-color: #0d1117;border:none;" value="">Color</option>';
 
                                                 for ($i=0; $i <=count($detalles["Color"]) ; $i++) { 
                                                     
-                                                    echo'<option  style="color:black;background-color: rgb(55, 53, 53);border:none;" 
+                                                    echo'<option  style="color:black;background-color: #0d1117;border:none;" 
                                                         value="'.$detalles["Color"][$i].'">'.$detalles["Color"][$i].'</option>';
 
                                                 }
@@ -284,13 +284,13 @@
                                         echo '<div class="col-md-3 col-xs-12">
 
                                             <select class="form-control seleccionarDetalle" id="seleccionarMarca"
-                                                style="color:black;background-color: rgb(55, 53, 53);border:none;">
+                                                style="color:black;background-color: #0d1117;border:none;">
 
-                                                <option style="color:black;background-color: rgb(55, 53, 53);border:none;" value="">Marca</option>';
+                                                <option style="color:black;background-color: #0d1117;border:none;" value="">Marca</option>';
 
                                                 for($i = 0; $i <= count($detalles["Marca"]); $i++){
                                                     
-                                                    echo'<option  style="color:black;background-color: rgb(55, 53, 53);border:none;" 
+                                                    echo'<option  style="color:black;background-color: #0d1117;border:none;" 
                                                     value="'.$detalles["Marca"][$i].'">'.$detalles["Marca"][$i].'</option>';
 
                                                 }
@@ -301,18 +301,18 @@
                                     /* stock */
                                     $infoproductoruta=$infoproducto["stock"];
                                     /* echo'<i class="fa fa-shopping-cart" 
-                                    style="color:black;background-color: rgb(55, 53, 53);border:none;font-size:25px;"> STOCK '.$infoproductoruta.'</i> '; */
+                                    style="color:black;background-color: #0d1117;border:none;font-size:25px;"> STOCK '.$infoproductoruta.'</i> '; */
  
                             /*         echo'
                                         <div class="col-md-3 col-xs-12" >
                                             <select class="form-control seleccionarDetalle" id="seleccionarTalla"
-                                            style="color:black;background-color: rgb(55, 53, 53);border:none;text-align: right;">
-                                                 <option style="color:black;background-color: rgb(55, 53, 53);border:none;text-align: right;" 
+                                            style="color:black;background-color: #0d1117;border:none;text-align: right;">
+                                                 <option style="color:black;background-color: #0d1117;border:none;text-align: right;" 
                                                 value="">Stock   '.$infoproductoruta.'</option>
                                         ';
                                     for ($i=1; $i <=$infoproductoruta ; $i++) { 
                                         
-                                        echo'<option  style="color:black;background-color: rgb(55, 53, 53);border:none;text-align: right;" value="">'.$i.'</option>';
+                                        echo'<option  style="color:black;background-color: #0d1117;border:none;text-align: right;" value="">'.$i.'</option>';
                                         
                                     }
                                     echo'</select>
