@@ -709,8 +709,167 @@ class ControladorUsuarios{
 		return $respuesta;
 
 	}
+	/* actualizar */
+	public function ctrActualizarComentario(){
 
+		if(isset($_POST["idComentario"])){
 
-	
+			if(preg_match('/^[,\\.\\a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["comentario"])){
 
+				if($_POST["comentario"] != ""){
+
+					$tabla = "comentarios";
+
+					$datos = array("id"=>$_POST["idComentario"],
+								   "calificacion"=>$_POST["puntaje"],
+								   "comentario"=>$_POST["comentario"]);
+
+				   $respuesta = ModeloUsuarios::mdlActualizarComentario($tabla, $datos);
+
+                   if ($respuesta == "ok") {
+					echo'<script>
+
+					swal({
+						  title: "¡GRACIAS POR COMPARTIR SU OPINIÓN!",
+						  text: "¡Su calificación y comentario ha sido guardado!",
+						  type: "success",
+						  confirmButtonText: "Cerrar",
+						  closeOnConfirm: false
+					},
+
+					function(isConfirm){
+							 if (isConfirm) {	   
+							   history.back();
+							  } 
+					});
+
+				  </script>';
+                   }
+
+				}else{
+
+					echo'<script>
+
+						swal({
+							  title: "¡ERROR AL ENVIAR SU CALIFICACIÓN!",
+							  text: "¡El comentario no puede estar vacío!",
+							  type: "error",
+							  confirmButtonText: "Cerrar",
+							  closeOnConfirm: false
+						},
+
+						function(isConfirm){
+								 if (isConfirm) {	   
+								   history.back();
+								  } 
+						});
+
+					  </script>';
+
+				}	
+
+			}else{
+
+				echo'<script>
+
+						swal({
+							  title: "¡ERROR AL ENVIAR SU CALIFICACIÓN!",
+							  text: "¡El comentario no puede estar vacío!",
+							  type: "error",
+							  confirmButtonText: "Cerrar",
+							  closeOnConfirm: false
+						},
+
+						function(isConfirm){
+								 if (isConfirm) {	   
+								   history.back();
+								  } 
+						});
+
+					  </script>';
+
+			}
+
+		}
+	}
+	static public function ctrAgregarDeseo($datos){
+
+		$tabla = "deseos";
+
+		$respuesta = ModeloUsuarios::mdlAgregarDeseo($tabla, $datos);
+
+		return $respuesta;
+
+	}
+	static public function ctrMostrarDeseos($item){
+
+		$tabla = "deseos";
+
+		$respuesta = ModeloUsuarios::mdlMostrarDeseos($tabla, $item);
+
+		return $respuesta;
+
+	}
+	static public function ctrQuitarDeseo($datos){
+
+		$tabla = "deseos";
+
+		$respuesta = ModeloUsuarios::mdlQuitarDeseo($tabla, $datos);
+
+		return $respuesta;
+
+	}
+	public function ctrEliminarUsuario(){
+
+		if(isset($_GET["id"])){
+
+			$tabla1 = "usuarios";		
+			$tabla2 = "comentarios";
+			$tabla3 = "compras";
+			$tabla4 = "deseos";
+
+			$id = $_GET["id"];
+
+			if($_GET["foto"] != ""){
+
+				unlink($_GET["foto"]);
+				rmdir('vistas/img/usuarios/'.$_GET["id"]);
+
+			}
+
+			$respuesta = ModeloUsuarios::mdlEliminarUsuario($tabla1, $id);
+			
+			ModeloUsuarios::mdlEliminarComentarios($tabla2, $id);
+
+			ModeloUsuarios::mdlEliminarCompras($tabla3, $id);
+
+			ModeloUsuarios::mdlEliminarListaDeseos($tabla4, $id);
+
+			if($respuesta == "ok"){
+
+		    	$url = Ruta::ctrRuta();
+
+		    	echo'<script>
+
+						swal({
+							  title: "¡SU CUENTA HA SIDO BORRADA!",
+							  text: "¡Debe registrarse nuevamente si desea ingresar!",
+							  type: "success",
+							  confirmButtonText: "Cerrar",
+							  closeOnConfirm: false
+						},
+
+						function(isConfirm){
+								 if (isConfirm) {	   
+								   window.location = "'.$url.'salir";
+								  } 
+						});
+
+					  </script>';
+
+		    }
+
+		}
+
+	}
 }

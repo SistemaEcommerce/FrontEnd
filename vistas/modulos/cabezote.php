@@ -2,6 +2,21 @@
 
 $servidor = Ruta::ctrRutaServidor();
 $url = Ruta::ctrRuta();
+/* inicio de secion usuario */
+if(isset($_SESSION["validarSesion"])){
+
+	if($_SESSION["validarSesion"] == "ok"){
+
+		echo '<script>
+		
+			localStorage.setItem("usuario","'.$_SESSION["id"].'");
+
+		</script>';
+
+	}
+
+}
+
 /*API DE GOOGLE
 https://github.com/googleapis/google-api-php-client
 https://console.developers.google.com/apis/credentials?project=sistemaventas-300000

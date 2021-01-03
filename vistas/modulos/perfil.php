@@ -18,8 +18,8 @@ if(!isset($_SESSION["validarSesion"])){
 ?>
 <!-- 
 breadcrum  -->
-<div class="container-fluid  productos" style="background-color: #0d1117;border:0px;padding-top:15px;">
-<br>
+<div class="container-fluid  well well-sm" style="background-color: #0d1117;border:0px;padding-top:15px;">
+	<br>
     <div class="container">
         <div class="row">
           
@@ -77,289 +77,441 @@ breadcrum  -->
 		    
 			<div class="panel-group">
 
-			<?php
+				<?php
 
-				$item = "id_usuario";
-				$valor = $_SESSION["id"];
+					$item = "id_usuario";
+					$valor = $_SESSION["id"];
 
-				$compras = ControladorUsuarios::ctrMostrarCompras($item, $valor);
+					$compras = ControladorUsuarios::ctrMostrarCompras($item, $valor);
 
-				if(!$compras){
+					if(!$compras){
 
-					echo '<div class="col-xs-12 text-center error404">
-						   
-						<h1><small>¡Oops!</small></h1>
-				
-						<h2>Aún no tienes compras realizadas en esta tienda</h2>
+						echo '<div class="col-xs-12 text-center error404">
+				               
+				    		<h1><small>¡Oops!</small></h1>
+				    
+				    		<h2>Aún no tienes compras realizadas en esta tienda</h2>
 
-					  </div>';
+				  		</div>';
 
-				}else{
+					}else{
 
-					foreach ($compras as $key => $value1) {
+						foreach ($compras as $key => $value1) {
 
-						$ordenar = "id";
-						$item = "id";
-						$valor = $value1["id_producto"];
+							$ordenar = "id";
+							$item = "id";
+							$valor = $value1["id_producto"];
 
-						$productos = ControladorProductos::ctrListarProductos($ordenar, $item, $valor);
+							$productos = ControladorProductos::ctrListarProductos($ordenar, $item, $valor);
 
-						foreach ($productos as $key => $value2) {
-						
-							echo '<div class="panel panel-default">
-									
-									<div class="panel-body">
+							foreach ($productos as $key => $value2) {
+							
+								echo '<div class="panel panel-default">
+									    
+									    <div class="panel-body">
 
-										<div class="col-md-2 col-sm-6 col-xs-12">
+											<div class="col-md-2 col-sm-6 col-xs-12">
 
-											<figure>
-											
-												<img class="img-thumbnail" src="'.$servidor.$value2["portada"].'">
-
-											</figure>
-
-										</div>
-
-										<div class="col-sm-6 col-xs-12">
-
-											<h1><small>'.$value2["titulo"].'</small></h1>
-
-											<p>'.$value2["titular"].'</p>';
-
-											if($value2["tipo"] == "virtual"){
-
-												echo '<a href="'.$url.'/curso">
-													<button class="btn btn-default pull-left">Ir al curso</button>
-													</a>';
-
-											}else{
-
-												echo '<h6>Proceso de entrega: '.$value2["entrega"].' días hábiles</h6>';
-
-												if($value1["envio"] == 0){
-
-													echo '<div class="progress">
-
-														<div class="progress-bar progress-bar-info" role="progressbar" style="width:33.33%">
-															<i class="fa fa-check"></i> Despachado
-														</div>
-
-														<div class="progress-bar progress-bar-default" role="progressbar" style="width:33.33%">
-															<i class="fa fa-clock-o"></i> Enviando
-														</div>
-
-														<div class="progress-bar progress-bar-success" role="progressbar" style="width:33.33%">
-															<i class="fa fa-clock-o"></i> Entregado
-														</div>
-
-													</div>';
-
-												}
-
-												if($value1["envio"] == 1){
-
-													echo '<div class="progress">
-
-														<div class="progress-bar progress-bar-info" role="progressbar" style="width:33.33%">
-															<i class="fa fa-check"></i> Despachado
-														</div>
-
-														<div class="progress-bar progress-bar-default" role="progressbar" style="width:33.33%">
-															<i class="fa fa-check"></i> Enviando
-														</div>
-
-														<div class="progress-bar progress-bar-success" role="progressbar" style="width:33.33%">
-															<i class="fa fa-clock-o"></i> Entregado
-														</div>
-
-													</div>';
-
-												}
-
-												if($value1["envio"] == 2){
-
-													echo '<div class="progress">
-
-														<div class="progress-bar progress-bar-info" role="progressbar" style="width:33.33%">
-															<i class="fa fa-check"></i> Despachado
-														</div>
-
-														<div class="progress-bar progress-bar-default" role="progressbar" style="width:33.33%">
-															<i class="fa fa-check"></i> Enviando
-														</div>
-
-														<div class="progress-bar progress-bar-success" role="progressbar" style="width:33.33%">
-															<i class="fa fa-check"></i> Entregado
-														</div>
-
-													</div>';
-
-												}
-
-											}
-
-											echo '<h4 class="pull-right"><small>Comprado el '.substr($value1["fecha"],0,-8).'</small></h4>
-															
-										</div>
-
-										<div class="col-md-4 col-xs-12">';
-
-										$datos = array("idUsuario"=>$_SESSION["id"],
-														"idProducto"=>$value2["id"] );
-
-										$comentarios = ControladorUsuarios::ctrMostrarComentariosPerfil($datos);
-
-											echo '<div class="pull-right">
-
-												<a class="calificarProducto" href="#modalComentarios" data-toggle="modal" idComentario="'.$comentarios["id"].'">
+												<figure>
 												
-													<button class="btn btn-default backColor">Calificar Producto</button>
+													<img class="img-thumbnail" src="'.$servidor.$value2["portada"].'">
 
-												</a>
+												</figure>
 
 											</div>
 
-											<br><br>
+											<div class="col-sm-6 col-xs-12">
 
-											<div class="pull-right">
+												<h1><small>'.$value2["titulo"].'</small></h1>
 
-												<h3 class="text-right">';
+												<p>'.$value2["titular"].'</p>';
 
-												if($comentarios["calificacion"] == 0 && $comentarios["comentario"] == ""){
+												if($value2["tipo"] == "virtual"){
 
-													echo '<i class="fa fa-star-o text-success" aria-hidden="true"></i>
-															<i class="fa fa-star-o text-success" aria-hidden="true"></i>
-															<i class="fa fa-star-o text-success" aria-hidden="true"></i>
-															<i class="fa fa-star-o text-success" aria-hidden="true"></i>
-															<i class="fa fa-star-o text-success" aria-hidden="true"></i>';
+													echo '<a href="'.$url.'/curso">
+														<button class="btn btn-default pull-left">Ir al curso</button>
+														</a>';
 
 												}else{
 
-													switch($comentarios["calificacion"]){
+													echo '<h6>Proceso de entrega: '.$value2["entrega"].' días hábiles</h6>';
 
-														case 0.5:
-														echo '<i class="fa fa-star-half-o text-success" aria-hidden="true"></i>
-															  <i class="fa fa-star-o text-success" aria-hidden="true"></i>
-															  <i class="fa fa-star-o text-success" aria-hidden="true"></i>
-															  <i class="fa fa-star-o text-success" aria-hidden="true"></i>
-															  <i class="fa fa-star-o text-success" aria-hidden="true"></i>';
-														break;
+													if($value1["envio"] == 0){
 
-														case 1.0:
-														echo '<i class="fa fa-star text-success" aria-hidden="true"></i>
-															  <i class="fa fa-star-o text-success" aria-hidden="true"></i>
-															  <i class="fa fa-star-o text-success" aria-hidden="true"></i>
-															  <i class="fa fa-star-o text-success" aria-hidden="true"></i>
-															  <i class="fa fa-star-o text-success" aria-hidden="true"></i>';
-														break;
+														echo '<div class="progress">
 
-														case 1.5:
-														echo '<i class="fa fa-star text-success" aria-hidden="true"></i>
-															  <i class="fa fa-star-half-o text-success" aria-hidden="true"></i>
-															  <i class="fa fa-star-o text-success" aria-hidden="true"></i>
-															  <i class="fa fa-star-o text-success" aria-hidden="true"></i>
-															  <i class="fa fa-star-o text-success" aria-hidden="true"></i>';
-														break;
+															<div class="progress-bar progress-bar-info" role="progressbar" style="width:33.33%">
+																<i class="fa fa-check"></i> Despachado
+															</div>
 
-														case 2.0:
-														echo '<i class="fa fa-star text-success" aria-hidden="true"></i>
-															  <i class="fa fa-star text-success" aria-hidden="true"></i>
-															  <i class="fa fa-star-o text-success" aria-hidden="true"></i>
-															  <i class="fa fa-star-o text-success" aria-hidden="true"></i>
-															  <i class="fa fa-star-o text-success" aria-hidden="true"></i>';
-														break;
+															<div class="progress-bar progress-bar-default" role="progressbar" style="width:33.33%">
+																<i class="fa fa-clock-o"></i> Enviando
+															</div>
 
-														case 2.5:
-														echo '<i class="fa fa-star text-success" aria-hidden="true"></i>
-															  <i class="fa fa-star text-success" aria-hidden="true"></i>
-															  <i class="fa fa-star-half-o text-success" aria-hidden="true"></i>
-															  <i class="fa fa-star-o text-success" aria-hidden="true"></i>
-															  <i class="fa fa-star-o text-success" aria-hidden="true"></i>';
-														break;
+															<div class="progress-bar progress-bar-success" role="progressbar" style="width:33.33%">
+																<i class="fa fa-clock-o"></i> Entregado
+															</div>
 
-														case 3.0:
-														echo '<i class="fa fa-star text-success" aria-hidden="true"></i>
-															  <i class="fa fa-star text-success" aria-hidden="true"></i>
-															  <i class="fa fa-star text-success" aria-hidden="true"></i>
-															  <i class="fa fa-star-o text-success" aria-hidden="true"></i>
-															  <i class="fa fa-star-o text-success" aria-hidden="true"></i>';
-														break;
-
-														case 3.5:
-														echo '<i class="fa fa-star text-success" aria-hidden="true"></i>
-															  <i class="fa fa-star text-success" aria-hidden="true"></i>
-															  <i class="fa fa-star text-success" aria-hidden="true"></i>
-															  <i class="fa fa-star-half-o text-success" aria-hidden="true"></i>
-															  <i class="fa fa-star-o text-success" aria-hidden="true"></i>';
-														break;
-
-														case 4.0:
-														echo '<i class="fa fa-star text-success" aria-hidden="true"></i>
-															  <i class="fa fa-star text-success" aria-hidden="true"></i>
-															  <i class="fa fa-star text-success" aria-hidden="true"></i>
-															  <i class="fa fa-star text-success" aria-hidden="true"></i>
-															  <i class="fa fa-star-o text-success" aria-hidden="true"></i>';
-														break;
-
-														case 4.5:
-														echo '<i class="fa fa-star text-success" aria-hidden="true"></i>
-															  <i class="fa fa-star text-success" aria-hidden="true"></i>
-															  <i class="fa fa-star text-success" aria-hidden="true"></i>
-															  <i class="fa fa-star text-success" aria-hidden="true"></i>
-															  <i class="fa fa-star-half-o text-success" aria-hidden="true"></i>';
-														break;
-
-														case 5.0:
-														echo '<i class="fa fa-star text-success" aria-hidden="true"></i>
-															  <i class="fa fa-star text-success" aria-hidden="true"></i>
-															  <i class="fa fa-star text-success" aria-hidden="true"></i>
-															  <i class="fa fa-star text-success" aria-hidden="true"></i>
-															  <i class="fa fa-star text-success" aria-hidden="true"></i>';
-														break;
+														</div>';
 
 													}
 
+													if($value1["envio"] == 1){
+
+														echo '<div class="progress">
+
+															<div class="progress-bar progress-bar-info" role="progressbar" style="width:33.33%">
+																<i class="fa fa-check"></i> Despachado
+															</div>
+
+															<div class="progress-bar progress-bar-default" role="progressbar" style="width:33.33%">
+																<i class="fa fa-check"></i> Enviando
+															</div>
+
+															<div class="progress-bar progress-bar-success" role="progressbar" style="width:33.33%">
+																<i class="fa fa-clock-o"></i> Entregado
+															</div>
+
+														</div>';
+
+													}
+
+													if($value1["envio"] == 2){
+
+														echo '<div class="progress">
+
+															<div class="progress-bar progress-bar-info" role="progressbar" style="width:33.33%">
+																<i class="fa fa-check"></i> Despachado
+															</div>
+
+															<div class="progress-bar progress-bar-default" role="progressbar" style="width:33.33%">
+																<i class="fa fa-check"></i> Enviando
+															</div>
+
+															<div class="progress-bar progress-bar-success" role="progressbar" style="width:33.33%">
+																<i class="fa fa-check"></i> Entregado
+															</div>
+
+														</div>';
+
+													}
 
 												}
-											
+
+												echo '<h4 class="pull-right"><small>Comprado el '.substr($value1["fecha"],0,-8).'</small></h4>
+																
+											</div>
+
+											<div class="col-md-4 col-xs-12">';
+
+											$datos = array("idUsuario"=>$_SESSION["id"],
+															"idProducto"=>$value2["id"] );
+
+											$comentarios = ControladorUsuarios::ctrMostrarComentariosPerfil($datos);
+
+												echo '<div class="pull-right">
+
+													<a class="calificarProducto" href="#modalComentarios" data-toggle="modal" idComentario="'.$comentarios["id"].'">
 													
-												echo '</h3>
+														<button class="btn btn-default backColor">Calificar Producto</button>
 
-												<p class="panel panel-default text-right" style="padding:5px">
+													</a>
 
-													<small>
+												</div>
 
-													'.$comentarios["comentario"].'
+												<br><br>
 
-													</small>
+												<div class="pull-right">
+
+													<h3 class="text-right">';
+
+													if($comentarios["calificacion"] == 0 && $comentarios["comentario"] == ""){
+
+														echo '<i class="fa fa-star-o text-success" aria-hidden="true"></i>
+																<i class="fa fa-star-o text-success" aria-hidden="true"></i>
+																<i class="fa fa-star-o text-success" aria-hidden="true"></i>
+																<i class="fa fa-star-o text-success" aria-hidden="true"></i>
+																<i class="fa fa-star-o text-success" aria-hidden="true"></i>';
+
+													}else{
+
+														switch($comentarios["calificacion"]){
+
+															case 0.5:
+															echo '<i class="fa fa-star-half-o text-success" aria-hidden="true"></i>
+																  <i class="fa fa-star-o text-success" aria-hidden="true"></i>
+																  <i class="fa fa-star-o text-success" aria-hidden="true"></i>
+																  <i class="fa fa-star-o text-success" aria-hidden="true"></i>
+																  <i class="fa fa-star-o text-success" aria-hidden="true"></i>';
+															break;
+
+															case 1.0:
+															echo '<i class="fa fa-star text-success" aria-hidden="true"></i>
+																  <i class="fa fa-star-o text-success" aria-hidden="true"></i>
+																  <i class="fa fa-star-o text-success" aria-hidden="true"></i>
+																  <i class="fa fa-star-o text-success" aria-hidden="true"></i>
+																  <i class="fa fa-star-o text-success" aria-hidden="true"></i>';
+															break;
+
+															case 1.5:
+															echo '<i class="fa fa-star text-success" aria-hidden="true"></i>
+																  <i class="fa fa-star-half-o text-success" aria-hidden="true"></i>
+																  <i class="fa fa-star-o text-success" aria-hidden="true"></i>
+																  <i class="fa fa-star-o text-success" aria-hidden="true"></i>
+																  <i class="fa fa-star-o text-success" aria-hidden="true"></i>';
+															break;
+
+															case 2.0:
+															echo '<i class="fa fa-star text-success" aria-hidden="true"></i>
+																  <i class="fa fa-star text-success" aria-hidden="true"></i>
+																  <i class="fa fa-star-o text-success" aria-hidden="true"></i>
+																  <i class="fa fa-star-o text-success" aria-hidden="true"></i>
+																  <i class="fa fa-star-o text-success" aria-hidden="true"></i>';
+															break;
+
+															case 2.5:
+															echo '<i class="fa fa-star text-success" aria-hidden="true"></i>
+																  <i class="fa fa-star text-success" aria-hidden="true"></i>
+																  <i class="fa fa-star-half-o text-success" aria-hidden="true"></i>
+																  <i class="fa fa-star-o text-success" aria-hidden="true"></i>
+																  <i class="fa fa-star-o text-success" aria-hidden="true"></i>';
+															break;
+
+															case 3.0:
+															echo '<i class="fa fa-star text-success" aria-hidden="true"></i>
+																  <i class="fa fa-star text-success" aria-hidden="true"></i>
+																  <i class="fa fa-star text-success" aria-hidden="true"></i>
+																  <i class="fa fa-star-o text-success" aria-hidden="true"></i>
+																  <i class="fa fa-star-o text-success" aria-hidden="true"></i>';
+															break;
+
+															case 3.5:
+															echo '<i class="fa fa-star text-success" aria-hidden="true"></i>
+																  <i class="fa fa-star text-success" aria-hidden="true"></i>
+																  <i class="fa fa-star text-success" aria-hidden="true"></i>
+																  <i class="fa fa-star-half-o text-success" aria-hidden="true"></i>
+																  <i class="fa fa-star-o text-success" aria-hidden="true"></i>';
+															break;
+
+															case 4.0:
+															echo '<i class="fa fa-star text-success" aria-hidden="true"></i>
+																  <i class="fa fa-star text-success" aria-hidden="true"></i>
+																  <i class="fa fa-star text-success" aria-hidden="true"></i>
+																  <i class="fa fa-star text-success" aria-hidden="true"></i>
+																  <i class="fa fa-star-o text-success" aria-hidden="true"></i>';
+															break;
+
+															case 4.5:
+															echo '<i class="fa fa-star text-success" aria-hidden="true"></i>
+																  <i class="fa fa-star text-success" aria-hidden="true"></i>
+																  <i class="fa fa-star text-success" aria-hidden="true"></i>
+																  <i class="fa fa-star text-success" aria-hidden="true"></i>
+																  <i class="fa fa-star-half-o text-success" aria-hidden="true"></i>';
+															break;
+
+															case 5.0:
+															echo '<i class="fa fa-star text-success" aria-hidden="true"></i>
+																  <i class="fa fa-star text-success" aria-hidden="true"></i>
+																  <i class="fa fa-star text-success" aria-hidden="true"></i>
+																  <i class="fa fa-star text-success" aria-hidden="true"></i>
+																  <i class="fa fa-star text-success" aria-hidden="true"></i>';
+															break;
+
+														}
+
+
+													}
 												
-												</p>
+														
+													echo '</h3>
+
+													<p class="panel panel-default text-right" style="padding:5px; height: 100px;width: 370px;height:150px ;">
+
+														<small>
+
+															'.$comentarios["comentario"].'
+
+														</small>
+													
+													</p>
+												</div>
 
 											</div>
 
-										</div>
+									    </div>
 
-									</div>
+									</div>';
 
-								</div>';
-
+							}
+							
 						}
-						
 					}
-				}
-			?>
-			  
-			
+				?>
+				  
+				
 
-			</div>
+				</div>
 
-		  </div>
+
+		    </div>
 
 
           <!-- pestaña deseos --> 
           <div id="deseos" class="tab-pane fade">
-            <h3>Deseos</h3>
-            <p>Deseos</p>
+            <?php
+
+				$item = $_SESSION["id"];
+
+				$deseos = ControladorUsuarios::ctrMostrarDeseos($item);
+				if(!$deseos){
+					echo '<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center error404">
+				               
+					<h1><small>Usted!</small></h1>
+			
+					<h2>Aún no tiene productos en su lista de deseos</h2>
+
+				  </div>';
+				}else{
+					foreach ($deseos as $key => $value1) {
+
+						$ordenar = "id";
+						$valor = $value1["id_producto"];
+						$item = "id";
+
+						$productos = ControladorProductos::ctrListarProductos($ordenar, $item, $valor);
+
+						echo '<ul class="grid0">';
+
+						foreach ($productos as $key => $value2) {
+						
+						echo '<li class="col-md-3 col-sm-6 col-xs-12">
+		
+										<figure>
+		
+											<a href="'.$url.$value2["ruta"].'" class="pixelProducto">
+		
+												<img src="'.$servidor.$value2["portada"].'" class="img-responsive">
+		
+											</a>
+		
+										</figure>
+		
+		
+										<h4>
+		
+										<small>
+		
+										<a href="'.$url.$value2["ruta"].'" class="pixelProducto">
+										'.$value2["titulo"].'
+									
+										<span style="color:rgba(0,0,0,0)">-</span>';
+		
+											if($value2["nuevo"] != 0){
+		
+												echo '
+													<span class="label label-warning fontSize"> Nuevo </span> 
+													<span style="color: rgb(37, 33, 33)">-</span>
+												  ';  
+		
+											}
+		
+											if($value2["oferta"] != 0){
+		
+												echo '
+												  <span class="label label-warning fontSize"> '.$value2["descuentoOferta"].' % OFF</span> 
+												';                               
+											}
+		
+										echo '</a>	
+		
+									</small>			
+		
+								</h4>
+		
+								<div class="col-xs-6 precio">';
+		
+								if($value2["precio"] == 0){
+		
+									echo '<h2 style="margin-top:-15px"><small>GRATIS</small></h2><br><br>';
+		
+								}else{
+		
+									if($value2["oferta"] != 0){
+		
+										echo '<h2 style="margin-top:-15px"><small>
+												  <strong class="oferta" style="padding-left:5px;padding-right:5px ;border-radius:30px;color:red;background-color:rgb(76, 199, 117)"> S/.'.$value2["precio"].' SOL 
+												  </strong>
+											  </small></h2>
+											  <small style="color:green ;font-size:21px;">  S/.'.$value2["precioOferta"].' SOL</small>
+									';
+		
+									}else{
+		
+										echo'<h2 style="margin-top:-15px"><small style="color:green;font-size:20px">S/.'.$value2["precio"].' SOL</small></h2> <br> <br>';
+		
+									}
+									
+								}
+												
+								echo '</div>
+		
+								<div class="col-xs-6 enlaces">
+									
+									<div class="btn-group pull-right" >
+										
+										<button type="button" class="btn btn-danger btn-xs quitarDeseo" idDeseo="'.$value1["id"].'" data-toggle="tooltip" title="Quitar de mi lista de deseos" >
+											
+											<i class="fa fa-heart" aria-hidden="true"></i>
+		
+										</button>';
+		
+										if($value2["tipo"] == "virtual" && $value2["precio"] != 0){
+		
+											if($value2["oferta"] != 0){
+		
+												echo'<button type="button" class="btn btn-default btn-xs agregarCarrito" idProducto="'.$value2["id"].'"
+													imagen="'.$servidor.$value2["portada"].'" titulo="'.$value2["titulo"].'" precio="'.$value2["precioOferta"].'" 
+													tipo="'.$value2["tipo"].'" peso="'.$value2["peso"].'"  data-toggle="tooltip" 
+													title="Agregar al carrito de compras" >									   
+												   <i class="fa fa-shopping-cart" aria-hidden="true" ></i>
+												</button>';
+		
+											}else{
+		
+												echo'<button type="button" class="btn btn-default btn-xs agregarCarrito" idProducto="'.$value2["id"].'"
+													 imagen="'.$servidor.$value2["portada"].'" titulo="'.$value2["titulo"].'" precio="'.$value2["precio"].'" 
+													 tipo="'.$value2["tipo"].'" peso="'.$value2["peso"].'"  data-toggle="tooltip" 
+													 title="Agregar al carrito de compras">
+										
+													<i class="fa fa-shopping-cart" aria-hidden="true" ></i>
+												</button>';
+											}
+		
+										}
+		
+										echo'<a href="'.$url.$value2["ruta"].'" class="pixelProducto">
+		
+										<button type="button" class="btn btn-default btn-xs" data-toggle="tooltip" title="Ver producto">
+		
+											<i class="fa fa-eye" aria-hidden="true" style="color: #999999;margin-left: 2px;
+											margin-right: 2px;"></i>
+		
+										</button>	
+										
+										</a>
+		
+									</div>
+		
+								</div>
+		
+							</li>';
+						}
+						
+					echo ' </ul>';
+
+					}
+				}
+			?>	
           </div>
           <!-- pestaña perfil -->
           <div id="perfil" class="tab-pane fade">
@@ -530,10 +682,10 @@ breadcrum  -->
 
 					<?php
 
-						/* 	$borrarUsuario = new ControladorUsuarios();
-							$borrarUsuario->ctrEliminarUsuario(); */
+							$borrarUsuario = new ControladorUsuarios();
+							$borrarUsuario->ctrEliminarUsuario();
 
-						?>	
+					?>	
 
 				</div>
           
@@ -594,8 +746,8 @@ breadcrum  -->
 				</div>
 				<?php
 
-					/* 	$actualizarComentario = new ControladorUsuarios();
-						$actualizarComentario -> ctrActualizarComentario(); */
+						$actualizarComentario = new ControladorUsuarios();
+						$actualizarComentario -> ctrActualizarComentario();
 
 				?>
 		</form>

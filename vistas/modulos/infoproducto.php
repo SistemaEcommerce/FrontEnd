@@ -247,12 +247,12 @@
                                         echo'
                                         <div class="col-md-3 col-xs-12" >
                                             <select class="form-control seleccionarTalla" id="seleccionarTalla" 
-                                            style="color:black;background-color: #0d1117;border:none;">
-                                                <option style="color:black;background-color: #0d1117;border:none;" value="">Talla</option>';
+                                            style="color:#fff;background-color: #0d1117;border:none;">
+                                                <option style="color:#fff;background-color: #0d1117;border:none;" value="">Talla</option>';
 
                                                 for($i = 0; $i <= count($detalles["Talla"]); $i++){ 
                                                     
-                                                    echo'<option  style="color:black;background-color: #0d1117;border:none;"
+                                                    echo'<option  style="color:#fff;background-color: #0d1117;border:none;"
                                                     value="'.$detalles["Talla"][$i].'">'.$detalles["Talla"][$i].'</option>';
 
                                                 }
@@ -265,13 +265,13 @@
                                         echo '<div class="col-md-3 col-xs-12">
 
                                             <select class="form-control seleccionarDetalle" id="seleccionarColor"
-                                                style="color:black;background-color: #0d1117;border:none;">
+                                                style="color:#fff;background-color: #0d1117;border:none;">
 
-                                                <option style="color:black;background-color: #0d1117;border:none;" value="">Color</option>';
+                                                <option style="color:#fff;background-color: #0d1117;border:none;" value="">Color</option>';
 
                                                 for ($i=0; $i <=count($detalles["Color"]) ; $i++) { 
                                                     
-                                                    echo'<option  style="color:black;background-color: #0d1117;border:none;" 
+                                                    echo'<option  style="color:#fff;background-color: #0d1117;border:none;" 
                                                         value="'.$detalles["Color"][$i].'">'.$detalles["Color"][$i].'</option>';
 
                                                 }
@@ -284,13 +284,13 @@
                                         echo '<div class="col-md-3 col-xs-12">
 
                                             <select class="form-control seleccionarDetalle" id="seleccionarMarca"
-                                                style="color:black;background-color: #0d1117;border:none;">
+                                                style="color:#fff;background-color: #0d1117;border:none;">
 
-                                                <option style="color:black;background-color: #0d1117;border:none;" value="">Marca</option>';
+                                                <option style="color:#fff;background-color: #0d1117;border:none;" value="">Marca</option>';
 
                                                 for($i = 0; $i <= count($detalles["Marca"]); $i++){
                                                     
-                                                    echo'<option  style="color:black;background-color: #0d1117;border:none;" 
+                                                    echo'<option  style="color:#fff;background-color: #0d1117;border:none;" 
                                                     value="'.$detalles["Marca"][$i].'">'.$detalles["Marca"][$i].'</option>';
 
                                                 }
@@ -585,21 +585,162 @@
         <!-- Comentarios -->
         <hr>
         <br>
+        
         <div class="row">
-			
-			<ul class="nav nav-tabs">
-				
-					<li class="active"><a>COMENTARIOS 22</a></li>
-					<li><a href="">Ver más</a></li>
-					<li class="pull-right"><a class="text-muted">PROMEDIO DE CALIFICACIÓN: 3.5 | 
 
-						<i class="fa fa-star text-success"></i>
-						<i class="fa fa-star text-success"></i>
-						<i class="fa fa-star text-success"></i>
-						<i class="fa fa-star-half-o text-success"></i>
-						<i class="fa fa-star-o text-success"></i>
+            <?php
+
+			    $datos = array("idUsuario"=>"",
+			    			   "idProducto"=>$infoproducto["id"]);
+                        
+			    $comentarios = ControladorUsuarios::ctrMostrarComentariosPerfil($datos);
+			    $cantidad = 0;
+                        
+                $cantidad = 0;
+                if (is_array($comentarios)) {
+                    foreach ($comentarios as $key => $value) {
+                        if ($value["comentario"] != "") {
+                            // $cantidad += count($value["id"]);  esta linea se debe eliminar
+                            $cantidad++;
+                            
+                        }
+                    }
+                
+			    }
+
+			?>
+        
+			<ul class="nav nav-tabs">
+            <?php
+
+                $cantidadCalificacion = 0;
+
+                if($cantidad == 0){
+                    echo '<li class="active"><a>ESTE PRODUCTO NO TIENE COMENTARIOS</a></li>
+						  <li></li>';
+                }else{
+                    echo '<li class="active"><a>COMENTARIOS '.$cantidad.'</a></li>
+                          <li><a id="verMas" href="">Ver más</a></li>';
+                          
+                          $sumaCalificacion = 0;
+ 
+                          foreach ($comentarios as $key => $value) {
+                           
+                            if ($value["calificacion"] != 0) {
+                           
+                              // $cantidadCalificacion += count($value["id"]);
+                              $cantidadCalificacion++;
+                           
+                              $sumaCalificacion += $value["calificacion"];
+                            }
+                          
+                          }
+
+                          $promedio = round($sumaCalificacion / $cantidadCalificacion, 1);
+                          
+                          echo '<li class="pull-right"><a class="text-muted">PROMEDIO DE CALIFICACIÓN: '.$promedio.' | ';
+
+                          if($promedio >= 0 && $promedio < 0.5){
+      
+                              echo '<i class="fa fa-star-half-o text-success"></i>
+                                    <i class="fa fa-star-o text-success"></i>
+                                    <i class="fa fa-star-o text-success"></i>
+                                    <i class="fa fa-star-o text-success"></i>
+                                    <i class="fa fa-star-o text-success"></i>';
+      
+                          }else if($promedio >= 0.5 && $promedio < 1){
+
+                            echo '<i class="fa fa-star text-success"></i>
+                                  <i class="fa fa-star-o text-success"></i>
+                                  <i class="fa fa-star-o text-success"></i>
+                                  <i class="fa fa-star-o text-success"></i>
+                                  <i class="fa fa-star-o text-success"></i>';
+    
+                        }
+    
+                        else if($promedio >= 1 && $promedio < 1.5){
+    
+                            echo '<i class="fa fa-star text-success"></i>
+                                  <i class="fa fa-star-half-o text-success"></i>
+                                  <i class="fa fa-star-o text-success"></i>
+                                  <i class="fa fa-star-o text-success"></i>
+                                  <i class="fa fa-star-o text-success"></i>';
+    
+                        }
+    
+                        else if($promedio >= 1.5 && $promedio < 2){
+    
+                            echo '<i class="fa fa-star text-success"></i>
+                                  <i class="fa fa-star text-success"></i>
+                                  <i class="fa fa-star-o text-success"></i>
+                                  <i class="fa fa-star-o text-success"></i>
+                                  <i class="fa fa-star-o text-success"></i>';
+    
+                        }
+    
+                        else if($promedio >= 2 && $promedio < 2.5){
+    
+                            echo '<i class="fa fa-star text-success"></i>
+                                  <i class="fa fa-star text-success"></i>
+                                  <i class="fa fa-star-half-o text-success"></i>
+                                  <i class="fa fa-star-o text-success"></i>
+                                  <i class="fa fa-star-o text-success"></i>';
+    
+                        }
+    
+                        else if($promedio >= 2.5 && $promedio < 3){
+    
+                            echo '<i class="fa fa-star text-success"></i>
+                                  <i class="fa fa-star text-success"></i>
+                                  <i class="fa fa-star text-success"></i>
+                                  <i class="fa fa-star-o text-success"></i>
+                                  <i class="fa fa-star-o text-success"></i>';
+    
+                        }
+    
+                        else if($promedio >= 3 && $promedio < 3.5){
+    
+                            echo '<i class="fa fa-star text-success"></i>
+                                  <i class="fa fa-star text-success"></i>
+                                  <i class="fa fa-star text-success"></i>
+                                  <i class="fa fa-star-half-o text-success"></i>
+                                  <i class="fa fa-star-o text-success"></i>';
+    
+                        }
+    
+                        else if($promedio >= 3.5 && $promedio < 4){
+    
+                            echo '<i class="fa fa-star text-success"></i>
+                                  <i class="fa fa-star text-success"></i>
+                                  <i class="fa fa-star text-success"></i>
+                                  <i class="fa fa-star text-success"></i>
+                                  <i class="fa fa-star-o text-success"></i>';
+    
+                        }
+    
+                        else if($promedio >= 4 && $promedio < 4.5){
+    
+                            echo '<i class="fa fa-star text-success"></i>
+                                  <i class="fa fa-star text-success"></i>
+                                  <i class="fa fa-star text-success"></i>
+                                  <i class="fa fa-star text-success"></i>
+                                  <i class="fa fa-star-half-o text-success"></i>';
+    
+                        }else{
+    
+                            echo '<i class="fa fa-star text-success"></i>
+                                  <i class="fa fa-star text-success"></i>
+                                  <i class="fa fa-star text-success"></i>
+                                  <i class="fa fa-star text-success"></i>
+                                  <i class="fa fa-star text-success"></i>';
+    
+                        }
+                }
+
+            ?>				
 					
-					</a></li>
+                    </a></li>
+                    
 
 			</ul>
 
@@ -608,130 +749,151 @@
 		</div>
 
 		<div class="row comentarios">
+
+		<?php
+
+		foreach ($comentarios as $key => $value) {
 			
-			<div class="panel-group col-md-3 col-sm-6 col-xs-12">
+			if($value["comentario"] != ""){
+
+				$item = "id";
+				$valor = $value["id_usuario"];
+
+				$usuario = ControladorUsuarios::ctrMostrarUsuario($item, $valor);
+
+				echo '<div class="panel-group col-md-3 col-sm-6 col-xs-12 alturaComentarios">
 				
-				<div class="panel panel-default">
-			      
-			      <div class="panel-heading text-uppercase">
+					<div class="panel panel-default">
+				      
+				      <div class="panel-heading text-uppercase">
 
-			      	Andrés Felipe
-			      	<span class="text-right">
-			      		<img class="img-circle" src="<?php echo $url; ?>vistas/img/usuarios/40/944.jpg" width="20%">
+				      	'.$usuario["nombre"].'
+				      	<span class="text-right">';
 
-			      	</span>
+				      	if($usuario["modo"] == "directo"){
 
-			      </div>
-			     
-			      <div class="panel-body"><small>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro omnis molestias consequuntur quaerat illo aliquid, commodi iste quam laboriosam quas voluptate tempore distinctio dolore dolorem, ut, minus vitae unde optio.</small></div>
+				      		if($usuario["foto"] == ""){
 
-			      <div class="panel-footer">
-			      	
-			      	<i class="fa fa-star text-success"></i>
-					<i class="fa fa-star text-success"></i>
-					<i class="fa fa-star text-success"></i>
-					<i class="fa fa-star-half-o text-success"></i>
-					<i class="fa fa-star-o text-success"></i>
+				      			echo '<img class="img-circle pull-right" src="'.$servidor.'vistas/img/usuarios/default/anonymous.png" width="20%">';	
 
-			      </div>
-			    
-			    </div>
+				      		}else{
 
-			</div>
+				      			echo '<img class="img-circle pull-right" src="'.$url.$usuario["foto"].'" width="20%">';	
 
-			<div class="panel-group col-md-3 col-sm-6 col-xs-12">
-				
-				<div class="panel panel-default">
-			      
-			      <div class="panel-heading text-uppercase">
+				      		}
+				      	
+				      	}else{
 
-			      	Andrés Felipe
-			      	<span class="text-right">
-			      		<img class="img-circle" src="<?php echo $url; ?>vistas/img/usuarios/40/944.jpg" width="20%">
+				      		echo '<img class="img-circle pull-right" src="'.$usuario["foto"].'" width="20%">';	
 
-			      	</span>
+				      	}
 
-			      </div>
-			     
-			      <div class="panel-body"><small>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro omnis molestias consequuntur quaerat illo aliquid, commodi iste quam laboriosam quas voluptate tempore distinctio dolore dolorem, ut, minus vitae unde optio.</small></div>
+				      	echo '</span>
 
-			      <div class="panel-footer">
-			      	
-			      	<i class="fa fa-star text-success"></i>
-					<i class="fa fa-star text-success"></i>
-					<i class="fa fa-star text-success"></i>
-					<i class="fa fa-star-half-o text-success"></i>
-					<i class="fa fa-star-o text-success"></i>
+				      </div>
+				     
+				      <div class="panel-body"><small>'.$value["comentario"].'</small></div>
 
-			      </div>
-			    
-			    </div>
+				      <div class="panel-footer">';
+				      	
+				      	switch($value["calificacion"]){
 
-			</div>
+							case 0.5:
+							echo '<i class="fa fa-star-half-o text-success" aria-hidden="true"></i>
+								  <i class="fa fa-star-o text-success" aria-hidden="true"></i>
+								  <i class="fa fa-star-o text-success" aria-hidden="true"></i>
+								  <i class="fa fa-star-o text-success" aria-hidden="true"></i>
+								  <i class="fa fa-star-o text-success" aria-hidden="true"></i>';
+							break;
 
-			<div class="panel-group col-md-3 col-sm-6 col-xs-12">
-				
-				<div class="panel panel-default">
-			      
-			      <div class="panel-heading text-uppercase">
+							case 1.0:
+							echo '<i class="fa fa-star text-success" aria-hidden="true"></i>
+								  <i class="fa fa-star-o text-success" aria-hidden="true"></i>
+								  <i class="fa fa-star-o text-success" aria-hidden="true"></i>
+								  <i class="fa fa-star-o text-success" aria-hidden="true"></i>
+								  <i class="fa fa-star-o text-success" aria-hidden="true"></i>';
+							break;
 
-			      	Andrés Felipe
-			      	<span class="text-right">
-			      		<img class="img-circle" src="<?php echo $url; ?>vistas/img/usuarios/40/944.jpg" width="20%">
+							case 1.5:
+							echo '<i class="fa fa-star text-success" aria-hidden="true"></i>
+								  <i class="fa fa-star-half-o text-success" aria-hidden="true"></i>
+								  <i class="fa fa-star-o text-success" aria-hidden="true"></i>
+								  <i class="fa fa-star-o text-success" aria-hidden="true"></i>
+								  <i class="fa fa-star-o text-success" aria-hidden="true"></i>';
+							break;
 
-			      	</span>
+							case 2.0:
+							echo '<i class="fa fa-star text-success" aria-hidden="true"></i>
+								  <i class="fa fa-star text-success" aria-hidden="true"></i>
+								  <i class="fa fa-star-o text-success" aria-hidden="true"></i>
+								  <i class="fa fa-star-o text-success" aria-hidden="true"></i>
+								  <i class="fa fa-star-o text-success" aria-hidden="true"></i>';
+							break;
 
-			      </div>
-			     
-			      <div class="panel-body"><small>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro omnis molestias consequuntur quaerat illo aliquid, commodi iste quam laboriosam quas voluptate tempore distinctio dolore dolorem, ut, minus vitae unde optio.</small></div>
+							case 2.5:
+							echo '<i class="fa fa-star text-success" aria-hidden="true"></i>
+								  <i class="fa fa-star text-success" aria-hidden="true"></i>
+								  <i class="fa fa-star-half-o text-success" aria-hidden="true"></i>
+								  <i class="fa fa-star-o text-success" aria-hidden="true"></i>
+								  <i class="fa fa-star-o text-success" aria-hidden="true"></i>';
+							break;
 
-			      <div class="panel-footer">
-			      	
-			      	<i class="fa fa-star text-success"></i>
-					<i class="fa fa-star text-success"></i>
-					<i class="fa fa-star text-success"></i>
-					<i class="fa fa-star-half-o text-success"></i>
-					<i class="fa fa-star-o text-success"></i>
+							case 3.0:
+							echo '<i class="fa fa-star text-success" aria-hidden="true"></i>
+								  <i class="fa fa-star text-success" aria-hidden="true"></i>
+								  <i class="fa fa-star text-success" aria-hidden="true"></i>
+								  <i class="fa fa-star-o text-success" aria-hidden="true"></i>
+								  <i class="fa fa-star-o text-success" aria-hidden="true"></i>';
+							break;
 
-			      </div>
-			    
-			    </div>
+							case 3.5:
+							echo '<i class="fa fa-star text-success" aria-hidden="true"></i>
+								  <i class="fa fa-star text-success" aria-hidden="true"></i>
+								  <i class="fa fa-star text-success" aria-hidden="true"></i>
+								  <i class="fa fa-star-half-o text-success" aria-hidden="true"></i>
+								  <i class="fa fa-star-o text-success" aria-hidden="true"></i>';
+							break;
 
-			</div>
+							case 4.0:
+							echo '<i class="fa fa-star text-success" aria-hidden="true"></i>
+								  <i class="fa fa-star text-success" aria-hidden="true"></i>
+								  <i class="fa fa-star text-success" aria-hidden="true"></i>
+								  <i class="fa fa-star text-success" aria-hidden="true"></i>
+								  <i class="fa fa-star-o text-success" aria-hidden="true"></i>';
+							break;
 
-                <div class="panel-group col-md-3 col-sm-6 col-xs-12">
-                    
-                    <div class="panel panel-default">
-                    
-                    <div class="panel-heading text-uppercase">
+							case 4.5:
+							echo '<i class="fa fa-star text-success" aria-hidden="true"></i>
+								  <i class="fa fa-star text-success" aria-hidden="true"></i>
+								  <i class="fa fa-star text-success" aria-hidden="true"></i>
+								  <i class="fa fa-star text-success" aria-hidden="true"></i>
+								  <i class="fa fa-star-half-o text-success" aria-hidden="true"></i>';
+							break;
 
-                        Andrés Felipe
-                            <span class="text-right">
-                                <img class="img-circle" src="<?php echo $url; ?>vistas/img/usuarios/40/944.jpg" width="20%">
+							case 5.0:
+							echo '<i class="fa fa-star text-success" aria-hidden="true"></i>
+								  <i class="fa fa-star text-success" aria-hidden="true"></i>
+								  <i class="fa fa-star text-success" aria-hidden="true"></i>
+								  <i class="fa fa-star text-success" aria-hidden="true"></i>
+								  <i class="fa fa-star text-success" aria-hidden="true"></i>';
+							break;
 
-                            </span>
+						}
 
-                    </div>
-                    
-                    <div class="panel-body"><small>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro omnis molestias consequuntur quaerat illo aliquid, commodi iste quam laboriosam quas voluptate tempore distinctio dolore dolorem, ut, minus vitae unde optio.</small></div>
+				      echo '</div>
+				    
+				    </div>
 
-                    <div class="panel-footer">
-                        
-                        <i class="fa fa-star text-success"></i>
-                        <i class="fa fa-star text-success"></i>
-                        <i class="fa fa-star text-success"></i>
-                        <i class="fa fa-star-half-o text-success"></i>
-                        <i class="fa fa-star-o text-success"></i>
+				</div>';
 
-                    </div>
-                    
-                    </div>
+			}
+		}
 
-                </div>
-		
+		?>
+
 		</div>
 
-        <hr>
+        
         
     </div>
 

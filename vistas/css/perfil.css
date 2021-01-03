@@ -15,10 +15,6 @@
     color: black;
 }
 
-#eliminarUsuario {
-    display: none;
-}
-
 #perfil #subirImagen {
     display: none;
     margin: 20px 0px;
@@ -61,4 +57,30 @@ panel-default {
 
 .modalFormulario .modal-dialog .modalTitulo form div label span small {
     color: black;
+}
+
+.deseos i {
+    color: #999999;
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.agregarCarrito i {
+    color: #999999;
+}
+
+.deseos {
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+.agregarCarrito {
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+#eliminarUsuario {
+    /*  display: none; */
 }
