@@ -299,26 +299,28 @@
                                         ';
                                     }
                                     /* stock */
-                                    $infoproductoruta=$infoproducto["stock"];
-                                    /* echo'<i class="fa fa-shopping-cart" 
-                                    style="color:black;background-color: #0d1117;border:none;font-size:25px;"> STOCK '.$infoproductoruta.'</i> '; */
+                                
+/*                                     $infoproductoruta=$infoproducto["stock"];
+                                    echo'<i class="fa fa-shopping-cart" 
+                                    style="color:while;background-color: #0d1117;border:none;font-size:25px;"> STOCK '.$infoproductoruta.'</i> '; 
  
-                            /*         echo'
+                                    echo'
                                         <div class="col-md-3 col-xs-12" >
                                             <select class="form-control seleccionarDetalle" id="seleccionarTalla"
-                                            style="color:black;background-color: #0d1117;border:none;text-align: right;">
-                                                 <option style="color:black;background-color: #0d1117;border:none;text-align: right;" 
-                                                value="">Stock   '.$infoproductoruta.'</option>
+                                            style="color:#fff;background-color: #0d1117;border:none;text-align: right;">
+                                                 <option style="color:#fff;background-color: #0d1117;border:none;text-align: right;" 
+                                                value="">Stock   '.$infoproducto["stock"].'</option>
                                         ';
-                                    for ($i=1; $i <=$infoproductoruta ; $i++) { 
+                                    for ($i=1; $i <=$infoproducto["stock"] ; $i++) { 
                                         
-                                        echo'<option  style="color:black;background-color: #0d1117;border:none;text-align: right;" value="">'.$i.'</option>';
+                                        echo'<option  style="color:#fff;background-color: #0d1117;border:none;text-align: right;" value="">'.$i.'</option>';
                                         
                                     }
                                     echo'</select>
                                     </div>
                                     '; */
 
+                                
                                     
                                     
                                 }else{
@@ -536,15 +538,19 @@
                                 echo '<div class="col-md-6 col-xs-12" style="margin-bottom: 15px;">
 
                                         <button class="btn btn-default btn-block btn-lg backColor">
+                                        <i class="fa fa-shopping-cart col-md-0"></i>
                                         <small>COMPRAR AHORA</small></button>
                             
                                     </div>
                             
                                     <div class="col-md-6 col-xs-12" style="margin-bottom: 15px;">
 
-                                        <button class="btn btn-default btn-block btn-lg backColor">
+                                    <button class="btn btn-default btn-block btn-lg backColor agregarCarrito" idProducto="'.$value["id"].'"
+                                    imagen="'.$servidor.$infoproducto["portada"].'" titulo="'.$infoproducto["titulo"].'" precio="'.$infoproducto["precioOferta"].'" 
+                                    tipo="'.$infoproducto["tipo"].'" peso="'.$infoproducto["peso"].'" stock="'.$infoproducto["stock"].'">
                             
                                         <i class="fa fa-shopping-cart col-md-0"></i>
+                                        
                                         <small>ADICIONAR AL CARRITO</small> 
                             
                             
@@ -557,7 +563,9 @@
                             
                                 echo '<div class="col-lg-6 col-md-8 col-xs-12" style="margin-bottom: 15px;">
 
-                                        <button class="btn btn-default btn-block btn-lg backColor">
+                                         <button class="btn btn-default btn-block btn-lg backColor agregarCarrito" idProducto="'.$value["id"].'"
+                                        imagen="'.$servidor.$infoproducto["portada"].'" titulo="'.$infoproducto["titulo"].'" precio="'.$infoproducto["precioOferta"].'" 
+                                        tipo="'.$infoproducto["tipo"].'" peso="'.$infoproducto["peso"].'" stock="'.$infoproducto["stock"].'">
                             
                                         <i class="fa fa-shopping-cart"></i>
                                         ADICIONAR AL CARRITO 
@@ -1060,21 +1068,22 @@
 
 										echo'<button type="button" class="btn btn-default btn-xs agregarCarrito" idProducto="'.$value["id"].'"
 									        imagen="'.$servidor.$value["portada"].'" titulo="'.$value["titulo"].'" precio="'.$value["precioOferta"].'" 
-									        tipo="'.$value["tipo"].'" peso="'.$value["peso"].'"  data-toggle="tooltip" 
+									        tipo="'.$value["tipo"].'" peso="'.$value["peso"].'" stock="'.$value["stock"].'"  data-toggle="tooltip" 
 									        title="Agregar al carrito de compras">
 							   
 										   <i class="fa fa-shopping-cart" aria-hidden="true"></i>
 										</button>';
-
+                                        var_dump($value["stock"]);
 									}else{
 
 										echo'<button type="button" class="btn btn-default btn-xs agregarCarrito" idProducto="'.$value["id"].'"
 									         imagen="'.$servidor.$value["portada"].'" titulo="'.$value["titulo"].'" precio="'.$value["precio"].'" 
-									         tipo="'.$value["tipo"].'" peso="'.$value["peso"].'"  data-toggle="tooltip" 
+									         tipo="'.$value["tipo"].'" peso="'.$value["peso"].'" stock="'.$value["stock"].'"  data-toggle="tooltip" 
 									         title="Agregar al carrito de compras">
 								
 											<i class="fa fa-shopping-cart" aria-hidden="true"></i>
-											</button>';
+                                            </button>';
+                                            var_dump($value["stock"]);
 									}
 
 								}

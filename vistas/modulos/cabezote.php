@@ -261,7 +261,7 @@ if($cliente->getAccessToken()){
 
 			<div class="col-lg-3 col-md-3 col-sm-2 col-xs-12" id="carrito">
 				
-				<a href="#">
+				<a href="<?php echo $url;?>carrito-de-compras">
 
 					<button class="btn btn-default pull-left backColor"> 
 						
@@ -271,7 +271,7 @@ if($cliente->getAccessToken()){
 				
 				</a>	
 
-				<p>TUS PRODUCTOS <span class="cantidadCesta">3</span> <br>S/. <span class="sumaCesta">20</span> PEN</p>	
+				<p>TUS PRODUCTOS <span class="cantidadCesta"></span> <br>S/. <span class="sumaCesta"></span> SOL</p>	
 
 			</div>
 

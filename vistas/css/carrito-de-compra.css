@@ -1,0 +1,41 @@
+/* carrito de compras */
+
+.cabeceraCarrito {
+    height: 40px;
+}
+
+.cabeceraCarrito h3 {
+    margin-top: -6px;
+}
+
+.cabeceraCheckout {
+    height: 66px;
+}
+
+.contenidoCheckout,
+.contenidoCheckout .row {
+    padding: 0px 20px;
+}
+
+.listaProducto table thead tr th {
+    color: black;
+}
+
+.tablaTasas tbody tr td,
+.tablaTasas tbody tr td span,
+.tablaTasas tbody tr td strong {
+    color: black;
+}
+
+.tablaTasas tbody tr td {
+    border: 1px solid rgb(116, 108, 108);
+}
+
+.contenidoCheckout,
+.contenidoCheckout .row {
+    padding: 0px 20px;
+}
+
+.formEnvio {
+    /* display: none; */
+}

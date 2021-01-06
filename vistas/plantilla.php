@@ -45,9 +45,10 @@
     <link rel="stylesheet" href="<? echo $url; ?>vistas/css/productos.css">
     <link rel="stylesheet" href="<? echo $url; ?>vistas/css/infoproducto.css">
     <link rel="stylesheet" href="<? echo $url; ?>vistas/css/perfil.css">
+    <link rel="stylesheet" href="<? echo $url; ?>vistas/css/carrito-de-compra.css">
 
     
-
+    
     <script src="<? echo $url;?>vistas/js/plugins/jquery.min.js" ></script>
     <script src="<? echo $url;?>vistas/js/plugins/bootstrap.min.js" ></script>
     <script src="<? echo $url;?>vistas/js/plugins/jquery.easing.js" ></script>
@@ -101,7 +102,7 @@
                 include "modulos/infoproducto.php";
 
             }
-            else if ($rutas[0] == "buscador" || $rutas[0] == "verificar" || $rutas[0]=="salir" || $rutas[0]=="perfil"|| $rutas[0]=="ofertas" ) {
+            else if ($rutas[0] == "buscador" || $rutas[0] == "verificar" || $rutas[0]=="salir" || $rutas[0]=="perfil"|| $rutas[0]=="ofertas" || $rutas[0]=="carrito-de-compras" ) {
 
                 include "modulos/".$rutas[0].".php";
 
@@ -129,6 +130,7 @@
     <script src="<? echo $url; ?>vistas/js/infoproducto.js" ></script>
     <script src="<? echo $url; ?>vistas/js/usuarios.js" ></script>
     <script src="<? echo $url; ?>vistas/js/registroFacebook.js" ></script>
+    <script src="<? echo $url; ?>vistas/js/carrito-de-compras.js" ></script>
 
     <script>
       window.fbAsyncInit = function() {

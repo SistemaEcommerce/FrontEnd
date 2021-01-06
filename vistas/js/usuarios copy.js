@@ -1,504 +1,1239 @@
 /*=============================================
-CAPTURA DE RUTA
-=============================================*/
-
-var rutaActual = location.href;
-
-$(".btnIngreso").click(function(){
-
-	localStorage.setItem("rutaActual", rutaActual);
-
-})
-
 /*=============================================
-FORMATEAR LOS IPUNT
-=============================================*/
-
-$("input").focus(function(){
-
-	$(".alert").remove();
-})
-
 /*=============================================
-VALIDAR EMAIL REPETIDO
-=============================================*/
-
-var validarEmailRepetido = false;
-
-$("#regEmail").change(function(){
-
-	var email = $("#regEmail").val();
-
-	var datos = new FormData();
-	datos.append("validarEmail", email);
-
-	$.ajax({
-
-		url:rutaOculta+"ajax/usuarios.ajax.php",
-		method: "POST",
-		data: datos,
-		cache: false,
-		contentType: false,
-		processData: false,
-		success:function(respuesta){
-			
-			if(respuesta == "false"){
-
-				$(".alert").remove();
-				validarEmailRepetido = false;
-
-			}else{
-
-				var modo = JSON.parse(respuesta).modo;
-				
-				if(modo == "directo"){
-
-					modo = "esta página";
-				}
-
-				$("#regEmail").parent().before('<div class="alert alert-warning"><strong>ERROR:</strong> El correo electrónico ya existe en la base de datos, fue registrado a través de '+modo+', por favor ingrese otro diferente</div>')
-
-					validarEmailRepetido = true;
-
-			}
-
-		}
-
-	})
-
-})
-
 /*=============================================
-VALIDAR EL REGISTRO DE USUARIO
+/*=============================================
+VISUALIZAR LA CESTA DEL CARRITO DE COMPRAS
 =============================================*/
-function registroUsuario(){
 
-	/*=============================================
-	VALIDAR EL NOMBRE
-	=============================================*/
+if (localStorage.getItem("cantidadCesta") != null) {
 
-	var nombre = $("#regUsuario").val();
+    $(".cantidadCesta").html(localStorage.getItem("cantidadCesta"));
+    $(".sumaCesta").html(localStorage.getItem("sumaCesta"));
 
-	if(nombre != ""){
+} else {
 
-		var expresion = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]*$/;
-
-		if(!expresion.test(nombre)){
-
-			$("#regUsuario").parent().before('<div class="alert alert-warning"><strong>ERROR:</strong> No se permiten números ni caracteres especiales</div>')
-
-			return false;
-
-		}
-
-	}else{
-
-		$("#regUsuario").parent().before('<div class="alert alert-warning"><strong>ATENCIÓN:</strong> Este campo es obligatorio</div>')
-
-		return false;
-	}
-
-	/*=============================================
-	VALIDAR EL EMAIL
-	=============================================*/
-
-	var email = $("#regEmail").val();
-
-	if(email != ""){
-
-		var expresion = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/;
-
-		if(!expresion.test(email)){
-
-			$("#regEmail").parent().before('<div class="alert alert-warning"><strong>ERROR:</strong> Escriba correctamente el correo electrónico</div>')
-
-			return false;
-
-		}
-
-		if(validarEmailRepetido){
-
-			$("#regEmail").parent().before('<div class="alert alert-danger"><strong>ERROR:</strong> El correo electrónico ya existe en la base de datos, por favor ingrese otro diferente</div>')
-
-			return false;
-
-		}
-
-	}else{
-
-		$("#regEmail").parent().before('<div class="alert alert-warning"><strong>ATENCIÓN:</strong> Este campo es obligatorio</div>')
-
-		return false;
-	}
-
-
-	/*=============================================
-	VALIDAR CONTRASEÑA
-	=============================================*/
-
-	var password = $("#regPassword").val();
-
-	if(password != ""){
-
-		var expresion = /^[a-zA-Z0-9]*$/;
-
-		if(!expresion.test(password)){
-
-			$("#regPassword").parent().before('<div class="alert alert-warning"><strong>ERROR:</strong> No se permiten caracteres especiales</div>')
-
-			return false;
-
-		}
-
-	}else{
-
-		$("#regPassword").parent().before('<div class="alert alert-warning"><strong>ATENCIÓN:</strong> Este campo es obligatorio</div>')
-
-		return false;
-	}
-
-	/*=============================================
-	VALIDAR POLÍTICAS DE PRIVACIDAD
-	=============================================*/
-
-	var politicas = $("#regPoliticas:checked").val();
-	
-	if(politicas != "on"){
-
-		$("#regPoliticas").parent().before('<div class="alert alert-warning"><strong>ATENCIÓN:</strong> Debe aceptar nuestras condiciones de uso y políticas de privacidad</div>')
-
-		return false;
-
-	}
-
-	return true;
+    $(".cantidadCesta").html("0");
+    $(".sumaCesta").html("0");
 }
 
 /*=============================================
-CAMBIAR FOTO
+/*=============================================
+/*=============================================
+/*=============================================
+/*=============================================
+VISUALIZAR LOS PRODUCTOS EN LA PÁGINA CARRITO DE COMPRAS
 =============================================*/
 
-$("#btnCambiarFoto").click(function(){
 
-	$("#imgPerfil").toggle();
-	$("#subirImagen").toggle();
+if (localStorage.getItem("listaProductos") != null) {
 
-})
+    var listaCarrito = JSON.parse(localStorage.getItem("listaProductos"));
 
-$("#datosImagen").change(function(){
+} else {
 
-	var imagen = this.files[0];
+    $(".cuerpoCarrito").html('<div class="well">Aún no hay productos en el carrito de compras.</div>');
+    $(".sumaCarrito").hide();
+    $(".cabeceraCheckout").hide();
+}
 
-	/*=============================================
-	VALIDAMOS EL FORMATO DE LA IMAGEN
-	=============================================*/
-	
-	if(imagen["type"] != "image/jpeg" && imagen["type"] != "image/png"){
+for (var i = 0; i < indice.length; i++) {
 
-		$("#datosImagen").val("");
+    if (indice[i] == "carrito-de-compras") {
 
-		swal({
-		  title: "Error al subir la imagen",
-		  text: "¡La imagen debe estar en formato JPG o PNG!",
-		  type: "error",
-		  confirmButtonText: "¡Cerrar!",
-		  closeOnConfirm: false
-		},
-		function(isConfirm){
-				 if (isConfirm) {	   
-				    window.location = rutaOculta+"perfil";
-				  } 
-		});
+        listaCarrito.forEach(funcionForEach);
 
-	}
+        function funcionForEach(item, index) {
 
-	else if(Number(imagen["size"]) > 2000000){
+            var datosProducto = new FormData();
+            var precio = 0;
 
-		$("#datosImagen").val("");
+            datosProducto.append("id", item.idProducto);
 
-		swal({
-		  title: "Error al subir la imagen",
-		  text: "¡La imagen no debe pesar más de 2 MB!",
-		  type: "error",
-		  confirmButtonText: "¡Cerrar!",
-		  closeOnConfirm: false
-		},
-		function(isConfirm){
-				 if (isConfirm) {	   
-				    window.location = rutaOculta+"perfil";
-				  } 
-		});
+            $.ajax({
 
-	}else{
+                url: rutaOculta + "ajax/producto.ajax.php",
+                method: "POST",
+                data: datosProducto,
+                cache: false,
+                contentType: false,
+                processData: false,
+                dataType: "json",
+                success: function(respuesta) {
 
-		var datosImagen = new FileReader;
-		datosImagen.readAsDataURL(imagen);
+                    if (respuesta["precioOferta"] == 0) {
 
-		$(datosImagen).on("load", function(event){
+                        precio = respuesta["precio"];
 
-			var rutaImagen = event.target.result;
-			$(".previsualizar").attr("src",  rutaImagen);
+                    } else {
 
-		})
+                        precio = respuesta["precioOferta"];
 
-	}
+                    }
 
+                    $(".cuerpoCarrito").append(
+
+                        '<div clas="row itemCarrito">' +
+
+                        '<div class="col-sm-1 col-xs-12">' +
+
+                        '<br>' +
+
+                        '<center>' +
+
+                        '<button class="btn btn-default backColor quitarItemCarrito" idProducto="' + item.idProducto + '" peso="' + item.peso + '">' +
+
+                        '<i class="fa fa-times"></i>' +
+
+                        '</button>' +
+
+                        '</center>' +
+
+                        '</div>' +
+                        '<div class="col-sm-1 col-xs-12">' +
+
+                        '<figure>' +
+
+                        '<img src="' + item.imagen + '" class="img-thumbnail">' +
+
+                        '</figure>' +
+
+                        '</div>' +
+
+                        '<div class="col-sm-4 col-xs-12">' +
+
+                        '<br>' +
+
+                        '<p class="tituloCarritoCompra text-left">' + item.titulo + '</p>' +
+
+                        '</div>' +
+
+                        '<div class="col-md-2 col-sm-1 col-xs-12">' +
+
+                        '<br>' +
+
+                        '<p class="precioCarritoCompra text-center">USD $<span>' + precio + '</span></p>' +
+
+                        '</div>' +
+
+                        '<div class="col-md-2 col-sm-3 col-xs-8">' +
+
+                        '<br>' +
+
+                        '<div class="col-xs-8">' +
+
+                        '<center>' +
+
+                        '<input type="number" class="form-control cantidadItem" min="1" value="' + item.cantidad + '" tipo="' + item.tipo + '" precio="' + precio + '" idProducto="' + item.idProducto + '" item="' + index + '">' +
+
+                        '</center>' +
+
+                        '</div>' +
+
+                        '</div>' +
+
+                        '<div class="col-md-2 col-sm-1 col-xs-4 text-center">' +
+
+                        '<br>' +
+
+                        '<p class="subTotal' + index + ' subtotales">' +
+
+                        '<strong>USD $<span>' + (Number(item.cantidad) * Number(precio)) + '</span></strong>' +
+
+                        '</p>' +
+
+                        '</div>' +
+
+                        '</div>' +
+
+                        '<div class="clearfix"></div>' +
+
+                        '<hr>');
+
+                    /*=============================================
+                    EVITAR MANIPULAR LA CANTIDAD EN PRODUCTOS VIRTUALES
+                    =============================================*/
+
+                    $(".cantidadItem[tipo='virtual']").attr("readonly", "true");
+
+                    // /*=============================================
+                    // /*=============================================
+                    // /*=============================================
+                    // /*=============================================
+                    // /*=============================================
+                    // ACTUALIZAR SUBTOTAL
+                    // =============================================*/
+                    var precioCarritoCompra = $(".cuerpoCarrito .precioCarritoCompra span");
+
+                    cestaCarrito(precioCarritoCompra.length);
+
+                    sumaSubtotales();
+
+                }
+
+            })
+
+        }
+
+    }
+
+}
+
+
+
+/*=============================================
+/*=============================================
+/*=============================================
+/*=============================================
+/*=============================================
+AGREGAR AL CARRITO
+=============================================*/
+
+$(".agregarCarrito").click(function() {
+
+    var idProducto = $(this).attr("idProducto");
+    var imagen = $(this).attr("imagen");
+    var titulo = $(this).attr("titulo");
+    var precio = $(this).attr("precio");
+    var tipo = $(this).attr("tipo");
+    var peso = $(this).attr("peso");
+
+    var agregarAlCarrito = false;
+
+    /*=============================================
+    CAPTURAR DETALLES
+    =============================================*/
+
+    if (tipo == "virtual") {
+
+        agregarAlCarrito = true;
+
+    } else {
+
+        var seleccionarDetalle = $(".seleccionarDetalle");
+
+        for (var i = 0; i < seleccionarDetalle.length; i++) {
+
+            console.log("seleccionarDetalle", $(seleccionarDetalle[i]).val());
+
+            if ($(seleccionarDetalle[i]).val() == "") {
+
+                swal({
+                    title: "Debe seleccionar Talla y Color",
+                    text: "",
+                    type: "warning",
+                    showCancelButton: false,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "¡Seleccionar!",
+                    closeOnConfirm: false
+                })
+
+                return;
+
+            } else {
+
+                titulo = titulo + "-" + $(seleccionarDetalle[i]).val();
+
+                agregarAlCarrito = true;
+
+            }
+
+        }
+
+    }
+
+    /*=============================================
+    ALMACENAR EN EL LOCALSTARGE LOS PRODUCTOS AGREGADOS AL CARRITO
+    =============================================*/
+
+    if (agregarAlCarrito) {
+
+        /*=============================================
+        RECUPERAR ALMACENAMIENTO DEL LOCALSTORAGE
+        =============================================*/
+
+        if (localStorage.getItem("listaProductos") == null) {
+
+            listaCarrito = [];
+
+        } else {
+
+            var listaProductos = JSON.parse(localStorage.getItem("listaProductos"));
+
+            for (var i = 0; i < listaProductos.length; i++) {
+
+                if (listaProductos[i]["idProducto"] == idProducto && listaProductos[i]["tipo"] == "virtual") {
+
+                    swal({
+                        title: "El producto ya está agregado al carrito de compras",
+                        text: "",
+                        type: "warning",
+                        showCancelButton: false,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "¡Volver!",
+                        closeOnConfirm: false
+                    })
+
+                    return;
+
+                }
+
+            }
+
+            listaCarrito.concat(localStorage.getItem("listaProductos"));
+
+        }
+
+        listaCarrito.push({
+            "idProducto": idProducto,
+            "imagen": imagen,
+            "titulo": titulo,
+            "precio": precio,
+            "tipo": tipo,
+            "peso": peso,
+            "cantidad": "1"
+        });
+
+        localStorage.setItem("listaProductos", JSON.stringify(listaCarrito));
+
+        /*=============================================
+        ACTUALIZAR LA CESTA
+        =============================================*/
+
+        var cantidadCesta = Number($(".cantidadCesta").html()) + 1;
+        var sumaCesta = Number($(".sumaCesta").html()) + Number(precio);
+
+        $(".cantidadCesta").html(cantidadCesta);
+        $(".sumaCesta").html(sumaCesta);
+
+        localStorage.setItem("cantidadCesta", cantidadCesta);
+        localStorage.setItem("sumaCesta", sumaCesta);
+
+        /*=============================================
+        MOSTRAR ALERTA DE QUE EL PRODUCTO YA FUE AGREGADO
+        =============================================*/
+
+        swal({
+                title: "",
+                text: "¡Se ha agregado un nuevo producto al carrito de compras!",
+                type: "success",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                cancelButtonText: "¡Continuar comprando!",
+                confirmButtonText: "¡Ir a mi carrito de compras!",
+                closeOnConfirm: false
+            },
+            function(isConfirm) {
+                if (isConfirm) {
+                    window.location = rutaOculta + "carrito-de-compras";
+                }
+            });
+
+    }
 
 })
 
 /*=============================================
-COMENTARIOS ID
+/*=============================================
+/*=============================================
+/*=============================================
+/*=============================================
+QUITAR PRODUCTOS DEL CARRITO
 =============================================*/
 
-$(".calificarProducto").click(function(){
+$(document).on("click", ".quitarItemCarrito", function() {
 
-	var idComentario = $(this).attr("idComentario");
+    $(this).parent().parent().parent().remove();
 
-	$("#idComentario").val(idComentario);
+    var idProducto = $(".cuerpoCarrito button");
+    var imagen = $(".cuerpoCarrito img");
+    var titulo = $(".cuerpoCarrito .tituloCarritoCompra");
+    var precio = $(".cuerpoCarrito .precioCarritoCompra span");
+    var cantidad = $(".cuerpoCarrito .cantidadItem");
+
+    /*=============================================
+    SI AÚN QUEDAN PRODUCTOS VOLVERLOS AGREGAR AL CARRITO (LOCALSTORAGE)
+    =============================================*/
+
+    listaCarrito = [];
+
+    if (idProducto.length != 0) {
+
+        for (var i = 0; i < idProducto.length; i++) {
+
+            var idProductoArray = $(idProducto[i]).attr("idProducto");
+            var imagenArray = $(imagen[i]).attr("src");
+            var tituloArray = $(titulo[i]).html();
+            var precioArray = $(precio[i]).html();
+            var pesoArray = $(idProducto[i]).attr("peso");
+            var tipoArray = $(cantidad[i]).attr("tipo");
+            var cantidadArray = $(cantidad[i]).val();
+
+            listaCarrito.push({
+                "idProducto": idProductoArray,
+                "imagen": imagenArray,
+                "titulo": tituloArray,
+                "precio": precioArray,
+                "tipo": tipoArray,
+                "peso": pesoArray,
+                "cantidad": cantidadArray
+            });
+
+        }
+
+        localStorage.setItem("listaProductos", JSON.stringify(listaCarrito));
+
+        sumaSubtotales();
+        cestaCarrito(listaCarrito.length);
+
+
+    } else {
+
+        /*=============================================
+        SI YA NO QUEDAN PRODUCTOS HAY QUE REMOVER TODO
+        =============================================*/
+
+        localStorage.removeItem("listaProductos");
+
+        localStorage.setItem("cantidadCesta", "0");
+
+        localStorage.setItem("sumaCesta", "0");
+
+        $(".cantidadCesta").html("0");
+        $(".sumaCesta").html("0");
+
+        $(".cuerpoCarrito").html('<div class="well">Aún no hay productos en el carrito de compras.</div>');
+        $(".sumaCarrito").hide();
+        $(".cabeceraCheckout").hide();
+
+    }
 
 })
 
+
 /*=============================================
-COMENTARIOS CAMBIO DE ESTRELLAS
+/*=============================================
+/*=============================================
+/*=============================================
+/*=============================================
+GENERAR SUBTOTAL DESPUES DE CAMBIAR CANTIDAD
 =============================================*/
+$(document).on("change", ".cantidadItem", function() {
 
-$("input[name='puntaje']").change(function(){
+    var cantidad = $(this).val();
+    var precio = $(this).attr("precio");
+    var idProducto = $(this).attr("idProducto");
+    var item = $(this).attr("item");
 
-	var puntaje = $(this).val();
-	
-	switch(puntaje){
+    $(".subTotal" + item).html('<strong>USD $<span>' + (cantidad * precio) + '</span></strong>');
 
-		case "0.5":
-		$("#estrellas").html('<i class="fa fa-star-half-o text-success" aria-hidden="true"></i> '+
-							 '<i class="fa fa-star-o text-success" aria-hidden="true"></i> '+
-							 '<i class="fa fa-star-o text-success" aria-hidden="true"></i> '+
-							 '<i class="fa fa-star-o text-success" aria-hidden="true"></i> '+
-							 '<i class="fa fa-star-o text-success" aria-hidden="true"></i>');
-		break;
+    /*=============================================
+    ACTUALIZAR LA CANTIDAD EN EL LOCALSTORAGE
+    =============================================*/
 
-		case "1.0":
-		$("#estrellas").html('<i class="fa fa-star text-success" aria-hidden="true"></i> '+
-							 '<i class="fa fa-star-o text-success" aria-hidden="true"></i> '+
-							 '<i class="fa fa-star-o text-success" aria-hidden="true"></i> '+
-							 '<i class="fa fa-star-o text-success" aria-hidden="true"></i> '+
-							 '<i class="fa fa-star-o text-success" aria-hidden="true"></i>');
-		break;
+    var idProducto = $(".cuerpoCarrito button");
+    var imagen = $(".cuerpoCarrito img");
+    var titulo = $(".cuerpoCarrito .tituloCarritoCompra");
+    var precio = $(".cuerpoCarrito .precioCarritoCompra span");
+    var cantidad = $(".cuerpoCarrito .cantidadItem");
 
-		case "1.5":
-		$("#estrellas").html('<i class="fa fa-star text-success" aria-hidden="true"></i> '+
-							 '<i class="fa fa-star-half-o text-success" aria-hidden="true"></i> '+
-							 '<i class="fa fa-star-o text-success" aria-hidden="true"></i> '+
-							 '<i class="fa fa-star-o text-success" aria-hidden="true"></i> '+
-							 '<i class="fa fa-star-o text-success" aria-hidden="true"></i>');
-		break;
+    listaCarrito = [];
 
-		case "2.0":
-		$("#estrellas").html('<i class="fa fa-star text-success" aria-hidden="true"></i> '+
-							 '<i class="fa fa-star text-success" aria-hidden="true"></i> '+
-							 '<i class="fa fa-star-o text-success" aria-hidden="true"></i> '+
-							 '<i class="fa fa-star-o text-success" aria-hidden="true"></i> '+
-							 '<i class="fa fa-star-o text-success" aria-hidden="true"></i>');
-		break;
+    for (var i = 0; i < idProducto.length; i++) {
 
-		case "2.5":
-		$("#estrellas").html('<i class="fa fa-star text-success" aria-hidden="true"></i> '+
-							 '<i class="fa fa-star text-success" aria-hidden="true"></i> '+
-							 '<i class="fa fa-star-half-o text-success" aria-hidden="true"></i> '+
-							 '<i class="fa fa-star-o text-success" aria-hidden="true"></i> '+
-							 '<i class="fa fa-star-o text-success" aria-hidden="true"></i>');
-		break;
+        var idProductoArray = $(idProducto[i]).attr("idProducto");
+        var imagenArray = $(imagen[i]).attr("src");
+        var tituloArray = $(titulo[i]).html();
+        var precioArray = $(precio[i]).html();
+        var pesoArray = $(idProducto[i]).attr("peso");
+        var tipoArray = $(cantidad[i]).attr("tipo");
+        var cantidadArray = $(cantidad[i]).val();
 
-		case "3.0":
-		$("#estrellas").html('<i class="fa fa-star text-success" aria-hidden="true"></i> '+
-							 '<i class="fa fa-star text-success" aria-hidden="true"></i> '+
-							 '<i class="fa fa-star text-success" aria-hidden="true"></i> '+
-							 '<i class="fa fa-star-o text-success" aria-hidden="true"></i> '+
-							 '<i class="fa fa-star-o text-success" aria-hidden="true"></i>');
-		break;
+        listaCarrito.push({
+            "idProducto": idProductoArray,
+            "imagen": imagenArray,
+            "titulo": tituloArray,
+            "precio": precioArray,
+            "tipo": tipoArray,
+            "peso": pesoArray,
+            "cantidad": cantidadArray
+        });
 
-		case "3.5":
-		$("#estrellas").html('<i class="fa fa-star text-success" aria-hidden="true"></i> '+
-							 '<i class="fa fa-star text-success" aria-hidden="true"></i> '+
-							 '<i class="fa fa-star text-success" aria-hidden="true"></i> '+
-							 '<i class="fa fa-star-half-o text-success" aria-hidden="true"></i> '+
-							 '<i class="fa fa-star-o text-success" aria-hidden="true"></i>');
-		break;
+    }
 
-		case "4.0":
-		$("#estrellas").html('<i class="fa fa-star text-success" aria-hidden="true"></i> '+
-							 '<i class="fa fa-star text-success" aria-hidden="true"></i> '+
-							 '<i class="fa fa-star text-success" aria-hidden="true"></i> '+
-							 '<i class="fa fa-star text-success" aria-hidden="true"></i> '+
-							 '<i class="fa fa-star-o text-success" aria-hidden="true"></i>');
-		break;
+    localStorage.setItem("listaProductos", JSON.stringify(listaCarrito));
 
-		case "4.5":
-		$("#estrellas").html('<i class="fa fa-star text-success" aria-hidden="true"></i> '+
-							 '<i class="fa fa-star text-success" aria-hidden="true"></i> '+
-							 '<i class="fa fa-star text-success" aria-hidden="true"></i> '+
-							 '<i class="fa fa-star text-success" aria-hidden="true"></i> '+
-							 '<i class="fa fa-star-half-o text-success" aria-hidden="true"></i>');
-		break;
-
-		case "5.0":
-		$("#estrellas").html('<i class="fa fa-star text-success" aria-hidden="true"></i> '+
-							 '<i class="fa fa-star text-success" aria-hidden="true"></i> '+
-							 '<i class="fa fa-star text-success" aria-hidden="true"></i> '+
-							 '<i class="fa fa-star text-success" aria-hidden="true"></i> '+
-							 '<i class="fa fa-star text-success" aria-hidden="true"></i>');
-		break;
-
-	}
-
+    sumaSubtotales();
+    cestaCarrito(listaCarrito.length);
 })
 
 /*=============================================
-VALIDAR EL COMENTARIO
+/*=============================================
+/*=============================================
+/*=============================================
+/*=============================================
+SUMA DE TODOS LOS SUBTOTALES
 =============================================*/
+function sumaSubtotales() {
 
-function validarComentario(){
+    var subtotales = $(".subtotales span");
+    var arraySumaSubtotales = [];
 
-	var comentario = $("#comentario").val();
+    for (var i = 0; i < subtotales.length; i++) {
 
-	if(comentario != ""){
+        var subtotalesArray = $(subtotales[i]).html();
+        arraySumaSubtotales.push(Number(subtotalesArray));
 
-		var expresion = /^[,\\.\\a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]*$/;
+    }
 
-		if(!expresion.test(comentario)){
 
-			$("#comentario").parent().before('<div class="alert alert-danger"><strong>ERROR:</strong> No se permiten caracteres especiales como por ejemplo !$%&/?¡¿[]*</div>');
+    function sumaArraySubtotales(total, numero) {
 
-			return false;
+        return total + numero;
 
-		}
+    }
 
-	}else{
+    var sumaTotal = arraySumaSubtotales.reduce(sumaArraySubtotales);
 
-		$("#comentario").parent().before('<div class="alert alert-warning"><strong>ERROR:</strong> Campo obligatorio</div>');
+    $(".sumaSubTotal").html('<strong>USD $<span>' + (sumaTotal).toFixed(2) + '</span></strong>');
 
-		return false;
+    $(".sumaCesta").html((sumaTotal).toFixed(2));
 
-	}
+    localStorage.setItem("sumaCesta", (sumaTotal).toFixed(2));
 
-	return true;
 
 }
 
 /*=============================================
-LISTA DE DESEOS
+/*=============================================
+/*=============================================
+/*=============================================
+/*=============================================
+ACTUALIZAR CESTA AL CAMBIAR CANTIDAD
+=============================================*/
+function cestaCarrito(cantidadProductos) {
+
+    /*=============================================
+    SI HAY PRODUCTOS EN EL CARRITO
+    =============================================*/
+
+    if (cantidadProductos != 0) {
+
+        var cantidadItem = $(".cuerpoCarrito .cantidadItem");
+
+        var arraySumaCantidades = [];
+
+        for (var i = 0; i < cantidadItem.length; i++) {
+
+            var cantidadItemArray = $(cantidadItem[i]).val();
+            arraySumaCantidades.push(Number(cantidadItemArray));
+
+        }
+
+        function sumaArrayCantidades(total, numero) {
+
+            return total + numero;
+
+        }
+
+        var sumaTotalCantidades = arraySumaCantidades.reduce(sumaArrayCantidades);
+
+        $(".cantidadCesta").html(sumaTotalCantidades);
+        localStorage.setItem("cantidadCesta", sumaTotalCantidades);
+
+    }
+
+}
+
+/*=============================================
+/*=============================================
+/*=============================================
+/*=============================================
+/*=============================================
+CHECKOUT
 =============================================*/
 
-$(".deseos").click(function(){
+$("#btnCheckout").click(function() {
 
-	var idProducto = $(this).attr("idProducto");
-	console.log("idProducto", idProducto);
+    $(".listaProductos table.tablaProductos tbody").html("");
 
-	var idUsuario = localStorage.getItem("usuario");
-	console.log("idUsuario", idUsuario);
+    $("#checkPaypal").prop("checked", true);
+    $("#checkPayu").prop("checked", false);
 
-	if(idUsuario == null){
+    var idUsuario = $(this).attr("idUsuario");
+    var peso = $(".cuerpoCarrito button, .comprarAhora button");
+    var titulo = $(".cuerpoCarrito .tituloCarritoCompra, .comprarAhora .tituloCarritoCompra");
+    var cantidad = $(".cuerpoCarrito .cantidadItem, .comprarAhora .cantidadItem");
+    var subtotal = $(".cuerpoCarrito .subtotales span, .comprarAhora .subtotales span");
+    var tipoArray = [];
+    var cantidadPeso = [];
 
-		swal({
-		  title: "Debe ingresar al sistema",
-		  text: "¡Para agregar un producto a la 'lista de deseos' debe primero ingresar al sistema!",
-		  type: "warning",
-		  confirmButtonText: "¡Cerrar!",
-		  closeOnConfirm: false
-		},
-		function(isConfirm){
-				 if (isConfirm) {	   
-				    window.location = rutaOculta;
-				  } 
-		});
+    /*=============================================
+    SUMA SUBTOTAL
+    =============================================*/
 
-	}else{
+    var sumaSubTotal = $(".sumaSubTotal span")
 
-		$(this).addClass("btn-danger");
+    $(".valorSubtotal").html($(sumaSubTotal).html());
+    $(".valorSubtotal").attr("valor", $(sumaSubTotal).html());
 
-		var datos = new FormData();
-		datos.append("idUsuario", idUsuario);
-		datos.append("idProducto", idProducto);
+    /*=============================================
+    TASAS DE IMPUESTO
+    =============================================*/
 
-		$.ajax({
-			url:rutaOculta+"ajax/usuarios.ajax.php",
-			method:"POST",
-			data: datos,
-			cache: false,
-			contentType: false,
-			processData: false,
-			success:function(respuesta){
-				
-							
-			}
+    var impuestoTotal = ($(".valorSubtotal").html() * $("#tasaImpuesto").val()) / 100;
 
-		})
+    $(".valorTotalImpuesto").html((impuestoTotal).toFixed(2));
+    $(".valorTotalImpuesto").attr("valor", (impuestoTotal).toFixed(2));
 
-	}
+    sumaTotalCompra()
+
+    /*=============================================
+    VARIABLES ARRAY 
+    =============================================*/
+
+    for (var i = 0; i < titulo.length; i++) {
+
+        var pesoArray = $(peso[i]).attr("peso");
+        var tituloArray = $(titulo[i]).html();
+        var cantidadArray = $(cantidad[i]).val();
+        var subtotalArray = $(subtotal[i]).html();
+
+        /*=============================================
+        EVALUAR EL PESO DE ACUERDO A LA CANTIDAD DE PRODUCTOS
+        =============================================*/
+
+        cantidadPeso[i] = pesoArray * cantidadArray;
+
+        function sumaArrayPeso(total, numero) {
+
+            return total + numero;
+
+        }
+
+        var sumaTotalPeso = cantidadPeso.reduce(sumaArrayPeso);
+
+        /*=============================================
+        MOSTRAR PRODUCTOS DEFINITIVOS A COMPRAR
+        =============================================*/
+
+        $(".listaProductos table.tablaProductos tbody").append('<tr>' +
+            '<td class="valorTitulo">' + tituloArray + '</td>' +
+            '<td class="valorCantidad">' + cantidadArray + '</td>' +
+            '<td>$<span class="valorItem" valor="' + subtotalArray + '">' + subtotalArray + '</span></td>' +
+            '<tr>');
+
+        /*=============================================
+        SELECCIONAR PAÍS DE ENVÍO SI HAY PRODUCTOS FÍSICOS
+        =============================================*/
+
+        tipoArray.push($(cantidad[i]).attr("tipo"));
+
+        function checkTipo(tipo) {
+
+            return tipo == "fisico";
+
+        }
+
+    }
+
+    /*=============================================
+    EXISTEN PRODUCTOS FÍSICOS
+    =============================================*/
+
+    if (tipoArray.find(checkTipo) == "fisico") {
+
+        $(".seleccionePais").html('<select class="form-control" id="seleccionarPais" required>' +
+
+            '<option value="">Seleccione el país</option>' +
+
+            '</select>');
+
+
+        $(".formEnvio").show();
+
+        $(".btnPagar").attr("tipo", "fisico");
+
+        $.ajax({
+            url: rutaOculta + "vistas/js/plugins/countries.json",
+            type: "GET",
+            cache: false,
+            contentType: false,
+            processData: false,
+            dataType: "json",
+            success: function(respuesta) {
+
+                respuesta.forEach(seleccionarPais);
+
+                function seleccionarPais(item, index) {
+
+                    var pais = item.name;
+                    var codPais = item.code;
+
+                    $("#seleccionarPais").append('<option value="' + codPais + '">' + pais + '</option>');
+
+                }
+
+            }
+        })
+
+        /*=============================================
+        EVALUAR TASAS DE ENVÍO SI EL PRODUCTO ES FÍSICO
+        =============================================*/
+
+        $("#seleccionarPais").change(function() {
+
+            $(".alert").remove();
+
+            var pais = $(this).val();
+            var tasaPais = $("#tasaPais").val();
+
+            if (pais == tasaPais) {
+
+                var resultadoPeso = sumaTotalPeso * $("#envioNacional").val();
+
+                if (resultadoPeso < $("#tasaMinimaNal").val()) {
+
+                    $(".valorTotalEnvio").html($("#tasaMinimaNal").val());
+                    $(".valorTotalEnvio").attr("valor", $("#tasaMinimaNal").val());
+
+                } else {
+
+                    $(".valorTotalEnvio").html(resultadoPeso);
+                    $(".valorTotalEnvio").attr("valor", resultadoPeso);
+                }
+
+            } else {
+
+                var resultadoPeso = sumaTotalPeso * $("#envioInternacional").val();
+
+                if (resultadoPeso < $("#tasaMinimaInt").val()) {
+
+                    $(".valorTotalEnvio").html($("#tasaMinimaInt").val());
+                    $(".valorTotalEnvio").attr("valor", $("#tasaMinimaInt").val());
+
+                } else {
+
+                    $(".valorTotalEnvio").html(resultadoPeso);
+                    $(".valorTotalEnvio").attr("valor", resultadoPeso);
+                }
+
+            }
+
+            sumaTotalCompra();
+            pagarConPayu();
+
+        })
+
+    } else {
+
+        $(".btnPagar").attr("tipo", "virtual");
+    }
 
 })
 
 /*=============================================
-BORRAR PRODUCTO DE LISTA DE DESEOS
+/*=============================================
+/*=============================================
+/*=============================================
+/*=============================================
+SUMA TOTAL DE LA COMPRA
+=============================================*/
+function sumaTotalCompra() {
+
+    var sumaTotalTasas = Number($(".valorSubtotal").html()) +
+        Number($(".valorTotalEnvio").html()) +
+        Number($(".valorTotalImpuesto").html());
+
+
+    $(".valorTotalCompra").html((sumaTotalTasas).toFixed(2));
+    $(".valorTotalCompra").attr("valor", (sumaTotalTasas).toFixed(2));
+
+    localStorage.setItem("total", hex_md5($(".valorTotalCompra").html()));
+}
+
+/*=============================================
+/*=============================================
+/*=============================================
+/*=============================================
+MÉTODO DE PAGO PARA CAMBIO DE DIVISA
 =============================================*/
 
-$(".quitarDeseo").click(function(){
+var metodoPago = "paypal";
+divisas(metodoPago);
 
-	var idDeseo = $(this).attr("idDeseo");
+$("input[name='pago']").change(function() {
 
-	$(this).parent().parent().parent().remove();
+    var metodoPago = $(this).val();
 
-	var datos = new FormData();
-	datos.append("idDeseo", idDeseo);
+    divisas(metodoPago);
 
-	$.ajax({
-			url:rutaOculta+"ajax/usuarios.ajax.php",
-			method:"POST",
-			data: datos,
-			cache: false,
-			contentType: false,
-			processData: false,
-			success:function(respuesta){
-			
-			}
+    if (metodoPago == "payu") {
 
-		});
+        $(".btnPagar").hide();
+        $(".formPayu").show();
 
+        pagarConPayu();
+
+    } else {
+
+        $(".btnPagar").show();
+        $(".formPayu").hide();
+
+    }
 
 })
 
 /*=============================================
-ELIMINAR USUARIO
+/*=============================================
+/*=============================================
+/*=============================================
+FUNCIÓN PARA EL CAMBIO DE DIVISA
 =============================================*/
 
-$("#eliminarUsuario").click(function(){
+function divisas(metodoPago) {
 
-	var id = $("#idUsuario").val();
+    $("#cambiarDivisa").html("");
 
-	if($("#modoUsuario").val() == "directo"){
+    if (metodoPago == "paypal") {
 
-		if($("#fotoUsuario").val() != ""){
+        $("#cambiarDivisa").append('<option value="USD">USD</option>' +
+            '<option value="EUR">EUR</option>' +
+            '<option value="GBP">GBP</option>' +
+            '<option value="MXN">MXN</option>' +
+            '<option value="JPY">JPY</option>' +
+            '<option value="CAD">CAD</option>' +
+            '<option value="BRL">BRL</option>')
 
-			var foto = $("#fotoUsuario").val();
+    } else {
 
-		}
+        $("#cambiarDivisa").append('<option value="USD">USD</option>' +
+            '<option value="PEN">PEN</option>' +
+            '<option value="COP">COP</option>' +
+            '<option value="MXN">MXN</option>' +
+            '<option value="CLP">CLP</option>' +
+            '<option value="ARS">ARS</option>' +
+            '<option value="BRL">BRL</option>')
 
-	}
+    }
 
-	swal({
-		  title: "¿Está usted seguro(a) de eliminar su cuenta?",
-		  text: "¡Si borrar esta cuenta ya no se puede recuperar los datos!",
-		  type: "warning",
-		  showCancelButton: true,
-		  confirmButtonColor: "#DD6B55",
-		  confirmButtonText: "¡Si, borrar cuenta!",
-		  closeOnConfirm: false
-		},
-		function(isConfirm){
-				 if (isConfirm) {	   
-				    window.location = "index.php?ruta=perfil&id="+id+"&foto="+foto;
-				  } 
-		});
+}
+
+/*=============================================
+/*=============================================
+/*=============================================
+/*=============================================
+CAMBIO DE DIVISA
+=============================================*/
+
+var divisaBase = "USD";
+
+$("#cambiarDivisa").change(function() {
+
+    $(".alert").remove();
+
+    if ($("#seleccionarPais").val() == "") {
+
+        $("#cambiarDivisa").after('<div class="alert alert-warning">No ha seleccionado el país de envío</div>');
+
+        return;
+
+    }
+
+    var divisa = $(this).val();
+
+    $.ajax({
+
+        url: "http://free.currconv.com/api/v7/convert?q=" + divisaBase + "_" + divisa + "&compact=ultra&apiKey=a01ebaf9a1c69eb4ff79",
+        type: "GET",
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "jsonp",
+        success: function(respuesta) {
+
+            var conversion = (respuesta["USD_" + divisa]).toFixed(2);
+
+            $(".cambioDivisa").html(divisa);
+
+            if (divisa == "USD") {
+
+                $(".valorSubtotal").html($(".valorSubtotal").attr("valor"))
+                $(".valorTotalEnvio").html($(".valorTotalEnvio").attr("valor"))
+                $(".valorTotalImpuesto").html($(".valorTotalImpuesto").attr("valor"))
+                $(".valorTotalCompra").html($(".valorTotalCompra").attr("valor"))
+
+                var valorItem = $(".valorItem");
+
+                localStorage.setItem("total", hex_md5($(".valorTotalCompra").html()));
+
+                for (var i = 0; i < valorItem.length; i++) {
+
+                    $(valorItem[i]).html($(valorItem[i]).attr("valor"));
+
+                }
+
+            } else {
+
+                $(".valorSubtotal").html(
+
+                    Math.ceil(Number(conversion) * Number($(".valorSubtotal").attr("valor")) * 100) / 100
+
+                )
+
+                $(".valorTotalEnvio").html(
+
+                    (Number(conversion) * Number($(".valorTotalEnvio").attr("valor"))).toFixed(2)
+
+                )
+
+                $(".valorTotalImpuesto").html(
+
+                    (Number(conversion) * Number($(".valorTotalImpuesto").attr("valor"))).toFixed(2)
+
+                )
+
+                $(".valorTotalCompra").html(
+
+                    (Number(conversion) * Number($(".valorTotalCompra").attr("valor"))).toFixed(2)
+
+                )
+
+                var valorItem = $(".valorItem");
+
+                localStorage.setItem("total", hex_md5($(".valorTotalCompra").html()));
+
+                for (var i = 0; i < valorItem.length; i++) {
+
+                    $(valorItem[i]).html(
+
+                        (Number(conversion) * Number($(valorItem[i]).attr("valor"))).toFixed(2)
+
+                    );
+
+                }
+
+            }
+
+            sumaTotalCompra();
+
+            pagarConPayu();
+
+        }
+
+    })
+
+
 
 })
 
 
+/*=============================================
+/*=============================================
+/*=============================================
+/*=============================================
+/*=============================================
+BOTÓN PAGAR PAYPAL
+=============================================*/
+
+$(".btnPagar").click(function() {
+
+    var tipo = $(this).attr("tipo");
+
+    if (tipo == "fisico" && $("#seleccionarPais").val() == "") {
+
+        $(".btnPagar").after('<div class="alert alert-warning">No ha seleccionado el país de envío</div>');
+
+        return;
+
+    }
+
+    var divisa = $("#cambiarDivisa").val();
+    var total = $(".valorTotalCompra").html();
+    var totalEncriptado = localStorage.getItem("total");
+    var impuesto = $(".valorTotalImpuesto").html();
+    var envio = $(".valorTotalEnvio").html();
+    var subtotal = $(".valorSubtotal").html();
+    var titulo = $(".valorTitulo");
+    var cantidad = $(".valorCantidad");
+    var valorItem = $(".valorItem");
+    var idProducto = $('.cuerpoCarrito button, .comprarAhora button');
+
+    var tituloArray = [];
+    var cantidadArray = [];
+    var valorItemArray = [];
+    var idProductoArray = [];
+
+    for (var i = 0; i < titulo.length; i++) {
+
+        tituloArray[i] = $(titulo[i]).html();
+        cantidadArray[i] = $(cantidad[i]).html();
+        valorItemArray[i] = $(valorItem[i]).html();
+        idProductoArray[i] = $(idProducto[i]).attr("idProducto");
+
+    }
+
+    var datos = new FormData();
+
+    datos.append("divisa", divisa);
+    datos.append("total", total);
+    datos.append("totalEncriptado", totalEncriptado);
+    datos.append("impuesto", impuesto);
+    datos.append("envio", envio);
+    datos.append("subtotal", subtotal);
+    datos.append("tituloArray", tituloArray);
+    datos.append("cantidadArray", cantidadArray);
+    datos.append("valorItemArray", valorItemArray);
+    datos.append("idProductoArray", idProductoArray);
+
+    $.ajax({
+        url: rutaOculta + "ajax/carrito.ajax.php",
+        method: "POST",
+        data: datos,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function(respuesta) {
+
+            window.location = respuesta;
+
+        }
+
+    })
+
+})
+
+/*=============================================
+/*=============================================
+/*=============================================
+/*=============================================
+/*=============================================
+BOTÓN PAGAR PAYU
+=============================================*/
+
+function pagarConPayu() {
+
+    if ($("#seleccionarPais").val() == "") {
+
+        $(".formPayu").after('<div class="alert alert-warning">No ha seleccionado el país de envío</div>');
+
+        $(".formPayu input[name='Submit']").attr("type", "button");
+
+        return;
+
+    }
+
+    var divisa = $("#cambiarDivisa").val();
+    var total = $(".valorTotalCompra").html();
+    var impuesto = $(".valorTotalImpuesto").html();
+    var envio = $(".valorTotalEnvio").html();
+    var subtotal = $(".valorSubtotal").html();
+    var titulo = $(".valorTitulo");
+    var cantidad = $(".valorCantidad");
+    var valorItem = $(".valorItem");
+    var idProducto = $('.cuerpoCarrito button, .comprarAhora button');
+
+    var tituloArray = [];
+    var cantidadArray = [];
+    var idProductoArray = [];
+    var valorItemArray = [];
+
+    for (var i = 0; i < titulo.length; i++) {
+
+        tituloArray[i] = $(titulo[i]).html();
+        cantidadArray[i] = $(cantidad[i]).html();
+        idProductoArray[i] = $(idProducto[i]).attr("idProducto");
+        valorItemArray[i] = $(valorItem[i]).html();
+
+    }
+
+    var valorItemString = valorItemArray.toString();
+    var pago = valorItemString.replace(",", "-");
+
+    var datos = new FormData();
+    datos.append("metodoPago", "payu");
+    datos.append("cantidadArray", cantidadArray);
+    datos.append("valorItemArray", valorItemArray);
+    datos.append("idProductoArray", idProductoArray);
+    datos.append("divisaPayu", divisa);
+
+    if (hex_md5(total) == localStorage.getItem("total")) {
+
+        $.ajax({
+            url: rutaOculta + "ajax/carrito.ajax.php",
+            method: "POST",
+            data: datos,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(respuesta) {
+
+                var merchantId = JSON.parse(respuesta).merchantIdPayu;
+                var accountId = JSON.parse(respuesta).accountIdPayu;
+                var apiKey = JSON.parse(respuesta).apiKeyPayu;
+                var modo = JSON.parse(respuesta).modoPayu;
+                var description = tituloArray.toString();
+                var referenceCode = (Number(Math.ceil(Math.random() * 1000000)) + Number(total).toFixed());
+                var productosToString = idProductoArray.toString();
+                var productos = productosToString.replace(/,/g, "-");
+                var cantidadToString = cantidadArray.toString();
+                var cantidad = cantidadToString.replace(/,/g, "-");
+                var signature = hex_md5(apiKey + "~" + merchantId + "~" + referenceCode + "~" + total + "~" + divisa);
+
+
+                if (divisa == "COP") {
+
+                    var taxReturnBase = (total - impuesto).toFixed(2)
+
+                } else {
+
+                    var taxReturnBase = 0;
+
+                }
+
+                if (modo == "sandbox") {
+
+                    var url = "https://sandbox.gateway.payulatam.com/ppp-web-gateway/";
+                    var test = 1;
+
+                } else {
+
+                    var url = "https://gateway.payulatam.com/ppp-web-gateway/";
+                    var test = 0;
+
+                }
+
+                if (envio != 0) {
+
+                    var tipoEnvio = "YES";
+
+                } else {
+
+                    var tipoEnvio = "NO";
+                }
+
+                $(".formPayu").attr("method", "POST");
+                $(".formPayu").attr("action", url);
+                $(".formPayu input[name='merchantId']").attr("value", merchantId);
+                $(".formPayu input[name='accountId']").attr("value", accountId);
+                $(".formPayu input[name='description']").attr("value", description);
+                $(".formPayu input[name='referenceCode']").attr("value", referenceCode);
+                $(".formPayu input[name='amount']").attr("value", total);
+                $(".formPayu input[name='tax']").attr("value", impuesto);
+                $(".formPayu input[name='taxReturnBase']").attr("value", taxReturnBase);
+                $(".formPayu input[name='shipmentValue']").attr("value", envio);
+                $(".formPayu input[name='currency']").attr("value", divisa);
+                $(".formPayu input[name='responseUrl']").attr("value", rutaOculta + "index.php?ruta=finalizar-compra&payu=true&productos=" + productos + "&cantidad=" + cantidad + "&pago=" + pago);
+                $(".formPayu input[name='declinedResponseUrl']").attr("value", rutaOculta + "carrito-de-compras");
+                $(".formPayu input[name='displayShippingInformation']").attr("value", tipoEnvio);
+                $(".formPayu input[name='test']").attr("value", test);
+                $(".formPayu input[name='signature']").attr("value", signature);
+
+                /*=============================================
+				GENERADOR DE TARJETAS DE CRÉDITO
+				http://www.elfqrin.com/discard_credit_card_generator.php
+				=============================================*/
+
+            }
+
+        })
+    }
+}
+
+/*=============================================
+/*=============================================
+/*=============================================
+/*=============================================
+/*=============================================
+AGREGAR PRODUCTOS GRATIS
+=============================================*/
+$(".agregarGratis").click(function() {
+
+    var idProducto = $(this).attr("idProducto");
+    var idUsuario = $(this).attr("idUsuario");
+    var tipo = $(this).attr("tipo");
+    var titulo = $(this).attr("titulo");
+    var agregarGratis = false;
+
+    /*=============================================
+    VERIFICAR QUE NO TENGA EL PRODUCTO ADQUIRIDO
+    =============================================*/
+
+    var datos = new FormData();
+
+    datos.append("idUsuario", idUsuario);
+    datos.append("idProducto", idProducto);
+
+    $.ajax({
+        url: rutaOculta + "ajax/carrito.ajax.php",
+        method: "POST",
+        data: datos,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function(respuesta) {
+
+            if (respuesta != "false") {
+
+                swal({
+                    title: "¡Usted ya adquirió este producto!",
+                    text: "",
+                    type: "warning",
+                    showCancelButton: false,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Regresar",
+                    closeOnConfirm: false
+                })
+
+
+            } else {
+
+                if (tipo == "virtual") {
+
+                    agregarGratis = true;
+
+                } else {
+
+                    var seleccionarDetalle = $(".seleccionarDetalle");
+
+                    for (var i = 0; i < seleccionarDetalle.length; i++) {
+
+                        if ($(seleccionarDetalle[i]).val() == "") {
+
+                            swal({
+                                title: "Debe seleccionar Talla y Color",
+                                text: "",
+                                type: "warning",
+                                showCancelButton: false,
+                                confirmButtonColor: "#DD6B55",
+                                confirmButtonText: "¡Seleccionar!",
+                                closeOnConfirm: false
+                            })
+
+                        } else {
+
+                            titulo = titulo + "-" + $(seleccionarDetalle[i]).val();
+
+                            agregarGratis = true;
+
+                        }
+
+                    }
+
+                }
+
+                if (agregarGratis) {
+
+                    window.location = rutaOculta + "index.php?ruta=finalizar-compra&gratis=true&producto=" + idProducto + "&titulo=" + titulo;
+
+                }
+
+            }
+
+        }
+
+    })
+
+
+
+})
