@@ -674,6 +674,7 @@ $("#btnCheckout").click(function() {
             $("#seleccionarPais").change(function() {
 
                 $(".alert").remove();
+                $("#cambiarDivisa").val("PEN")
 
                 var region = $(this).val();
                 var tasaRegion = $("#tasaRegion").val();
