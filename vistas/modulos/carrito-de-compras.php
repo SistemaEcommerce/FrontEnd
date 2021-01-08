@@ -28,9 +28,9 @@
     <div class="container">
     <div class="panel panel-default">
 			
-			<!--=====================================
+			<!--
 			CABECERA CARRITO DE COMPRAS
-			======================================-->
+			-->
 
 			<div class="panel-heading cabeceraCarrito">
 				
@@ -69,9 +69,9 @@
 			</div>
 
 
-			<!--=====================================
+			<!--
 			CUERPO CARRITO DE COMPRAS
-			======================================-->
+			-->
 
 			<div class="panel-body cuerpoCarrito">
 						
@@ -79,9 +79,9 @@
 
 			</div>
 
-			<!--=====================================
+			<!--
 			SUMA DEL TOTAL DE PRODUCTOS
-			======================================-->
+			-->
 
 			<div class="panel-body sumaCarrito" >
 
@@ -107,9 +107,7 @@
 
 			</div>
 
-			<!--=====================================
-			BOTÓN CHECKOUT
-			======================================-->
+			<!--BOTÓN CHECKOUT-->
 
 			<div class="panel-heading cabeceraCheckout" style="color:black;background-color: #0d1117;border:none;text-align: right;">
 				
@@ -149,17 +147,34 @@
 
 			<div class="contenidoCheckout">
 
+			<!-- mostrar carrito -->
+
+			<?php
+				$respuesta=ControladorCarrito::ctrMostrarTarifas();
+				/* var_dump('<div style="color:black">',$respuesta,"</div>"); */		
+
+				echo '<input type="hidden" id="tasaImpuesto" value="'.$respuesta["impuesto"].'">
+					  <input type="hidden" id="envioLocal" value="'.$respuesta["envioLocal"].'">
+				      <input type="hidden" id="envioNacional" value="'.$respuesta["envioNacional"].'">
+				      <input type="hidden" id="tasaMinimaLocal" value="'.$respuesta["tasaMinimaLocal"].'">
+				      <input type="hidden" id="tasaMinimaNacional" value="'.$respuesta["tasaMinimaNacional"].'">
+				      <input type="hidden" id="tasaRegion" value="'.$respuesta["region"].'">
+
+				';
+
+			?>
+
 			<!-- formEnvio -->
 
 				<div class="formEnvio row">
 
 					<h4 class="text-center well text-muted text-uppercase">Información de envío</h4>
 
-					<div class="col-xs-12 seleccionePais">
+					<div class="col-xs-12 seleccionarPais">
 
-						<select class="form-control" name="" id="seleccionePais" required>
+						<select class="form-control" name="" id="seleccionarPais" required>
 
-							<option value="">Seleccione una Region</option>
+							<option style="color:black" value="">Seleccione una Region</option>
 
 						</select>
 
@@ -173,27 +188,28 @@
 						<h4 class="text-center well text-muted text-uppercase">Elige la forma de pago</h4>
 
 
-						<figure class="col-xs-6">	
-															
-							<input id="checkPayu" type="radio" name="pago" value="payu" checked  style="margin-left: 50%;">						
-
-							<img src="<?php echo $url; ?>vistas/img/plantilla/payu.jpg" class="img-thumbnail">
-
-						</figure>
 
 						<figure class="col-xs-6" >
 							
-							<input id="checkPaypal" type="radio" name="pago" value="paypal"  style="margin-left: 50%;">
+							<input id="checkPaypal" type="radio" name="pago" value="paypal" checked style="margin-left: 50%;">
 
 							<img src="<?php echo $url; ?>vistas/img/plantilla/paypal.jpg" class="img-thumbnail">
 							
-						</figure>							
+						</figure>		
+						
+						<figure class="col-xs-6">	
+															
+							<input id="checkPayu" type="radio" name="pago" value="payu"   style="margin-left: 50%;">						
+
+							<img src="<?php echo $url; ?>vistas/img/plantilla/PayU.png" class="img-thumbnail">
+
+						</figure>					
 
 					</div>
 
 					<br>
 
-					<div class="listaProducto row">
+					<div class="listaProductos row">
 
 						<h4 class="text-center well text-muted text-uppercase" style="color:#0d1117">Productos a comprar</h4>
 
@@ -202,9 +218,9 @@
 							<thead >	
 
 									<tr>		
-										<th>Producto</th>
-										<th>Cantidad</th>
-										<th>Precio</th>
+										<th style="color:black">Producto</th>
+										<th style="color:black">Cantidad</th>
+										<th style="color:black">Precio</th>
 								</tr>	
 
 							 </thead>	
@@ -251,7 +267,8 @@
 
 								 	<select class="form-control" id="cambiarDivisa" name="divisa">
 
-										
+									 <option value="PEN">PEN</option>
+
 
 								 	</select>	
 
@@ -263,7 +280,7 @@
 
 						<div class="clearfix"></div>
 
-						<button class="btn btn-block btn-lg btn-default backColor btnPagar">Pagar</button>
+						<button class="btn btn-block btn-lg btn-default backColor btnPagar" >Pagar</button>
 
 					</div>
 

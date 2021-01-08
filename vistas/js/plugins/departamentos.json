@@ -1,0 +1,27 @@
+[
+    { "name": "Amazonas", "code": "AM" },
+    { "name": "Ancash", "code": "AN" },
+    { "name": "Apurimacc", "code": "AP" },
+    { "name": "Arequipa", "code": "AR" },
+    { "name": "Ayacucho", "code": "AY" },
+    { "name": "Cajamarca", "code": "CA" },
+    { "name": "Cusco", "code": "CU" },
+    { "name": "Huancavelica", "code": "HV" },
+    { "name": "Huanuco", "code": "HU" },
+    { "name": "Ica", "code": "IC" },
+    { "name": "Junin", "code": "JU" },
+    { "name": "La Libertad", "code": "LL" },
+    { "name": "Lambayeque", "code": "LA" },
+    { "name": "Lima", "code": "LI" },
+    { "name": "Loreto", "code": "LO" },
+    { "name": "Madre de Dios", "code": "MD" },
+    { "name": "Moquegua", "code": "MO" },
+    { "name": "Pasco", "code": "PA" },
+    { "name": "Piura", "code": "PI" },
+    { "name": "Puno", "code": "PU" },
+    { "name": "San Martin", "code": "SM" },
+    { "name": "Tacna", "code": "TA" },
+    { "name": "Tumbes", "code": "TU" },
+    { "name": "Ucayali", "code": "UC" }
+
+]

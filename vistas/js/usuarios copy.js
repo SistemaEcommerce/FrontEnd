@@ -262,7 +262,7 @@ $(".agregarCarrito").click(function() {
 
             for (var i = 0; i < listaProductos.length; i++) {
 
-                if (listaProductos[i]["idProducto"] == idProducto && listaProductos[i]["tipo"] == "virtual") {
+                if (listaProductos[i]["tipo"] == "virtual" && listaProductos[i]["idProducto"] == idProducto) {
 
                     swal({
                         title: "El producto ya está agregado al carrito de compras",
@@ -826,7 +826,7 @@ function divisas(metodoPago) {
 CAMBIO DE DIVISA
 =============================================*/
 
-var divisaBase = "USD";
+var divisaBase = "PEN";
 
 $("#cambiarDivisa").change(function() {
 
@@ -851,73 +851,73 @@ $("#cambiarDivisa").change(function() {
         processData: false,
         dataType: "jsonp",
         success: function(respuesta) {
+            console.log(respuesta);
+            /*             var conversion = (respuesta["PEN_" + divisa]).toFixed(2);
 
-            var conversion = (respuesta["USD_" + divisa]).toFixed(2);
+                        $(".cambioDivisa").html(divisa);
 
-            $(".cambioDivisa").html(divisa);
+                        if (divisa == "PEN") {
 
-            if (divisa == "USD") {
+                            $(".valorSubtotal").html($(".valorSubtotal").attr("valor"))
+                            $(".valorTotalEnvio").html($(".valorTotalEnvio").attr("valor"))
+                            $(".valorTotalImpuesto").html($(".valorTotalImpuesto").attr("valor"))
+                            $(".valorTotalCompra").html($(".valorTotalCompra").attr("valor"))
 
-                $(".valorSubtotal").html($(".valorSubtotal").attr("valor"))
-                $(".valorTotalEnvio").html($(".valorTotalEnvio").attr("valor"))
-                $(".valorTotalImpuesto").html($(".valorTotalImpuesto").attr("valor"))
-                $(".valorTotalCompra").html($(".valorTotalCompra").attr("valor"))
+                            var valorItem = $(".valorItem");
 
-                var valorItem = $(".valorItem");
+                            localStorage.setItem("total", hex_md5($(".valorTotalCompra").html()));
 
-                localStorage.setItem("total", hex_md5($(".valorTotalCompra").html()));
+                            for (var i = 0; i < valorItem.length; i++) {
 
-                for (var i = 0; i < valorItem.length; i++) {
+                                $(valorItem[i]).html($(valorItem[i]).attr("valor"));
 
-                    $(valorItem[i]).html($(valorItem[i]).attr("valor"));
+                            }
 
-                }
+                        } else {
 
-            } else {
+                            $(".valorSubtotal").html(
 
-                $(".valorSubtotal").html(
+                                Math.ceil(Number(conversion) * Number($(".valorSubtotal").attr("valor")) * 100) / 100
 
-                    Math.ceil(Number(conversion) * Number($(".valorSubtotal").attr("valor")) * 100) / 100
+                            )
 
-                )
+                            $(".valorTotalEnvio").html(
 
-                $(".valorTotalEnvio").html(
+                                (Number(conversion) * Number($(".valorTotalEnvio").attr("valor"))).toFixed(2)
 
-                    (Number(conversion) * Number($(".valorTotalEnvio").attr("valor"))).toFixed(2)
+                            )
 
-                )
+                            $(".valorTotalImpuesto").html(
 
-                $(".valorTotalImpuesto").html(
+                                (Number(conversion) * Number($(".valorTotalImpuesto").attr("valor"))).toFixed(2)
 
-                    (Number(conversion) * Number($(".valorTotalImpuesto").attr("valor"))).toFixed(2)
+                            )
 
-                )
+                            $(".valorTotalCompra").html(
 
-                $(".valorTotalCompra").html(
+                                (Number(conversion) * Number($(".valorTotalCompra").attr("valor"))).toFixed(2)
 
-                    (Number(conversion) * Number($(".valorTotalCompra").attr("valor"))).toFixed(2)
+                            )
 
-                )
+                            var valorItem = $(".valorItem");
 
-                var valorItem = $(".valorItem");
+                            localStorage.setItem("total", hex_md5($(".valorTotalCompra").html()));
 
-                localStorage.setItem("total", hex_md5($(".valorTotalCompra").html()));
+                            for (var i = 0; i < valorItem.length; i++) {
 
-                for (var i = 0; i < valorItem.length; i++) {
+                                $(valorItem[i]).html(
 
-                    $(valorItem[i]).html(
+                                    (Number(conversion) * Number($(valorItem[i]).attr("valor"))).toFixed(2)
 
-                        (Number(conversion) * Number($(valorItem[i]).attr("valor"))).toFixed(2)
+                                );
 
-                    );
+                            }
 
-                }
+                        } */
 
-            }
+            /*    sumaTotalCompra();
 
-            sumaTotalCompra();
-
-            pagarConPayu();
+               pagarConPayu(); */
 
         }
 
