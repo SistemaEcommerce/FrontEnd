@@ -9,6 +9,10 @@ if (!(PHP_VERSION_ID >= 70205)) {
 }
 
 $missingExtensions = array();
+extension_loaded('ctype') || $missingExtensions[] = 'ctype';
+extension_loaded('curl') || $missingExtensions[] = 'curl';
+extension_loaded('filter') || $missingExtensions[] = 'filter';
+extension_loaded('hash') || $missingExtensions[] = 'hash';
 extension_loaded('json') || $missingExtensions[] = 'json';
 
 if ($missingExtensions) {

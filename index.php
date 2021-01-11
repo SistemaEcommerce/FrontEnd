@@ -21,3 +21,7 @@ require_once "extensiones/vendor/autoload.php";
 $plantilla=new ControladorPlantilla();
 $plantilla->plantilla();
 
+/* 
+composer install --ignore-platform-reqs
+sudo apt-get install php7.4-curl
+sudo composer.phar require paypal/rest-api-sdk-php:* */

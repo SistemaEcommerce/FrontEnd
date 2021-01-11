@@ -22,6 +22,7 @@
     { "name": "San Martin", "code": "SM" },
     { "name": "Tacna", "code": "TA" },
     { "name": "Tumbes", "code": "TU" },
-    { "name": "Ucayali", "code": "UC" }
+    { "name": "Ucayali", "code": "UC" },
+    { "name": "Otros", "code": "OT" }
 
 ]

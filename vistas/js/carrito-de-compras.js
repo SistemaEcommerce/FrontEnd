@@ -69,7 +69,7 @@ if (localStorage.getItem("listaProductos") != null) {
 
             '<br>' +
 
-            '<p class="precioCarritoCompra text-center">SOL S/.<span>' + item.precio + '</span></p>' +
+            '<p class="precioCarritoCompra text-center">PEN S/.<span>' + item.precio + '</span></p>' +
 
             '</div>' +
 
@@ -100,7 +100,7 @@ if (localStorage.getItem("listaProductos") != null) {
 
             '<p class="subTotal' + item.idProducto + ' subtotales">' +
 
-            '<strong>SOL S/.<span>' + item.precio + '</span></strong>' +
+            '<strong>PEN S/.<span>' + item.precio + '</span></strong>' +
 
             '</p>' +
 
@@ -353,7 +353,7 @@ $(".cantidadItem").change(function() {
     var stock = $(this).attr("stock");
 
 
-    $(".subTotal" + idProducto).html('<strong>SOL S/.<span>' + (cantidad * precio) + '</span></strong>');
+    $(".subTotal" + idProducto).html('<strong>PEN S/.<span>' + (cantidad * precio) + '</span></strong>');
     var stockArray = $(stock).html();
 
     /* actualizar la cantidad en el lcalstorage */
@@ -452,7 +452,7 @@ for (var i = 0; i < precioCarritoCompra.length; i++) {
     var cantidadItemArray = $(cantidadItem[i]).val();
     var idProductoArray = $(cantidadItem[i]).attr("idProducto");
 
-    $(".subTotal" + idProductoArray).html('<strong>SOL S/.<span>' + (precioCarritoCompraArray * cantidadItemArray).toFixed(2) + '</span></strong>');
+    $(".subTotal" + idProductoArray).html('<strong>PEN S/.<span>' + (precioCarritoCompraArray * cantidadItemArray).toFixed(2) + '</span></strong>');
 
     sumaSubtotales();
     cestaCarrito(precioCarritoCompra.length);
@@ -487,7 +487,7 @@ function sumaSubtotales() {
     var sumaTotal = arraySumaSubtotales.reduce(sumaArraySubtotales, 0);
 
 
-    $(".sumaSubTotal").html('<strong>SOL S/.<span>' + (sumaTotal).toFixed(2) + '</span></strong>');
+    $(".sumaSubTotal").html('<strong>PEN S/.<span>' + (sumaTotal).toFixed(2) + '</span></strong>');
 
     $(".sumaCesta").html((sumaTotal).toFixed(2));
 
@@ -614,9 +614,9 @@ $("#btnCheckout").click(function() {
 
         /* MOstrar productos definitivos */
         $(".listaProductos table.tablaProductos tbody").append('<tr style="color:black">' +
-            '<td style="color:black">' + tituloArray + '</td>' +
-            '<td style="color:black">' + cantidadArray + '</td>' +
-            '<td style="color:black"><span style="color:black" class="cambioDivisa">SOL</span> S/. <span style="color:black" class="valorItem" valor="' + subtotalArray + '"> ' + subtotalArray + '</span></td>' +
+            '<td style="color:black" class="valorTitulo">' + tituloArray + '</td>' +
+            '<td style="color:black" class="valorCantidad">' + cantidadArray + '</td>' +
+            '<td style="color:black"><span style="color:black" class="cambioDivisa">PEN</span> S/. <span style="color:black" class="valorItem" valor="' + subtotalArray + '"> ' + subtotalArray + '</span></td>' +
             '</tr>');
 
         /* seleccionar region de envio si el preoducto es fisico */
@@ -628,101 +628,100 @@ $("#btnCheckout").click(function() {
             return tipo == "fisico";
 
         }
+    }
+    /* existen productos fisicos */
 
-        /* existen productos fisicos */
+    if (tipoArray.find(checkTipo) == "fisico") {
 
-        if (tipoArray.find(checkTipo) == "fisico") {
+        /* validamos seleccion region */
 
-            /* validamos seleccion region */
+        $(".seleccionePais").html('<select class="form-control" id="seleccionarPais" required>' +
+            '<option value="" style="color:black">Seleccione la region</option>' +
+            '</select>');
 
-            $(".seleccionePais").html('<select class="form-control" id="seleccionarPais" required>' +
+        $(".formEnvio").show();
+        $(".btnPagar").attr("tipo", "fisico");
 
-                '<option value="">Seleccione el país</option>' +
+        /* validamos seleccion region fin */
 
-                '</select>');
+        $.ajax({
+            url: rutaOculta + "vistas/js/plugins/departamentos.json",
+            type: "GET",
+            cache: false,
+            contentType: false,
+            processData: false,
+            dataType: "json",
+            success: function(respuesta) {
 
-            $(".formEnvio").show();
-            $(".btnPagar").attr("tipo", "fisico");
+                respuesta.forEach(seleccionarPais);
 
-            /* validamos seleccion region fin */
+                function seleccionarPais(item, index) {
 
-            $.ajax({
-                url: rutaOculta + "vistas/js/plugins/departamentos.json",
-                type: "GET",
-                cache: false,
-                contentType: false,
-                processData: false,
-                dataType: "json",
-                success: function(respuesta) {
-
-                    respuesta.forEach(seleccionarPais);
-
-                    function seleccionarPais(item, index) {
-
-                        var pais = item.name;
-                        var codPais = item.code;
-                        $("#seleccionarPais").append('<option style="color:black" value="' + codPais + '">' + pais + '</option>');
-                    }
-
+                    var pais = item.name;
+                    var codPais = item.code;
+                    $("#seleccionarPais").append('<option style="color:black" value="' + codPais + '">' + pais + '</option>');
                 }
-            })
 
-            /* --------------------------------------------- */
-            /* evaluar  tasa de envio si es producto fisico*/
-            /* --------------------------------------------- */
+            }
+        })
 
-            $("#seleccionarPais").change(function() {
+        /* --------------------------------------------- */
+        /* evaluar  tasa de envio si es producto fisico*/
+        /* --------------------------------------------- */
 
-                $(".alert").remove();
-                $("#cambiarDivisa").val("PEN")
+        $("#seleccionarPais").change(function() {
 
-                var region = $(this).val();
-                var tasaRegion = $("#tasaRegion").val();
+            $(".alert").remove();
 
-                if (region == tasaRegion) {
 
-                    var resultadoPeso = sumaTotalPeso * $("#envioLocal").val();
+            var region = $(this).val();
+            var tasaRegion = $("#tasaRegion").val();
 
-                    if (resultadoPeso < $("#tasaMinimaLocal").val()) {
+            if (region == tasaRegion) {
 
-                        $(".valorTotalEnvio").html($("#tasaMinimaLocal").val());
-                        $(".valorTotalEnvio").attr("valor", $("#tasaMinimaLocal").val());
+                var resultadoPeso = sumaTotalPeso * $("#envioLocal").val();
 
-                    } else {
+                if (resultadoPeso < $("#tasaMinimaLocal").val()) {
 
-                        $(".valorTotalEnvio").html(resultadoPeso);
-                        $(".valorTotalEnvio").attr("valor", resultadoPeso);
-                    }
+                    $(".valorTotalEnvio").html($("#tasaMinimaLocal").val());
+                    $(".valorTotalEnvio").attr("valor", $("#tasaMinimaLocal").val());
 
                 } else {
 
-                    var resultadoPeso = sumaTotalPeso * $("#envioNacional").val();
-
-                    if (resultadoPeso < $("#tasaMinimaNacional").val()) {
-
-                        $(".valorTotalEnvio").html($("#tasaMinimaNacional").val());
-                        $(".valorTotalEnvio").attr("valor", $("#tasaMinimaNacional").val());
-
-                    } else {
-
-                        $(".valorTotalEnvio").html(resultadoPeso);
-                        $(".valorTotalEnvio").attr("valor", resultadoPeso);
-                    }
-
+                    $(".valorTotalEnvio").html(resultadoPeso);
+                    $(".valorTotalEnvio").attr("valor", resultadoPeso);
                 }
 
-                sumaTotalCompra();
+            } else {
 
-            })
+                var resultadoPeso = sumaTotalPeso * $("#envioNacional").val();
 
-        } else {
-            $(".btnPagar").attr("tipo", "virtual");
+                if (resultadoPeso < $("#tasaMinimaNacional").val()) {
 
-        }
+                    $(".valorTotalEnvio").html($("#tasaMinimaNacional").val());
+                    $(".valorTotalEnvio").attr("valor", $("#tasaMinimaNacional").val());
 
-        /* } */
+                } else {
+
+                    $(".valorTotalEnvio").html(resultadoPeso);
+                    $(".valorTotalEnvio").attr("valor", resultadoPeso);
+                }
+
+            }
+
+
+            sumaTotalCompra();
+
+        })
+
+    } else {
+        $(".btnPagar").attr("tipo", "virtual");
 
     }
+
+    /* } */
+
+
 
 })
 
@@ -783,7 +782,7 @@ function divisas(metodoPago) {
 
     if (metodoPago == "paypal") {
 
-        $("#cambiarDivisa").append('<option value="PEN" style="color:black">SOL</option>' +
+        $("#cambiarDivisa").append('<option value="PEN" style="color:black">PEN</option>' +
                 '<option value="USD" style="color:black">USD</option>')
             /*+
                       '<option value="EUR" style="color:black">EUR</option>' +
@@ -795,7 +794,7 @@ function divisas(metodoPago) {
 
     } else {
 
-        $("#cambiarDivisa").append('<option value="PEN" style="color:black">SOL</option>' +
+        $("#cambiarDivisa").append('<option value="PEN" style="color:black">PEN</option>' +
                 '<option value="USD" style="color:black">USD</option>')
             /* +
                         '<option value="COP" style="color:black">COP</option>' +
@@ -813,128 +812,119 @@ function divisas(metodoPago) {
 /* --------------------------------------------- */
 
 var divisaBase = "PEN";
-var disisaconvresion = "USD"
+/* var disisaconvresion = "USD"
+ */
 $("#cambiarDivisa").change(function() {
 
-        $(".alert").remove();
+    $(".alert").remove();
 
-        if ($("#seleccionarPais").val() == "") {
+    if ($("#seleccionarPais").val() == "") {
 
-            $("#cambiarDivisa").after('<div class="alert alert-warning">No ha seleccionado el país de envío</div>');
+        $("#cambiarDivisa").after('<div class="alert alert-warning">No ha seleccionado la region de envío</div>');
 
-            return;
-        }
+        return;
+    }
 
-        var divisa = $(this).val();
+    var divisa = $(this).val();
 
-        $.ajax({
-            /*  https://free.currconv.com/api/v7/convert?q=PEN_USD&compact=ultra&apiKey=adb79720d66aeb836f75 */
-            url: "https://free.currconv.com/api/v7/convert?q=" + divisaBase + "_" + divisa + "&compact=ultra&apiKey=adb79720d66aeb836f75",
-            type: "GET",
-            cache: false,
-            contentType: false,
-            processData: false,
-            dataType: "jsonp",
-            success: function(respuesta) {
+    $.ajax({
+        /*  https://free.currconv.com/api/v7/convert?q=PEN_USD&compact=ultra&apiKey=adb79720d66aeb836f75 */
+        url: "https://free.currconv.com/api/v7/convert?q=" + divisaBase + "_" + divisa + "&compact=ultra&apiKey=adb79720d66aeb836f75",
+        type: "GET",
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "jsonp",
+        success: function(respuesta) {
 
-                var divisaString = JSON.stringify(respuesta);
-                var conversion = divisaString.substr(11, 4);
+            var conversion = (respuesta["PEN_" + divisa]).toFixed(2);
+            $(".cambioDivisa").html(divisa);
 
-                if (divisa == "PEN") {
-                    conversion = 1;
-                }
 
-                $(".cambioDivisa").html(divisa);
+            if (divisa == "PEN") {
 
-                var sub = $(".valorSubtotal").html((Number(conversion) * Number($(".valorSubtotal").attr("valor"))).toFixed(2));
-                $(".valorTotalEnvio").html((Number(conversion) * Number($(".valorTotalEnvio").attr("valor"))).toFixed(2));
-                $(".valorTotalImpuesto").html((Number(conversion) * Number($(".valorTotalImpuesto").attr("valor"))).toFixed(2));
-                $(".valorTotalCompra").html((Number(conversion) * Number($(".valorTotalCompra").attr("valor"))).toFixed(2));
+                $(".valorSubtotal").html($(".valorSubtotal").attr("valor"))
+                $(".valorTotalEnvio").html($(".valorTotalEnvio").attr("valor"))
+                $(".valorTotalImpuesto").html($(".valorTotalImpuesto").attr("valor"))
+                $(".valorTotalCompra").html($(".valorTotalCompra").attr("valor"))
 
                 var valorItem = $(".valorItem");
 
+                /* localStorage.setItem("total", hex_md5($(".valorTotalCompra").html())); */
+
                 for (var i = 0; i < valorItem.length; i++) {
 
-                    $(valorItem[i]).html((Number(conversion) * Number($(valorItem[i]).attr("valor"))).toFixed(2));
+                    $(valorItem[i]).html($(valorItem[i]).attr("valor"));
+
+                }
+            } else {
+
+                $(".valorSubtotal").html(
+
+                    Math.ceil(Number(conversion) * Number($(".valorSubtotal").attr("valor")) * 100) / 100
+
+                )
+
+                $(".valorTotalEnvio").html(
+
+                    (Number(conversion) * Number($(".valorTotalEnvio").attr("valor"))).toFixed(2)
+
+                )
+
+                $(".valorTotalImpuesto").html(
+
+                    (Number(conversion) * Number($(".valorTotalImpuesto").attr("valor"))).toFixed(2)
+
+                )
+
+                $(".valorTotalCompra").html(
+
+                    (Number(conversion) * Number($(".valorTotalCompra").attr("valor"))).toFixed(2)
+
+                )
+
+                var valorItem = $(".valorItem");
+
+                /*                     localStorage.setItem("total", hex_md5($(".valorTotalCompra").html()));
+                 */
+                for (var i = 0; i < valorItem.length; i++) {
+
+                    $(valorItem[i]).html(
+
+                        (Number(conversion) * Number($(valorItem[i]).attr("valor"))).toFixed(2)
+
+                    );
 
                 }
 
-
-
-                /* 
-                            if (divisa == "PEN") {
-
-                                $(".valorSubtotal").html($(".valorSubtotal").attr("valor"))
-                                $(".valorTotalEnvio").html($(".valorTotalEnvio").attr("valor"))
-                                $(".valorTotalImpuesto").html($(".valorTotalImpuesto").attr("valor"))
-                                $(".valorTotalCompra").html($(".valorTotalCompra").attr("valor"))
-
-                                var valorItem = $(".valorItem");
-
-                                localStorage.setItem("total", hex_md5($(".valorTotalCompra").html()));
-
-                                for (var i = 0; i < valorItem.length; i++) {
-
-                                    $(valorItem[i]).html($(valorItem[i]).attr("valor"));
-
-                                }
-
-                            } else {
-
-                                $(".valorSubtotal").html(
-
-                                    Math.ceil(Number(conversion) * Number($(".valorSubtotal").attr("valor")) * 100) / 100
-
-                                )
-
-                                $(".valorTotalEnvio").html(
-
-                                    (Number(conversion) * Number($(".valorTotalEnvio").attr("valor"))).toFixed(2)
-
-                                )
-
-                                $(".valorTotalImpuesto").html(
-
-                                    (Number(conversion) * Number($(".valorTotalImpuesto").attr("valor"))).toFixed(2)
-
-                                )
-
-                                $(".valorTotalCompra").html(
-
-                                    (Number(conversion) * Number($(".valorTotalCompra").attr("valor"))).toFixed(2)
-
-                                )
-
-                                var valorItem = $(".valorItem");
-
-                                localStorage.setItem("total", hex_md5($(".valorTotalCompra").html()));
-
-                                for (var i = 0; i < valorItem.length; i++) {
-
-                                    $(valorItem[i]).html(
-
-                                        (Number(conversion) * Number($(valorItem[i]).attr("valor"))).toFixed(2)
-
-                                    );
-
-                                }
-
-                            } */
-
-                /*    sumaTotalCompra();
-
-                   pagarConPayu(); */
-
             }
 
-        })
+            /*  $(".cambioDivisa").html(divisa);
 
+             var sub = $(".valorSubtotal").html((Number(conversion) * Number($(".valorSubtotal").attr("valor"))).toFixed(2));
+             $(".valorTotalEnvio").html((Number(conversion) * Number($(".valorTotalEnvio").attr("valor"))).toFixed(2));
+             $(".valorTotalImpuesto").html((Number(conversion) * Number($(".valorTotalImpuesto").attr("valor"))).toFixed(2));
+             $(".valorTotalCompra").html((Number(conversion) * Number($(".valorTotalCompra").attr("valor"))).toFixed(2));
 
+             var valorItem = $(".valorItem");
+
+             for (var i = 0; i < valorItem.length; i++) {
+
+                 $(valorItem[i]).html((Number(conversion) * Number($(valorItem[i]).attr("valor"))).toFixed(2));
+
+             } */
+
+        }
 
     })
-    /* --------------------------------------------- */
-    /* pagar boton*/
-    /* --------------------------------------------- */
+
+
+
+})
+
+/* --------------------------------------------- */
+/* pagar boton*/
+/* --------------------------------------------- */
 
 $(".btnPagar").click(function() {
 
@@ -942,12 +932,65 @@ $(".btnPagar").click(function() {
 
     if (tipo == "fisico" && $("#seleccionarPais").val() == "") {
 
-        $(".btnPagar").after('<br><div class="alert alert-warning">No ha seleccionado el país de envío</div>');
+        $(".btnPagar").after('<br><div class="alert alert-warning">No ha seleccionado la region de envío</div>');
 
         return;
     }
 
-    console.log("pagar");
+    var divisa = $("#cambiarDivisa").val();
+    var total = $(".valorTotalCompra").html();
+    /* var totalEncriptado = localStorage.getItem("total"); */
+    var impuesto = $(".valorTotalImpuesto").html();
+    var envio = $(".valorTotalEnvio").html();
+    var subtotal = $(".valorSubtotal").html();
+    var titulo = $(".valorTitulo");
+    var cantidad = $(".valorCantidad");
+    var valorItem = $(".valorItem");
+    var idProducto = $('.cuerpoCarrito button, .comprarAhora button');
+    var tituloArray = [];
+    var cantidadArray = [];
+    var valorItemArray = [];
+    var idProductoArray = [];
+
+
+    for (var i = 0; i < titulo.length; i++) {
+
+        tituloArray[i] = $(titulo[i]).html();
+        cantidadArray[i] = $(cantidad[i]).html();
+        valorItemArray[i] = $(valorItem[i]).html();
+        idProductoArray[i] = $(idProducto[i]).attr("idProducto");
+        /* console.log(tituloArray[i]); */
+
+    }
+
+    var datos = new FormData();
+
+    datos.append("divisa", divisa);
+    datos.append("total", total);
+    /*     datos.append("totalEncriptado", totalEncriptado);*/
+    datos.append("impuesto", impuesto);
+    datos.append("envio", envio);
+    datos.append("subtotal", subtotal);
+    datos.append("tituloArray", tituloArray);
+    datos.append("cantidadArray", cantidadArray);
+    datos.append("valorItemArray", valorItemArray);
+    datos.append("idProductoArray", idProductoArray);
+
+    $.ajax({
+        url: rutaOculta + "ajax/carrito.ajax.php",
+        method: "POST",
+        data: datos,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function(respuesta) {
+            console.log(respuesta);
+            /* window.location = respuesta; */
+
+        }
+
+    })
+
 })
 
 

@@ -97,7 +97,7 @@
 
 						<h4 class="sumaSubTotal">
 							
-							<strong>SOL S/.<span></span></strong>
+							<strong>PEN S/.<span></span></strong>
 
 						</h4>
 
@@ -170,13 +170,9 @@
 
 					<h4 class="text-center well text-muted text-uppercase">Información de envío</h4>
 
-					<div class="col-xs-12 seleccionarPais">
+					<div class="col-xs-12 seleccionePais">
 
-						<select class="form-control" name="" id="seleccionarPais" required>
 
-							<option style="color:black" value="">Seleccione una Region</option>
-
-						</select>
 
 					</div>
 
@@ -241,22 +237,22 @@
 
 										<tr>
 											<td>Subtotal</td>	
-											<td><span class="cambioDivisa">SOL</span> S/.<span class="valorSubtotal" valor="0">0</span></td>	
+											<td><span class="cambioDivisa">PEN</span> S/.<span class="valorSubtotal" valor="0">0</span></td>	
 										</tr>
 
 										<tr>
 											<td>Envío</td>	
-											<td><span class="cambioDivisa">SOL</span> S/.<span class="valorTotalEnvio" valor="0">0</span></td>	
+											<td><span class="cambioDivisa">PEN</span> S/.<span class="valorTotalEnvio" valor="0">0</span></td>	
 										</tr>
 
 										<tr>
 											<td>Impuesto</td>	
-											<td><span class="cambioDivisa">SOL</span> S/.<span class="valorTotalImpuesto" valor="0">0</span></td>	
+											<td><span class="cambioDivisa">PEN</span> S/.<span class="valorTotalImpuesto" valor="0">0</span></td>	
 										</tr>
 
 										<tr>
 											<td><strong>Total</strong></td>	
-											<td><strong><span class="cambioDivisa">SOL</span> S/.<span class="valorTotalCompra" valor="0">0</span></strong></td>	
+											<td><strong><span class="cambioDivisa">PEN</span> S/.<span class="valorTotalCompra" valor="0">0</span></strong></td>	
 										</tr>
 
 									</tbody>	
@@ -267,8 +263,7 @@
 
 								 	<select class="form-control" id="cambiarDivisa" name="divisa">
 
-									 <option value="PEN">PEN</option>
-
+										<option value="PEN">PEN</option>
 
 								 	</select>	
 
