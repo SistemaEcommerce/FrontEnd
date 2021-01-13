@@ -293,7 +293,7 @@ class ControladorUsuarios{
 
 					for($i = 0; $i < $longitud; $i++){
 
-						$key .= $pattern{mt_rand(0,$max)};
+						$key .= $pattern(mt_rand(0,$max));	
 
 					}
 

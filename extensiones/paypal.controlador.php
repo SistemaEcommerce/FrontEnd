@@ -1,9 +1,7 @@
 <?php
 
-/* 
 require_once "../modelos/rutas.php";
 require_once "../modelos/carrito.modelo.php";
-*/
 
 use PayPal\Api\Amount;
 use PayPal\Api\Details;
@@ -12,7 +10,7 @@ use PayPal\Api\ItemList;
 use PayPal\Api\Payer;
 use PayPal\Api\Payment;
 use PayPal\Api\RedirectUrls;
-use PayPal\Api\Transaction; 
+use PayPal\Api\Transaction;
 
 class Paypal{
 
@@ -26,6 +24,7 @@ class Paypal{
 		$idProductos = str_replace(",","-", $datos["idProductoArray"]);
 		$cantidadProductos = str_replace(",","-", $datos["cantidadArray"]);
 		$pagoProductos = str_replace(",","-", $datos["valorItemArray"]);
+
 		#Seleccionamos el método de pago
 		$payer = new Payer();
 		$payer->setPaymentMethod("paypal");
@@ -69,7 +68,7 @@ class Paypal{
 
     	#Agregamos las URL'S después de realizar el pago, o cuando el pago es cancelado
 		#Importante agregar la URL principal en la API developers de Paypal
-    	$url = Ruta::ctrRuta();
+    	$url = Ruta::ctrRutaPay();
 
 		$redirectUrls = new RedirectUrls();
 		$redirectUrls->setReturnUrl("$url/index.php?ruta=finalizar-compra&paypal=true&productos=".$idProductos."&cantidad=".$cantidadProductos."&pago=".$pagoProductos)

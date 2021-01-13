@@ -1,7 +1,7 @@
 <?php
 
 require __DIR__  . '/vendor/autoload.php';
-require_once "../modelos/carrito.modelo.php";
+
 
 use PayPal\Rest\ApiContext;
 use PayPal\Auth\OAuthTokenCredential;

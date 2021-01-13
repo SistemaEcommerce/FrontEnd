@@ -14,3 +14,4 @@ interface PayPalLogFactory
      */
     public function getLogger($className);
 }
+

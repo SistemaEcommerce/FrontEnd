@@ -947,6 +947,7 @@ $(".btnPagar").click(function() {
     var cantidad = $(".valorCantidad");
     var valorItem = $(".valorItem");
     var idProducto = $('.cuerpoCarrito button, .comprarAhora button');
+
     var tituloArray = [];
     var cantidadArray = [];
     var valorItemArray = [];
@@ -984,8 +985,11 @@ $(".btnPagar").click(function() {
         contentType: false,
         processData: false,
         success: function(respuesta) {
+            /*  window.location = respuesta;
+             */
+            location = (respuesta);
             console.log(respuesta);
-            /* window.location = respuesta; */
+
 
         }
 
