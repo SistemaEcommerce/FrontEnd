@@ -159,7 +159,7 @@ for ($i=0; $i <count($titulosModulos) ; $i++) {
 
 	
 	
-			<ul class="grid'.$i.'" style="color:#000;">';
+			<ul class="grid'.$i.' pro" style="color:#000;">';
 				
 			foreach ($modulos[$i] as $key => $value) {
 				echo '

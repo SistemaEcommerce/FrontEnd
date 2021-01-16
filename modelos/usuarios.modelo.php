@@ -137,8 +137,8 @@ class ModeloUsuarios{
 	
 	static public function mdlMostrarComentariosPerfil($tabla, $datos){
 
-		if($datos["idUsuario"] != ""){
-
+		if(($datos["idUsuario"]) != ""){
+		/* if (!is_array($datos["idUsuario"]))  */
 			$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE id_usuario = :id_usuario AND id_producto = :id_producto");
 
 			$stmt -> bindParam(":id_usuario", $datos["idUsuario"], PDO::PARAM_INT);
@@ -163,6 +163,7 @@ class ModeloUsuarios{
 		$stmt-> close();
 
 		$stmt = null;
+
 	}
 	/* comentarios */
 
@@ -306,7 +307,7 @@ class ModeloUsuarios{
 
 	static public function mdlEliminarCompras($tabla, $id){
 
-		$stmt = Conexion::conectar()->prepare("DELETE FROM $tabla WHERE id_usuario = :id_usuario");
+		$stmt = Conexion::conectar()->prepare("DELETE FROM $tabla WHERE id_usuario = :id_usuario ");
 
 		$stmt -> bindParam(":id_usuario", $id, PDO::PARAM_INT);
 
@@ -357,22 +358,25 @@ class ModeloUsuarios{
 
 		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla (id_usuario, id_producto) VALUES (:id_usuario, :id_producto)");
 
+		
 		$stmt->bindParam(":id_usuario", $datos["idUsuario"], PDO::PARAM_INT);
 		$stmt->bindParam(":id_producto", $datos["idProducto"], PDO::PARAM_INT);
+			
+		if($stmt->execute()){
 
-		if($stmt->execute()){ 
+			return "ok";
 
-			return "ok"; 
+		}else{
 
-		}else{ 
-
-			return "error"; 
-
+			return "error";
+		
 		}
 
 		$stmt->close();
+		$stmt = null;
 
-		$tmt =null;
+		
 	}
+
 }
 

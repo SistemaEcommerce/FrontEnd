@@ -217,6 +217,10 @@ ESCRITORIO GRANDE (LG revisamos en 1366px en adelante)
     .banner {
         height: 260px;
     }
+    .pro li {
+        height: 500px;
+        width: 25%;
+    }
 }
 
 
@@ -227,6 +231,11 @@ ESCRITORIO MEDIANO O TABLET HORIZONTAL (MD revisamos en 1024px)
 @media (max-width:1199px) and (min-width:992px) {
     .banner {
         height: 260px;
+    }
+    .pro li {
+        height: 400px;
+        width: 25%;
+        margin-bottom: 30px;
     }
 }
 
@@ -255,6 +264,10 @@ ESCRITORIO PEQUEÑO O TABLET VERTICAL (SM revisamos en 768px)
     .banner .textoIzq,
     .banner .textoCentro {
         top: 35px;
+    }
+    .pro li {
+        height: 550px;
+        margin-bottom: 30px;
     }
 }
 

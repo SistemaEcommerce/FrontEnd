@@ -128,7 +128,7 @@ breadcrum  -->
 
 												if($value2["tipo"] == "virtual"){
 
-													echo '<a href="'.$url.'/curso">
+													echo '<a href="'.$url.'/curso/'.$value1["id"].'/'.$value1["id_usuario"].'/'.$value1["id_producto"].'/'.$value2["ruta"].'">
 														<button class="btn btn-default pull-left">Ir al curso</button>
 														</a>';
 
@@ -209,6 +209,8 @@ breadcrum  -->
 
 											$comentarios = ControladorUsuarios::ctrMostrarComentariosPerfil($datos);
 
+												
+												
 												echo '<div class="pull-right">
 
 													<a class="calificarProducto" href="#modalComentarios" data-toggle="modal" idComentario="'.$comentarios["id"].'">
@@ -226,7 +228,8 @@ breadcrum  -->
 													<h3 class="text-right">';
 
 													if($comentarios["calificacion"] == 0 && $comentarios["comentario"] == ""){
-
+/* 														if(is_array($comentarios["calificacion"]) && is_array( $comentarios["comentario"] == "")  &&$comentarios["calificacion"] == 0 && $comentarios["comentario"] == ""){
+ */
 														echo '<i class="fa fa-star-o text-success" aria-hidden="true"></i>
 																<i class="fa fa-star-o text-success" aria-hidden="true"></i>
 																<i class="fa fa-star-o text-success" aria-hidden="true"></i>

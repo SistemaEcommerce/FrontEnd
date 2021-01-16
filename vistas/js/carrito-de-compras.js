@@ -20,104 +20,11 @@ if (localStorage.getItem("cantidadCesta") != null) {
 /* visualizar los produtos en la pagina carrito de compras */
 /* --------------------------------------------- */
 
+
 if (localStorage.getItem("listaProductos") != null) {
 
     var listaCarrito = JSON.parse(localStorage.getItem("listaProductos"));
 
-    listaCarrito.forEach(functionForEach);
-
-    function functionForEach(item, index) {
-
-
-        $(".cuerpoCarrito").append(
-
-            '<div clas="row itemCarrito">' +
-
-            '<div class="col-sm-1 col-xs-12">' +
-
-            '<br>' +
-
-            '<button class="btn btn-default backColor quitarItemCarrito" idProducto="' + item.idProducto + '"  peso="' + item.peso + '" >' +
-
-            '<i class="fa fa-times"></i>' +
-
-            '</button>' +
-
-
-
-            '</div>' +
-
-            '<div class="col-sm-1 col-xs-12">' +
-
-            '<figure>' +
-
-            '<img src="' + item.imagen + '" class="img-thumbnail">' +
-
-            '</figure>' +
-
-            '</div>' +
-
-            '<div class="col-sm-4 col-xs-12">' +
-
-            '<br>' +
-
-            '<p class="tituloCarritoCompra text-left">' + item.titulo + '</p>' +
-
-            '</div>' +
-
-            '<div class="col-md-2 col-sm-1 col-xs-12">' +
-
-            '<br>' +
-
-            '<p class="precioCarritoCompra text-center">PEN S/.<span>' + item.precio + '</span></p>' +
-
-            '</div>' +
-
-            '<div class="col-md-2 col-sm-3 col-xs-8">' +
-
-            '<br>' +
-
-            '<div class="col-xs-8" style="top:-20px">' +
-
-
-
-            '<p class="cantidadStock text-left"  style="margin-top:-10px;margin-bottom:-10px;display:none;" stock="' + item.stock + '" >' + item.stock + '</p>' +
-            /*             '<p class=" text-left"  style="margin-top:-10px;margin-bottom:-10px;font-size:10px">Productos : 10</p>' +
-             */
-            '<br>' +
-
-            '<input type="number" class="form-control cantidadItem" min="1"  value="' + item.cantidad + '" tipo="' + item.tipo + '"   precio="' + item.precio + '"  idProducto="' + item.idProducto + '" >' +
-
-
-
-            '</div>' +
-
-            '</div>' +
-
-            '<div class="col-md-2 col-sm-1 col-xs-4 text-center">' +
-
-            '<br>' +
-
-            '<p class="subTotal' + item.idProducto + ' subtotales">' +
-
-            '<strong>PEN S/.<span>' + item.precio + '</span></strong>' +
-
-            '</p>' +
-
-            '</div>' +
-
-            '</div>' +
-            '<div class="clearfix"></div>' +
-
-            '<br>'
-        );
-
-        /* evitar manipular cantidad en productos virtuales */
-
-        $(".cantidadItem[tipo='virtual']").attr("readonly", "true");
-        /*         $(".cantidadStock[tipo='virtual']").html('<p class="cantidadStock text-left"  style="margin-top:-10px;margin-bottom:-10px;display:none;" stock="' + item.stock + '"  >' + item.stock + '</p>')
-         */
-    }
 
 } else {
 
@@ -127,7 +34,169 @@ if (localStorage.getItem("listaProductos") != null) {
 
     $(".cabeceraCheckout").hide();
 
+
 }
+for (var i = 0; i < indice.length; i++) {
+
+    if (indice[i] == "carrito-de-compras") {
+
+        listaCarrito.forEach(funcionForEach);
+
+
+        function funcionForEach(item, index) {
+
+
+            var datosProducto = new FormData();
+            var precio = 0;
+
+            datosProducto.append("id", item.idProducto);
+
+            $.ajax({
+                url: rutaOculta + "ajax/producto.ajax.php",
+                method: "POST",
+                data: datosProducto,
+                cache: false,
+                contentType: false,
+                processData: false,
+                dataType: "json",
+                success: function(respuesta) {
+                    /* console.log(respuesta); */
+
+
+                    if (respuesta["precioOferta"] == 0) {
+
+                        precio = respuesta["precio"];
+
+                    } else {
+
+                        precio = respuesta["precioOferta"];
+
+                    }
+
+                    $(".cuerpoCarrito").append(
+
+                        '<div clas="row itemCarrito">' +
+
+                        '<div class="col-sm-1 col-xs-12">' +
+
+                        '<br>' +
+
+                        '<button class="btn btn-default backColor quitarItemCarrito" idProducto="' + item.idProducto + '"  peso="' + item.peso + '" >' +
+
+                        '<i class="fa fa-times"></i>' +
+
+                        '</button>' +
+
+
+
+                        '</div>' +
+
+                        '<div class="col-sm-1 col-xs-12">' +
+
+                        '<figure>' +
+
+                        '<img src="' + item.imagen + '" class="img-thumbnail">' +
+
+                        '</figure>' +
+
+                        '</div>' +
+
+                        '<div class="col-sm-4 col-xs-12">' +
+
+                        '<br>' +
+
+                        '<p class="tituloCarritoCompra text-left">' + item.titulo + '</p>' +
+
+                        '</div>' +
+
+                        '<div class="col-md-2 col-sm-1 col-xs-12">' +
+
+                        '<br>' +
+
+                        '<p class="precioCarritoCompra text-center">PEN S/.<span>' + precio + '</span></p>' +
+
+                        '</div>' +
+
+                        '<div class="col-md-2 col-sm-3 col-xs-8">' +
+
+                        '<br>' +
+
+                        '<div class="col-xs-8" style="top:-20px">' +
+
+
+
+                        '<p class="cantidadStock text-left"  style="margin-top:-10px;margin-bottom:-10px;display:none;" stock="' + item.stock + '" >' + item.stock + '</p>' +
+                        /*             '<p class=" text-left"  style="margin-top:-10px;margin-bottom:-10px;font-size:10px">Productos : 10</p>' +
+                         */
+                        '<br>' +
+
+                        '<input type="number" class="form-control cantidadItem" min="1"  value="' + item.cantidad + '" tipo="' + item.tipo + '"   precio="' + item.precio + '"  idProducto="' + item.idProducto + '" item="' + index + '">' +
+
+
+
+                        '</div>' +
+
+                        '</div>' +
+
+                        '<div class="col-md-2 col-sm-1 col-xs-4 text-center">' +
+
+                        '<br>' +
+
+                        '<p class="subTotal' + index + ' subtotales">' +
+
+                        '<strong>PEN S/.<span>' + (Number(item.cantidad) * Number(precio)) + '</span></strong>' +
+
+                        '</p>' +
+
+                        '</div>' +
+
+                        '</div>' +
+                        '<div class="clearfix"></div>' +
+
+                        '<br>'
+                    );
+
+                    /* evitar manipular cantidad en productos virtuales */
+
+                    $(".cantidadItem[tipo='virtual']").attr("readonly", "true");
+                    /*         $(".cantidadStock[tipo='virtual']").html('<p class="cantidadStock text-left"  style="margin-top:-10px;margin-bottom:-10px;display:none;" stock="' + item.stock + '"  >' + item.stock + '</p>')
+                     */
+
+
+                    /* --------------------------------------------- */
+                    /* actualizar el subtotal */
+                    /* --------------------------------------------- */
+
+                    var precioCarritoCompra = $(".cuerpoCarrito .precioCarritoCompra span");
+
+
+                    cestaCarrito(precioCarritoCompra.length);
+                    sumaSubtotales();
+
+
+                }
+
+            })
+
+
+        }
+
+    }
+    /* else {
+
+                   $(".cuerpoCarrito").html('<div class="well"style="background-color: #0d1117;">Aún no hay productos en el carrito de compras.</div>');
+
+                   $(".sumaCarrito").hide();
+
+                   $(".cabeceraCheckout").hide();
+
+               } */
+
+
+
+
+}
+
 
 /* --------------------------------------------- */
 /* agregar al carrito */
@@ -154,8 +223,10 @@ $(".agregarCarrito").click(function() {
     } else {
 
         var seleccionarDetalle = $(".seleccionarDetalle");
-
+        /* console.log(seleccionarDetalle); */
         for (var i = 0; i < seleccionarDetalle.length; i++) {
+
+
 
             if ($(seleccionarDetalle[i]).val() == "") {
 
@@ -168,7 +239,9 @@ $(".agregarCarrito").click(function() {
                     confirmButtonText: "¡Seleccionar!",
                     closeOnConfirm: false
                 })
+
                 return;
+
             } else {
 
                 titulo = titulo + "-" + $(seleccionarDetalle[i]).val();
@@ -194,6 +267,8 @@ $(".agregarCarrito").click(function() {
             listaCarrito = [];
 
         } else {
+
+
 
             var listaProductos = JSON.parse(localStorage.getItem("listaProductos"));
 
@@ -275,10 +350,10 @@ $(".agregarCarrito").click(function() {
 /* quitar los produtos en la pagina carrito de compras */
 /* --------------------------------------------- */
 
-$(".quitarItemCarrito").click(function() {
+$(document).on("click", ".quitarItemCarrito", function() {
 
     $(this).parent().parent().remove();
-    /* $(this).parent().parent().parent().remove(); */
+    //$(this).parent().parent().parent().remove(); 
 
     var idProducto = $(".cuerpoCarrito button");
     var imagen = $(".cuerpoCarrito img");
@@ -343,7 +418,7 @@ $(".quitarItemCarrito").click(function() {
 /* visualizar la cesta del carrito de compras */
 /* --------------------------------------------- */
 
-$(".cantidadItem").change(function() {
+$(document).on("change", ".cantidadItem", function() {
 
 
 
@@ -351,10 +426,13 @@ $(".cantidadItem").change(function() {
     var precio = $(this).attr("precio");
     var idProducto = $(this).attr("idProducto");
     var stock = $(this).attr("stock");
+    var item = $(this).attr("item");
 
 
     $(".subTotal" + idProducto).html('<strong>PEN S/.<span>' + (cantidad * precio) + '</span></strong>');
     var stockArray = $(stock).html();
+
+    $(".subTotal" + item).html('<strong>PEN S/.<span>' + (cantidad * precio) + '</span></strong>');
 
     /* actualizar la cantidad en el lcalstorage */
 
@@ -439,25 +517,6 @@ $(".cantidadItem").change(function() {
 
 })
 
-/* --------------------------------------------- */
-/* actualizar el subtotal */
-/* --------------------------------------------- */
-
-var precioCarritoCompra = $(".cuerpoCarrito .precioCarritoCompra span");
-var cantidadItem = $(".cuerpoCarrito .cantidadItem");
-
-for (var i = 0; i < precioCarritoCompra.length; i++) {
-
-    var precioCarritoCompraArray = $(precioCarritoCompra[i]).html();
-    var cantidadItemArray = $(cantidadItem[i]).val();
-    var idProductoArray = $(cantidadItem[i]).attr("idProducto");
-
-    $(".subTotal" + idProductoArray).html('<strong>PEN S/.<span>' + (precioCarritoCompraArray * cantidadItemArray).toFixed(2) + '</span></strong>');
-
-    sumaSubtotales();
-    cestaCarrito(precioCarritoCompra.length);
-
-}
 
 /* --------------------------------------------- */
 /* suma de todos el subtotal */
@@ -540,8 +599,8 @@ $("#btnCheckout").click(function() {
 
     $(".listaProductos table.tablaProductos tbody").html("");
 
-    $("#checkPaypal").prop("checked", true);
     $("#checkPayu").prop("checked", false);
+    $("#checkPaypal").prop("checked", true);
 
     var idUsuario = $(this).attr("idUsuario");
     var peso = $(".cuerpoCarrito button, .comprarAhora button");
@@ -628,6 +687,7 @@ $("#btnCheckout").click(function() {
             return tipo == "fisico";
 
         }
+
     }
     /* existen productos fisicos */
 
@@ -711,6 +771,7 @@ $("#btnCheckout").click(function() {
 
 
             sumaTotalCompra();
+            pagarConPayu();
 
         })
 
@@ -739,8 +800,8 @@ function sumaTotalCompra() {
     $(".valorTotalCompra").html((sumaTotalTasas).toFixed(2));
     $(".valorTotalCompra").attr("valor", (sumaTotalTasas).toFixed(2));
 
-    /*     localStorage.setItem("total", hex_md5($(".valorTotalCompra").html()));
-     */
+    localStorage.setItem("total", hex_md5($(".valorTotalCompra").html()));
+
 }
 /* --------------------------------------------- */
 /* MÉTODO DE PAGO PARA CAMBIO DE DIVISA*/
@@ -755,7 +816,7 @@ $("input[name='pago']").change(function() {
 
     divisas(metodoPago);
 
-    /* if (metodoPago == "payu") {
+    if (metodoPago == "payu") {
 
         $(".btnPagar").hide();
         $(".formPayu").show();
@@ -767,7 +828,8 @@ $("input[name='pago']").change(function() {
         $(".btnPagar").show();
         $(".formPayu").hide();
 
-    } */
+
+    }
 
 })
 
@@ -782,7 +844,7 @@ function divisas(metodoPago) {
 
     if (metodoPago == "paypal") {
 
-        $("#cambiarDivisa").append('<option value="PEN" style="color:black">PEN</option>' +
+        $("#cambiarDivisa").append('<option value="PEN" style="color:black" >PEN</option>' +
                 '<option value="USD" style="color:black">USD</option>')
             /*+
                       '<option value="EUR" style="color:black">EUR</option>' +
@@ -829,7 +891,7 @@ $("#cambiarDivisa").change(function() {
 
     $.ajax({
         /*  https://free.currconv.com/api/v7/convert?q=PEN_USD&compact=ultra&apiKey=adb79720d66aeb836f75 */
-        url: "https://free.currconv.com/api/v7/convert?q=" + divisaBase + "_" + divisa + "&compact=ultra&apiKey=adb79720d66aeb836f75",
+        url: "https://free.currconv.com/api/v7/convert?q=" + divisaBase + "_" + divisa + "&compact=ultra&apiKey=a01ebaf9a1c69eb4ff79",
         type: "GET",
         cache: false,
         contentType: false,
@@ -850,7 +912,7 @@ $("#cambiarDivisa").change(function() {
 
                 var valorItem = $(".valorItem");
 
-                /* localStorage.setItem("total", hex_md5($(".valorTotalCompra").html())); */
+                localStorage.setItem("total", hex_md5($(".valorTotalCompra").html()));
 
                 for (var i = 0; i < valorItem.length; i++) {
 
@@ -885,8 +947,8 @@ $("#cambiarDivisa").change(function() {
 
                 var valorItem = $(".valorItem");
 
-                /*                     localStorage.setItem("total", hex_md5($(".valorTotalCompra").html()));
-                 */
+                localStorage.setItem("total", hex_md5($(".valorTotalCompra").html()));
+
                 for (var i = 0; i < valorItem.length; i++) {
 
                     $(valorItem[i]).html(
@@ -894,6 +956,7 @@ $("#cambiarDivisa").change(function() {
                         (Number(conversion) * Number($(valorItem[i]).attr("valor"))).toFixed(2)
 
                     );
+                    pagarConPayu();
 
                 }
 
@@ -923,7 +986,7 @@ $("#cambiarDivisa").change(function() {
 })
 
 /* --------------------------------------------- */
-/* pagar boton*/
+/* pagar paypal*/
 /* --------------------------------------------- */
 
 $(".btnPagar").click(function() {
@@ -939,7 +1002,7 @@ $(".btnPagar").click(function() {
 
     var divisa = $("#cambiarDivisa").val();
     var total = $(".valorTotalCompra").html();
-    /* var totalEncriptado = localStorage.getItem("total"); */
+    var totalEncriptado = localStorage.getItem("total");
     var impuesto = $(".valorTotalImpuesto").html();
     var envio = $(".valorTotalEnvio").html();
     var subtotal = $(".valorSubtotal").html();
@@ -952,7 +1015,6 @@ $(".btnPagar").click(function() {
     var cantidadArray = [];
     var valorItemArray = [];
     var idProductoArray = [];
-
 
     for (var i = 0; i < titulo.length; i++) {
 
@@ -968,7 +1030,7 @@ $(".btnPagar").click(function() {
 
     datos.append("divisa", divisa);
     datos.append("total", total);
-    /*     datos.append("totalEncriptado", totalEncriptado);*/
+    datos.append("totalEncriptado", totalEncriptado);
     datos.append("impuesto", impuesto);
     datos.append("envio", envio);
     datos.append("subtotal", subtotal);
@@ -987,8 +1049,10 @@ $(".btnPagar").click(function() {
         success: function(respuesta) {
             /*  window.location = respuesta;
              */
+
             location = (respuesta);
-            console.log(respuesta);
+            /* console.log(respuesta); */
+
 
 
         }
@@ -997,6 +1061,140 @@ $(".btnPagar").click(function() {
 
 })
 
+/* pagar con payu */
+
+function pagarConPayu() {
+
+    if ($("#seleccionarPais").val() == "") {
+
+        $(".formPayu").after('<div class="alert alert-warning">No ha seleccionado el país de envío</div>');
+
+        /* $(".formPayu input[name='Submit']").attr("type", "button"); */
+
+        return;
+
+    }
+
+    var divisa = $("#cambiarDivisa").val();
+    var total = $(".valorTotalCompra").html();
+    var impuesto = $(".valorTotalImpuesto").html();
+    var envio = $(".valorTotalEnvio").html();
+    var subtotal = $(".valorSubtotal").html();
+    var titulo = $(".valorTitulo");
+    var cantidad = $(".valorCantidad");
+    var valorItem = $(".valorItem");
+    var idProducto = $('.cuerpoCarrito button, .comprarAhora button');
+
+    var tituloArray = [];
+    var cantidadArray = [];
+    var idProductoArray = [];
+    var valorItemArray = [];
+
+    for (var i = 0; i < titulo.length; i++) {
+
+        tituloArray[i] = $(titulo[i]).html();
+        cantidadArray[i] = $(cantidad[i]).html();
+        idProductoArray[i] = $(idProducto[i]).attr("idProducto");
+        valorItemArray[i] = $(valorItem[i]).html();
+
+    }
+
+    var valorItemString = valorItemArray.toString();
+    var pago = valorItemString.replace(",", "-");
+
+    var datos = new FormData();
+    datos.append("metodoPago", "payu");
+    datos.append("cantidadArray", cantidadArray);
+    datos.append("valorItemArray", valorItemArray);
+    datos.append("idProductoArray", idProductoArray);
+    datos.append("divisaPayu", divisa);
+
+    if (hex_md5(total) == localStorage.getItem("total")) {
+
+        $.ajax({
+            url: rutaOculta + "ajax/carrito.ajax.php",
+            method: "POST",
+            data: datos,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(respuesta) {
+
+                var merchantId = JSON.parse(respuesta).merchantIdPayu;
+                var accountId = JSON.parse(respuesta).accountIdPayu;
+                var apiKey = JSON.parse(respuesta).apiKeyPayu;
+                var modo = JSON.parse(respuesta).modoPayu;
+                var description = tituloArray.toString();
+                var referenceCode = (Number(Math.ceil(Math.random() * 1000000)) + Number(total).toFixed());
+                var productosToString = idProductoArray.toString();
+                var productos = productosToString.replace(/,/g, "-");
+                var cantidadToString = cantidadArray.toString();
+                var cantidad = cantidadToString.replace(/,/g, "-");
+                var signature = hex_md5(apiKey + "~" + merchantId + "~" + referenceCode + "~" + total + "~" + divisa);
+
+
+                if (divisa == "COP") {
+
+                    var taxReturnBase = (total - impuesto).toFixed(2)
+
+                } else {
+
+                    var taxReturnBase = 0;
+
+                }
+
+                if (modo == "sandbox") {
+
+                    var url = "https://sandbox.gateway.payulatam.com/ppp-web-gateway/";
+                    var test = 1;
+
+                } else {
+
+                    var url = "https://gateway.payulatam.com/ppp-web-gateway/";
+                    var test = 0;
+
+                }
+
+                if (envio != 0) {
+
+                    var tipoEnvio = "YES";
+
+                } else {
+
+                    var tipoEnvio = "NO";
+                }
+
+                $(".formPayu").attr("method", "POST");
+                $(".formPayu").attr("action", url);
+                $(".formPayu input[name='merchantId']").attr("value", merchantId);
+                $(".formPayu input[name='accountId']").attr("value", accountId);
+                $(".formPayu input[name='description']").attr("value", description);
+                $(".formPayu input[name='referenceCode']").attr("value", referenceCode);
+                $(".formPayu input[name='amount']").attr("value", total);
+                $(".formPayu input[name='tax']").attr("value", impuesto);
+                $(".formPayu input[name='taxReturnBase']").attr("value", taxReturnBase);
+                $(".formPayu input[name='shipmentValue']").attr("value", envio);
+                $(".formPayu input[name='currency']").attr("value", divisa);
+                $(".formPayu input[name='responseUrl']").attr("value", rutaOculta + "index.php?ruta=finalizar-compra&payu=true&productos=" + productos + "&cantidad=" + cantidad + "&pago=" + pago);
+                $(".formPayu input[name='declinedResponseUrl']").attr("value", rutaOculta + "carrito-de-compras");
+                $(".formPayu input[name='displayShippingInformation']").attr("value", tipoEnvio);
+                $(".formPayu input[name='test']").attr("value", test);
+                $(".formPayu input[name='signature']").attr("value", signature);
+
+                /*=============================================
+				GENERADOR DE TARJETAS DE CRÉDITO
+				http://www.elfqrin.com/discard_credit_card_generator.php
+				=============================================*/
+
+            }
+
+        })
+    }
+}
 
 
 /* Fin carrito */
+/*=============================================
+ GENERADOR DE TARJETAS DE CRÉDITO
+ http://www.elfqrin.com/discard_credit_card_generator.php
+ =============================================*/

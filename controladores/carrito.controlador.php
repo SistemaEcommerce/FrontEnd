@@ -4,7 +4,7 @@ class ControladorCarrito{
 
     /* mostrar tarifas */
 
-    public function ctrMostrarTarifas()
+    static  public function ctrMostrarTarifas()
     {
         $tabla="comercio";
         $respuesta=ModeloCarrito::mdlMostrarTarifas($tabla);
@@ -16,12 +16,14 @@ class ControladorCarrito{
 		$tabla = "compras";
 
 		$respuesta = ModeloCarrito::mdlNuevasCompras($tabla, $datos);
-
+    
 		if($respuesta == "ok"){
+     
+            $tabla = "comentarios"; 
+            
 
-			$tabla = "comentarios";
-			ModeloUsuarios::mdlIngresoComentarios($tabla, $datos);
-
+		$respuesta=	ModeloUsuarios::mdlIngresoComentarios($tabla, $datos);
+            
 		}
 
 		return $respuesta;

@@ -79,7 +79,8 @@ class Paypal{
 		$payment->setIntent("sale")
 			    ->setPayer($payer)
 			    ->setRedirectUrls($redirectUrls)
-			    ->setTransactions(array($transaction));
+				->setTransactions(array($transaction));
+			
 
 		#Tratar de ejcutar un proceso y si falla ejecutar una rutina de error
 		try {
