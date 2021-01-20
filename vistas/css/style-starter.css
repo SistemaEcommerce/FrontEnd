@@ -1,0 +1,215 @@
+.w3l-wecome-content-6 .ab-content-6-mian {
+    color: #000
+}
+
+.w3l-wecome-content-6 .welcome-grids {
+    align-items: center;
+}
+
+.w3l-wecome-content-6 .ab-content-6-mian p {
+    line-height: 25px;
+    font-size: 15px;
+}
+
+.w3l-grids-hny-2 .welcome-image {
+    text-align: center;
+}
+
+.w3l-grids-hny-2 .welcome-image h4 {
+    margin-top: 20px;
+}
+
+.w3l-grids-hny-2 .welcome-image h4 a {
+    font-size: 18px;
+    line-height: 30px;
+    color: #232020;
+    display: block;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.w3l-grids-hny-2 .welcome-image h4 a:hover {
+    color: #ff7315;
+}
+
+@media (max-width: 768px) {
+    .w3l-grids-hny-2 .welcome-image {
+        margin-bottom: 1em;
+    }
+}
+
+@media (max-width: 736px) {
+    .w3l-grids-hny-2 .welcome-image {
+        margin-bottom: 1em;
+    }
+}
+
+.w3l-services-6 {
+    background-image: url(../../../BackEnd//vistas/img/ofertas/banner4.jpg);
+    background-size: cover;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
+    -ms-background-size: cover;
+    -moz-background-size: cover;
+    margin-top: 30px;
+    padding-top: 30px;
+}
+
+.w3l-services-6 .services-grids-6::before {
+    content: "";
+    background: rgba(14, 13, 13, 0.59);
+    position: absolute;
+    top: 0;
+    min-height: 100%;
+    left: 0;
+    right: 0;
+    z-index: -1;
+}
+
+.w3l-services-6 .w3-icon-grid1 {
+    margin-bottom: 46px;
+}
+
+.w3l-services-6 .w3-icon-grid1 a h3 {
+    color: #fff;
+    font-size: 26px;
+    line-height: 27px;
+    float: left;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.w3l-services-6 .w3-icon-grid1 a:hover h3 {
+    color: #ff7315;
+    transition: .3s;
+    -webkit-transition: .3s;
+    -moz-transition: .3s;
+    -ms-transition: .3s;
+    -o-transition: .3s;
+}
+
+.w3l-services-6 .w3-icon-grid1 a span.fa {
+    font-size: 26px;
+    float: left;
+    width: 40px;
+    color: #ff7315;
+}
+
+.w3l-services-6 .w3-icon-grid1 p {
+    font-size: 16px;
+    line-height: 26px;
+    padding: 0 0em;
+    margin: 0;
+    color: #fff;
+    opacity: 0.8;
+}
+
+@media (max-width: 1280px) {
+    .w3l-services-6 .services-second-part h5 {
+        font-size: 17px;
+    }
+}
+
+@media (max-width: 992px) {
+    .w3l-services-6 .w3-icon-grid1 {
+        margin-bottom: 36px;
+    }
+}
+
+@media (max-width: 668px) {
+    .w3l-services-6 .w3-icon-grid1 a h3 {
+        font-size: 20px;
+    }
+}
+
+.features-4 {
+    /*--//features4--*/
+}
+
+.features-4 .features4-block {
+    background: #0d1117;
+}
+
+.features-4 .features4-grid-inn {
+    padding: 40px 20px;
+    transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+    background: rgb(43, 30, 30)45, 32, 32);
+    border-radius: 6px;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    -o-border-radius: 6px;
+}
+
+.features-4 .features4-grid-inn:hover {
+    background: #f8e2d3;
+}
+
+.features-4 .features4-grid-inn:hover p {
+    color: #84410f;
+}
+
+.features-4 .features4-block h6 {
+    text-align: center;
+    font-weight: 300;
+    text-transform: uppercase;
+    color: #ff7315;
+}
+
+.features-4 p.what-para {
+    font-size: 20px;
+    width: 66%;
+    margin: 0 auto;
+}
+
+.features-4 .features4-grid h5 a {
+    font-size: 22px;
+    line-height: 25px;
+    color: #232020;
+    display: block;
+    text-transform: capitalize;
+    margin: 0px 0 12px 0;
+    font-weight: 600;
+}
+
+.features-4 .features4-grid p {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 25px;
+    margin-top: 0px;
+    margin-bottom: 0;
+}
+
+.features-4 span.fa.icon-fea4 {
+    font-size: 50px;
+    margin-bottom: 16px;
+    color: #ff7315;
+}
+
+@media all and (max-width: 1080px) {
+    .features-4 .features4-grid h5 a {
+        font-size: 18px;
+        line-height: 20px;
+        margin: 0px 0 10px 0;
+    }
+}
+
+@media all and (max-width: 991px) {
+    .features-4 p.what-para {
+        font-size: 16px;
+        width: 80%;
+        margin: 0 auto;
+    }
+    .features-4 .features4-grid {
+        margin-bottom: 2em;
+    }
+}
+
+@media all and (max-width: 600px) {
+    .features-4 p.what-para {
+        width: 100%;
+        margin: 0 auto;
+    }
+}

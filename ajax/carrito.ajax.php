@@ -56,6 +56,22 @@ class AjaxCarrito{
 	
 		echo json_encode($respuesta);
 	}
+	/* verificar que no tenga productos adquiridos */
+
+	public $idUsuario;
+	public $idProducto;
+
+	public function ajaxVerificarProducto(){
+
+		$datos = array("idUsuario"=>$this->idUsuario,
+					   "idProducto"=>$this->idProducto);
+
+		$respuesta = ControladorCarrito::ctrVerificarProducto($datos);
+
+		echo json_encode($respuesta);
+
+	}
+
 }
 
 
@@ -170,4 +186,14 @@ if(isset($_POST["metodoPago"]) && $_POST["metodoPago"] == "payu"){
 	$payu = new AjaxCarrito();
 	$payu -> ajaxTraerComercioPayu();
 
+}
+
+/* verificar que no tenga el producto adquirido */
+
+if(isset($_POST["idUsuario"])){
+
+	$deseo = new AjaxCarrito();
+	$deseo -> idUsuario = $_POST["idUsuario"];
+	$deseo -> idProducto = $_POST["idProducto"];
+	$deseo ->ajaxVerificarProducto();
 }

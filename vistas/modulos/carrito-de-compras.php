@@ -202,6 +202,7 @@ $url = Ruta::ctrRuta();
 
 				<br>
 
+
 				<div class="listaProductos row">
 
 					<h4 class="text-center well text-muted text-uppercase" style="color:#0d1117">Productos a comprar</h4>
@@ -259,7 +260,7 @@ $url = Ruta::ctrRuta();
 
 						<div class="divisa">
 
-							<select class="form-control" id="cambiarDivisa" name="divisa" >
+							<select class="form-control" id="cambiarDivisa" name="divisa" style="display: none;">
 
 								<!-- <option value="PEN">PEN</option> -->
 

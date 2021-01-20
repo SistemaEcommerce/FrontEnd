@@ -31,6 +31,7 @@
     <link rel="stylesheet" href="<? echo $url; ?>vistas/css/plugins/flexslider.css">
     <link rel="stylesheet" href="<? echo $url; ?>vistas/css/plugins/font-awesome.min.css">
     <link rel="stylesheet" href="<? echo $url; ?>vistas/css/plugins/sweetalert.css">
+    <link rel="stylesheet" href="<? echo $url; ?>vistas/css/plugins/dscountdown.css">
 
     <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Condensed" rel="stylesheet">
@@ -46,8 +47,9 @@
     <link rel="stylesheet" href="<? echo $url; ?>vistas/css/infoproducto.css">
     <link rel="stylesheet" href="<? echo $url; ?>vistas/css/perfil.css">
     <link rel="stylesheet" href="<? echo $url; ?>vistas/css/carrito-de-compra.css">
+    <link rel="stylesheet" href="<? echo $url; ?>vistas/css/style-starter.css">
+    <link rel="stylesheet" href="<? echo $url; ?>vistas/css/ofertas.css">
 
-    
     
     <script src="<? echo $url;?>vistas/js/plugins/jquery.min.js" ></script>
     <script src="<? echo $url;?>vistas/js/plugins/bootstrap.min.js" ></script>
@@ -56,6 +58,7 @@
     <script src="<? echo $url;?>vistas/js/plugins/jquery.flexslider.js" ></script>
     <script src="<? echo $url;?>vistas/js/plugins/sweetalert.min.js" ></script>
     <script src="<? echo $url;?>vistas/js/plugins/md5-min.js" ></script>
+    <script src="<? echo $url;?>vistas/js/plugins/dscountdown.min.js" ></script>
 
     
     
@@ -105,7 +108,7 @@
             }
             else if ($rutas[0] == "buscador" || $rutas[0] == "verificar" 
             || $rutas[0]=="salir" || $rutas[0]=="perfil"|| $rutas[0]=="ofertas" 
-            || $rutas[0]=="carrito-de-compras"|| $rutas[0]=="error" || $rutas[0]=="finalizar-compra"|| $rutas[0]=="curso" ) {
+            || $rutas[0]=="carrito-de-compras"|| $rutas[0]=="error" || $rutas[0]=="finalizar-compra"|| $rutas[0]=="curso" ||$rutas[0]=="contactanos") {
 
                 include "modulos/".$rutas[0].".php";
 

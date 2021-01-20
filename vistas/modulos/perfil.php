@@ -88,7 +88,7 @@ breadcrum  -->
 
 						echo '<div class="col-xs-12 text-center error404">
 				               
-				    		<h1><small>¡Oops!</small></h1>
+				    		<h1><small>¡Usted!</small></h1>
 				    
 				    		<h2>Aún no tienes compras realizadas en esta tienda</h2>
 
@@ -681,7 +681,7 @@ breadcrum  -->
 
 					</form>
 
-					<button class="btn btn-danger btn-md pull-right" id="eliminarUsuario">Eliminar cuenta</button>
+					<button class="btn btn-danger btn-md pull-right" style="display:none" id="eliminarUsuario">Eliminar cuenta</button>
 
 					<?php
 

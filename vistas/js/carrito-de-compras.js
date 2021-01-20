@@ -60,7 +60,7 @@ for (var i = 0; i < indice.length; i++) {
                 processData: false,
                 dataType: "json",
                 success: function(respuesta) {
-                    /* console.log(respuesta); */
+
 
 
                     if (respuesta["precioOferta"] == 0) {
@@ -82,6 +82,7 @@ for (var i = 0; i < indice.length; i++) {
                         '<br>' +
 
                         '<button class="btn btn-default backColor quitarItemCarrito" idProducto="' + item.idProducto + '"  peso="' + item.peso + '" >' +
+
 
                         '<i class="fa fa-times"></i>' +
 
@@ -130,7 +131,7 @@ for (var i = 0; i < indice.length; i++) {
                          */
                         '<br>' +
 
-                        '<input type="number" class="form-control cantidadItem" min="1"  value="' + item.cantidad + '" tipo="' + item.tipo + '"   precio="' + item.precio + '"  idProducto="' + item.idProducto + '" item="' + index + '">' +
+                        '<input type="number" class="form-control cantidadItem" min="1"  value="' + item.cantidad + '" tipo="' + item.tipo + '"   precio="' + precio + '"  idProducto="' + item.idProducto + '" item="' + index + '">' +
 
 
 
@@ -306,6 +307,7 @@ $(".agregarCarrito").click(function() {
             "stock": stock,
             "cantidad": "1"
         });
+        console.log(listaCarrito);
 
         localStorage.setItem("listaProductos", JSON.stringify(listaCarrito));
 
@@ -1191,6 +1193,98 @@ function pagarConPayu() {
         })
     }
 }
+/* --------------------------------------------- */
+/* agregar productos gratis*/
+/* --------------------------------------------- */
+$(".agregarGratis").click(function() {
+
+    var idProducto = $(this).attr("idProducto");
+    var idUsuario = $(this).attr("idUsuario");
+    var tipo = $(this).attr("tipo");
+    var titulo = $(this).attr("titulo");
+    var agregarGratis = false;
+
+    /*=============================================
+    VERIFICAR QUE NO TENGA EL PRODUCTO ADQUIRIDO
+    =============================================*/
+
+    var datos = new FormData();
+
+    datos.append("idUsuario", idUsuario);
+    datos.append("idProducto", idProducto);
+
+    $.ajax({
+
+        url: rutaOculta + "ajax/carrito.ajax.php",
+        method: "POST",
+        data: datos,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function(respuesta) {
+
+            if (respuesta != "false") {
+
+                swal({
+                    title: "¡Usted ya adquirió este producto!",
+                    text: "",
+                    type: "warning",
+                    showCancelButton: false,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Regresar",
+                    closeOnConfirm: false
+                })
+
+
+            } else {
+
+                if (tipo == "virtual") {
+
+                    agregarGratis = true;
+
+                } else {
+
+                    var seleccionarDetalle = $(".seleccionarDetalle");
+
+                    for (var i = 0; i < seleccionarDetalle.length; i++) {
+
+                        if ($(seleccionarDetalle[i]).val() == "") {
+
+                            swal({
+                                title: "Debe seleccionar Talla y Color",
+                                text: "",
+                                type: "warning",
+                                showCancelButton: false,
+                                confirmButtonColor: "#DD6B55",
+                                confirmButtonText: "¡Seleccionar!",
+                                closeOnConfirm: false
+                            })
+
+                        } else {
+
+                            titulo = titulo + "-" + $(seleccionarDetalle[i]).val();
+
+                            agregarGratis = true;
+
+                        }
+
+                    }
+
+                }
+
+                if (agregarGratis) {
+
+                    window.location = rutaOculta + "index.php?ruta=finalizar-compra&gratis=true&producto=" + idProducto + "&titulo=" + titulo;
+
+                }
+
+            }
+
+        }
+
+    })
+
+})
 
 
 /* Fin carrito */
