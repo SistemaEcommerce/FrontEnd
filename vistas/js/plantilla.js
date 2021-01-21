@@ -77,7 +77,7 @@ $(window).scroll(function() {
 
         if ($(".banner").html() != null) {
 
-            if (scrollY < ($(".banner").offset().top) - 150) {
+            if (scrollY < ($(".banner").offset().top) - 350) {
 
                 $(".banner img").css({ "margin-top": -scrollY / 3 + "px" })
 
