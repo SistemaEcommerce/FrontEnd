@@ -1,42 +1,41 @@
 <?php
 
-class ControladorCarrito{
+class ControladorCarrito
+{
 
-    /* mostrar tarifas */
+  /* mostrar tarifas */
 
-    static  public function ctrMostrarTarifas()
-    {
-        $tabla="comercio";
-        $respuesta=ModeloCarrito::mdlMostrarTarifas($tabla);
-        return $respuesta;
+  static  public function ctrMostrarTarifas()
+  {
+    $tabla = "comercio";
+    $respuesta = ModeloCarrito::mdlMostrarTarifas($tabla);
+    return $respuesta;
+  }
+
+  static public function ctrNuevasCompras($datos)
+  {
+
+    $tabla = "compras";
+
+    $respuesta = ModeloCarrito::mdlNuevasCompras($tabla, $datos);
+
+    if ($respuesta == "ok") {
+
+      $tabla = "comentarios";
+
+
+      $respuesta =  ModeloUsuarios::mdlIngresoComentarios($tabla, $datos);
     }
-    
-    static public function ctrNuevasCompras($datos){
 
-		$tabla = "compras";
+    return $respuesta;
+  }
+  static public function ctrVerificarProducto($datos)
+  {
 
-		$respuesta = ModeloCarrito::mdlNuevasCompras($tabla, $datos);
-    
-		if($respuesta == "ok"){
-     
-            $tabla = "comentarios"; 
-            
+    $tabla = "compras";
 
-		$respuesta=	ModeloUsuarios::mdlIngresoComentarios($tabla, $datos);
-            
-		}
+    $respuesta = ModeloCarrito::mdlVerificarProducto($tabla, $datos);
 
-		return $respuesta;
-
-    }
-    static public function ctrVerificarProducto($datos){
-
-		$tabla = "compras";
-
-		$respuesta = ModeloCarrito::mdlVerificarProducto($tabla, $datos);
-	 
-	    return $respuesta;
-
-		
-	}
+    return $respuesta;
+  }
 }

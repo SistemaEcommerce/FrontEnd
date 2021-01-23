@@ -182,16 +182,16 @@ $url = Ruta::ctrRuta();
 
 
 
-	
 
-					<figure class="col-xs-6" >
 
-						<input id="checkPayu" type="radio" name="pago" value="payu"  style="margin-left: 50%;">
+					<figure class="col-xs-6" class="payuPasarela">
+
+						<input id="checkPayu" type="radio" name="pago" value="payu" style="margin-left: 50%;">
 
 						<img src="<?php echo $url; ?>vistas/img/plantilla/PayU.png" class="img-thumbnail">
 
 					</figure>
-				<figure class="col-xs-6" >
+					<figure class="col-xs-6" >
 
 						<input id="checkPaypal" type="radio" name="pago" value="paypal">
 
@@ -252,7 +252,7 @@ $url = Ruta::ctrRuta();
 									<td><strong>Total</strong></td>
 									<td><strong><span class="cambioDivisa">PEN</span> S/.<span class="valorTotalCompra" valor="0">0</span></strong></td>
 								</tr>
-								
+
 
 							</tbody>
 
@@ -275,28 +275,28 @@ $url = Ruta::ctrRuta();
 					<div class="clearfix"></div>
 
 					<form class="formPayu" style="display: none;">
-					
-						<input name="merchantId" type="hidden" value=""/>
-						<input name="accountId" type="hidden" value=""/>
-						<input name="description" type="hidden" value=""/>
-						<input name="referenceCode" type="hidden" value=""/>	
-						<input name="amount" type="hidden" value=""/>
-						<input name="tax" type="hidden" value=""/>
-						<input name="taxReturnBase" type="hidden" value=""/>
-						<input name="shipmentValue" type="hidden" value=""/>
-						<input name="currency" type="hidden" value=""/>
-						<input name="lng" type="hidden" value="es"/>
-						<input name="confirmationUrl" type="hidden" value="" />
-						<input name="responseUrl" type="hidden" value=""/>
-						<input name="declinedResponseUrl" type="hidden" value=""/>
-						<input name="displayShippingInformation" type="hidden" value=""/>
-						<input name="test" type="hidden" value="" />
-						<input name="signature" type="hidden" value=""/>
 
-					 	<input name="Submit" class="btn btn-block btn-lg btn-default backColor " type="submit"  value="PAGAR" >
+						<input name="merchantId" type="hidden" value="" />
+						<input name="accountId" type="hidden" value="" />
+						<input name="description" type="hidden" value="" />
+						<input name="referenceCode" type="hidden" value="" />
+						<input name="amount" type="hidden" value="" />
+						<input name="tax" type="hidden" value="" />
+						<input name="taxReturnBase" type="hidden" value="" />
+						<input name="shipmentValue" type="hidden" value="" />
+						<input name="currency" type="hidden" value="" />
+						<input name="lng" type="hidden" value="es" />
+						<input name="confirmationUrl" type="hidden" value="" />
+						<input name="responseUrl" type="hidden" value="" />
+						<input name="declinedResponseUrl" type="hidden" value="" />
+						<input name="displayShippingInformation" type="hidden" value="" />
+						<input name="test" type="hidden" value="" />
+						<input name="signature" type="hidden" value="" />
+
+						<input name="Submit" class="btn btn-block btn-lg btn-default backColor " type="submit" value="PAGAR">
 					</form>
 					<!-- pagar paypal -->
-					<button class="btn btn-block btn-lg btn-default backColor btnPagar" >Pagar</button>
+					<button class="btn btn-block btn-lg btn-default backColor btnPagar">Pagar</button>
 
 				</div>
 

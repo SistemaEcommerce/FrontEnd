@@ -39,11 +39,11 @@ $url= Ruta::ctrRuta();
                 <div class="welcome-grids row">
                     <div class="col-lg-6 mb-lg-0 mb-5">
                         <h3 class="hny-title">
-                            About Our Spry<span>Store</span></h3>
+                            <span>Visiton</span></h3>
                         <p class="my-4">Excepteur sint occaecat non proident, sunt in culpa quis. Phasellus lacinia id erat eu ullamcorper. Nunc id ipsum fringilla, gravida felis vitae. Phasellus lacinia id, sunt in culpa quis. Phasellus lacinia</p>
                         <p class="mb-4">Excepteur sint occaecat non proident, sunt in culpa quis. Phasellus lacinia id erat eu ullamcorper. Nunc id ipsum fringilla.</p>
                         <div class="read">
-                            <a href="<?php echo $url ?>" class="read-more btn">Shop Now</a>
+                            <a href="<?php echo $url ?>" class="read-more btn">INICIO</a>
                         </div>
                     </div>
                     <div class="col-lg-6 welcome-image">
@@ -68,7 +68,7 @@ $url= Ruta::ctrRuta();
                         <img src="<?php echo $servidor?>vistas/img/ofertas/Ropa-para-dama.jpg" class="img-fluid" alt="Imagenes" style="width: 450px;height: 350px;">
                     </div>
                     <div class="col-lg-7 story-gd pl-lg-4">
-                        <h3 class="hny-title">What We <span>Offer</span></h3>
+                        <h3 class="hny-title"> <span>Sobre Nosotros</span></h3>
                         <p>Lorem illum facere aperiam sequi optio consectetur adipisicing elitFuga, suscipit totam animi consequatur saepe blanditiis.Lorem ipsum dolor sit amet,Ea consequuntur illum facere aperiam sequi optio consectetur adipisicing elit.
                             Fuga, suscipit totam animi consequatur saepe blanditiis.
                         </p>

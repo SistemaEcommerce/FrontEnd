@@ -109,6 +109,7 @@
     <link rel="stylesheet" href="<? echo $url; ?>vistas/css/carrito-de-compra.css">
     <link rel="stylesheet" href="<? echo $url; ?>vistas/css/style-starter.css">
     <link rel="stylesheet" href="<? echo $url; ?>vistas/css/ofertas.css">
+    <link rel="stylesheet" href="<? echo $url; ?>vistas/css/footer.css">
 
 
     <script src="<? echo $url;?>vistas/js/plugins/jquery.min.js"></script>
@@ -119,8 +120,9 @@
     <script src="<? echo $url;?>vistas/js/plugins/sweetalert.min.js"></script>
     <script src="<? echo $url;?>vistas/js/plugins/md5-min.js"></script>
     <script src="<? echo $url;?>vistas/js/plugins/dscountdown.min.js"></script>
+    <script src="<? echo $url;?>vistas/js/plugins/knob.jquery.js"></script>
 
-
+    
 
 </head>
 
@@ -170,6 +172,7 @@
         ) {
 
             include "modulos/" . $rutas[0] . ".php";
+
         } else if ($rutas[0] == "inicio") {
             include 'modulos/slide.php';
             include 'modulos/destacados.php';
@@ -179,6 +182,8 @@
     } else {
         include 'modulos/slide.php';
         include 'modulos/destacados.php';
+        include 'modulos/visitas.php';
+        include 'modulos/footer.php';
     }
     ?>
 
@@ -192,6 +197,7 @@
     <script src="<? echo $url; ?>vistas/js/usuarios.js"></script>
     <script src="<? echo $url; ?>vistas/js/registroFacebook.js"></script>
     <script src="<? echo $url; ?>vistas/js/carrito-de-compras.js"></script>
+    <script src="<? echo $url; ?>vistas/js/visitas.js"></script>
 
     <script>
         window.fbAsyncInit = function() {
@@ -224,7 +230,7 @@
             FB.ui({
 
                 method: 'share',
-                display: 'popup',                
+                display: 'popup',
                 href: '<?php echo $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];  ?>',
             }, function(response) {});
 
@@ -246,6 +252,43 @@
         })
     </script>
 
+    <!-- Facebook Pixel Code -->
+    <script>
+        ! function(f, b, e, v, n, t, s) {
+            if (f.fbq) return;
+            n = f.fbq = function() {
+                n.callMethod ?
+                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
+            if (!f._fbq) f._fbq = n;
+            n.push = n;
+            n.loaded = !0;
+            n.version = '2.0';
+            n.queue = [];
+            t = b.createElement(e);
+            t.async = !0;
+            t.src = v;
+            s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window, document, 'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '420721902588312');
+        fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=420721902588312&ev=PageView&noscript=1" /></noscript>
+    <!-- End Facebook Pixel Code -->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129023276-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-129023276-1');
+    </script>
 
 </body>
 

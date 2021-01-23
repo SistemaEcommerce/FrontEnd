@@ -294,7 +294,7 @@ if($cliente->getAccessToken()){
 					<div class="col-lg-2 col-md-3 col-sm-4 col-xs-12">
 
 								<h4>
-									<a href="'.$url.$value["ruta"].'" class="pixelCategorias">'.$value["categoria"].'</a>
+									<a href="'.$url.$value["ruta"].'" class="pixelCategorias" titulo="'.$value["categoria"].'">'.$value["categoria"].'</a>
 								</h4>
 
 								<hr>
@@ -306,7 +306,7 @@ if($cliente->getAccessToken()){
 
 						$subcategorias = ControladorProductos::ctrMostrarSubCategorias($item, $valor);
 							foreach ($subcategorias as $key => $value) {
-								echo '<li><a href="'.$url.$value["ruta"].'" class="pixelSubCategorias">'.$value["subcategoria"].'</a></li>';						}
+								echo '<li><a href="'.$url.$value["ruta"].'" class="pixelSubCategorias" titulo="'.$value["subcategoria"].'">'.$value["subcategoria"].'</a></li>';						}
 							
 						echo'							
 						</ul>
@@ -477,20 +477,19 @@ if($cliente->getAccessToken()){
 			<ul class="politicas">
 				<li style="color: #fff;margin-left:15px;padding-left:15px;margin-top:15px;" >
 				<i class="glyphicon glyphicon-user" style="color: #fff;font-size:30px;"></i>
-					Titular y Responsable del tratamiento de los Datos
-
+					Roma Jean
 				
 				  <p style="margin-top: -5px;margin-left:30px;">
-				  	Tienda Virtual:Hosting y dominio
+				  Tienda Virtual Roma Jeans
 				  </p>
 				  <p style="margin-top: -13px;margin-left:30px;">
-				  	bryanct(cambiar nombre)
+				  	Roma Jean
 				  </p>
 				  <p style="margin-top: -13px;margin-left:30px;">
-				  	brayancapchataype@gmail.com(cambiar gmail)
+				 	 Romajeansof@gmail.com
 				  </p>
 				  <p style="margin-top: -13px;margin-left:30px;">
-				  	922679390(poner el numero del negocio)
+				  	922679390
 				  </p>
 				</li>
 			</ul>

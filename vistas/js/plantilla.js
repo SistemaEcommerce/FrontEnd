@@ -79,7 +79,9 @@ $(window).scroll(function() {
 
             if (scrollY < ($(".banner").offset().top) - 350) {
 
-                $(".banner img").css({ "margin-top": -scrollY / 3 + "px" })
+                $(".banner img").css({
+                    "margin-top": -scrollY / 3 + "px"
+                })
 
             } else {
 
@@ -176,3 +178,41 @@ for (var i = 0; i < finOferta.length; i++) {
 
 
 }
+/* pixel de facebook */
+
+$(".pixelCategorias").click(function() {
+
+    var titulo = $(this).attr("titulo");
+
+    fbq('track', 'Categoria ' + titulo, {
+
+        title: titulo
+
+    })
+
+})
+
+$(".pixelSubCategorias").click(function() {
+
+    var titulo = $(this).attr("titulo");
+
+    fbq('track', 'Subcategoria ' + titulo, {
+
+        title: titulo
+
+    })
+
+})
+
+
+$(".pixelOferta").click(function() {
+
+    var titulo = $(this).attr("titulo");
+
+    fbq('track', 'Oferta ' + titulo, {
+
+        title: titulo
+
+    })
+
+})

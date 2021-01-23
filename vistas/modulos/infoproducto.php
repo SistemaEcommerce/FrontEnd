@@ -1381,7 +1381,7 @@ if($infoproducto["tipo"] == "fisico"){
 			  "description": "'.$infoproducto["descripcion"].'",
 			  "provider": {
 			    "@type": "Organization",
-			    "name": "Tu Logo",
+			    "name": "Tiend Virtual",
 			    "sameAs": "'.$url.$infoproducto["ruta"].'"
 			  }
 			}

@@ -144,7 +144,7 @@ if (isset($rutas[1])) {
                         <div class="countdown" finOferta="' . $value["finOferta"] . '" style="color:#fff;margin-left:11%;margin-bottom:15px;font-size:10px;">
                         </div>
 
-                        <a href="' . $url . $value["ruta"] . '" class="pixelOferta" style="margin-left:10%;padding-left:5%;margin-bottom:15px">
+                        <a href="' . $url . $value["ruta"] . '" class="pixelOferta" titulo="'.$value["categoria"].'" style="margin-left:10%;padding-left:5%;margin-bottom:15px">
 
                          <button class="btn backColor btn-lg text-uppercase" style="margin-left:10%;padding-left:5%;margin-bottom:15px">Ir a la Oferta</button>
 
